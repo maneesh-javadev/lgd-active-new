@@ -48,6 +48,25 @@ This Master Finding Traceability Register establishes 100% bidirectional traceab
 
 ---
 
+### 2.2 Phase 4 Software Composition Analysis (SCA) Traceability Matrix
+
+| SCA ID | Component / Package | Installed Version | Direct / Transitive | CVE / Advisory | CVSS | Severity | CWE | Affected Module(s) | Remediation Status | Retest Evidence |
+|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---|:---:|:---|
+| **SCA-001** | `org.postgresql:postgresql` | `42.6.0` | Transitive | CVE-2024-1597 | **10.0** | **Critical** | CWE-89 | revenue | **VERIFIED_FIXED** | Upgraded to `42.6.2` in `revenue/pom.xml`; 22 tests passed |
+| **SCA-002** | `org.apache.tomcat.embed:tomcat-embed-core` | `10.1.18-33` | Transitive | CVE-2024-50379<br>CVE-2024-56337 | **9.8** | **Critical** | CWE-367 / CWE-434 | gateway, auth, revenue, um | **VERIFIED_FIXED** | Pinned `<tomcat.version>10.1.34</tomcat.version>`; 289 tests passed |
+| **SCA-003** | `org.springframework:spring-web` | `6.1.3` | Transitive | CVE-2024-22243<br>CVE-2024-22259 | **8.1** | **High** | CWE-601 / CWE-918 | revenue | **VERIFIED_FIXED** | Upgraded parent to 3.2.12 (`spring-web:6.1.15`); 22 tests passed |
+| **SCA-004** | `org.springframework:spring-web` / `webmvc` | `6.1.3-15` | Transitive | CVE-2024-38807<br>CVE-2024-38816<br>CVE-2024-38819 | **7.5** | **High** | CWE-22 / CWE-1333 | gateway, auth, revenue, um | **PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE** | `RouteValidator` blocks `..`; WebMvc.fn unused; pending formal risk sign-off |
+| **SCA-005** | `org.springframework.security:spring-security-*` | `6.2.1-8` | Transitive | CVE-2024-22234<br>CVE-2024-22257<br>CVE-2024-38821<br>CVE-2025-22228<br>*(CVE-2024-38828 dispositioned)* | **7.5** | **High** | CWE-285 / CWE-863 | gateway, auth, revenue, um | **VERIFIED_FIXED** | Upgraded to `6.3.8` across 4 services; CVE-2024-38828 dispositioned as Framework 5.3.x DoS false positive; 289 tests passed |
+| **SCA-006** | `io.netty:netty-*` | `4.1.105.Final`| Transitive | CVE-2024-29025<br>CVE-2024-47535 | **7.5** | **High** | CWE-400 / CWE-770 | revenue | **VERIFIED_FIXED** | Upgraded to `4.1.115.Final` via Boot 3.2.12; 22 tests passed |
+| **SCA-007** | `ch.qos.logback:logback-*` | `1.4.14` | Transitive | CVE-2024-12798<br>CVE-2024-12801 | **7.5** | **High** | CWE-502 / CWE-20 | auth, revenue, um | **PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE** | Zero SocketReceivers configured; console/file only; pending formal risk sign-off |
+| **SCA-008** | `org.mindrot:jbcrypt` | `0.4` | Direct | CWE-1104 | **5.3** | **Medium** | CWE-1104 | auth, um | **DEFERRED (QUEUED FOR PHASE 5/7)** | SecureRandom verified; planned Spring BCryptPasswordEncoder migration |
+| **SCA-009** | `xlsx` | `0.18.5` | Direct | CVE-2023-30533<br>CVE-2024-22363 | **7.8** | **High** | CWE-1321 / CWE-1333 | lgd_react | **PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE (RR-08)** | Outbound JSON export only; zero untrusted ingestion; queued for ExcelJS |
+| **SCA-010** | `zod` | `3.25.76` | Direct | GHSA-mrhx-c7xc-m3w5 | **7.5** | **High** | CWE-770 | lgd_react | **PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE (RR-09)** | Shallow form validation only; backend @Valid enforcement; queued for Zod 4 |
+| **SCA-011** | `spring-boot-starter-parent` | `3.2.2` (revenue) | Direct | Architecture Drift | **6.5** | **Medium** | CWE-1104 | revenue | **VERIFIED_FIXED** | Upgraded `revenue` to `3.2.12`; unified core baseline |
+| **SCA-012** | Container Base Image | `21-jdk` | Direct | Container Context | **6.5** | **Medium** | CWE-250 | all Dockerfiles | **DEFERRED (QUEUED FOR PHASE 9 / RR-06)** | Host ports unbound; non-root user queued for Phase 9 |
+
+---
+
 ## 3. Historical Phase 0 Refutations (Confirmed Secure Code Patterns)
 
 | Phase 0 ID | Category | Original Hypothesis | Dynamic / Static Verification | Final Status |

@@ -1,0 +1,92 @@
+[
+  {
+    "target": "api-gateway/pom.xml",
+    "module": "api-gateway",
+    "type": "Maven Dependency Manifest",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:48:39.516Z",
+    "scanEnd": "2026-10-30T11:48:49.505Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 4,
+      "HIGH": 48,
+      "MEDIUM": 55,
+      "LOW": 12,
+      "UNKNOWN": 0
+    },
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\api-gateway_pom_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\api-gateway_pom_trivy.txt"
+  },
+  {
+    "target": "auth-service/pom.xml",
+    "module": "auth-service",
+    "type": "Maven Dependency Manifest",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:48:49.516Z",
+    "scanEnd": "2026-10-30T11:48:58.512Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 12,
+      "HIGH": 43,
+      "MEDIUM": 48,
+      "LOW": 16,
+      "UNKNOWN": 0
+    },
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\auth-service_pom_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\auth-service_pom_trivy.txt"
+  },
+  {
+    "target": "discovery/pom.xml",
+    "module": "discovery",
+    "type": "Maven Dependency Manifest",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:48:58.517Z",
+    "scanEnd": "2026-10-30T11:49:05.856Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 13,
+      "HIGH": 36,
+      "MEDIUM": 36,
+      "LOW": 15,
+      "UNKNOWN": 0
+    },
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\discovery_pom_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\discovery_pom_trivy.txt"
+  },
+  {
+    "target": "revenue/pom.xml",
+    "module": "revenue",
+    "type": "Maven Dependency Manifest",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:49:05.859Z",
+    "scanEnd": "2026-10-30T11:49:15.317Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 18,
+      "HIGH": 40,
+      "MEDIUM": 47,
+      "LOW": 16,
+      "UNKNOWN": 0
+    },
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\revenue_pom_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\revenue_pom_trivy.txt"
+  },
+  {
+    "target": "user-management/pom.xml",
+    "module": "user-management",
+    "type": "Maven Dependency Manifest",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:49:15.320Z",
+    "scanEnd": "2026-10-30T11:49:24.215Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 12,
+      "HIGH": 39,
+      "MEDIUM": 47,
+      "LOW": 16,
+      "UNKNOWN": 0
+    },
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\user-management_pom_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\user-management_pom_trivy.txt"
+  }
+]

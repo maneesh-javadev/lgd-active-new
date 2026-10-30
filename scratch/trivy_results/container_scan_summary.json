@@ -1,0 +1,149 @@
+[
+  {
+    "target": "lgd-active-new-api-gateway:latest",
+    "type": "Container Image",
+    "digest": "sha256:b1cd46c176eba113c4cc31424cbb9efb324010123433c2d763bfb2e567fdd253",
+    "created": "2026-10-16T05:40:23.153871424Z",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:42:39.927Z",
+    "scanEnd": "2026-10-30T11:44:18.051Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 5,
+      "HIGH": 48,
+      "MEDIUM": 57,
+      "LOW": 12,
+      "UNKNOWN": 2
+    },
+    "osVulnerabilities": 7,
+    "appVulnerabilities": 117,
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\api-gateway_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\api-gateway_trivy.txt"
+  },
+  {
+    "target": "lgd-active-new-auth-service:latest",
+    "type": "Container Image",
+    "digest": "sha256:337f93893eb1791f1d4e2be6098265ec62fc84d926c0c6a48236fac7e325b5ed",
+    "created": "2026-10-26T04:33:44.410011357Z",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:44:18.308Z",
+    "scanEnd": "2026-10-30T11:44:30.433Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 13,
+      "HIGH": 44,
+      "MEDIUM": 48,
+      "LOW": 16,
+      "UNKNOWN": 0
+    },
+    "osVulnerabilities": 1,
+    "appVulnerabilities": 120,
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\auth-service_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\auth-service_trivy.txt"
+  },
+  {
+    "target": "lgd-active-new-revenue:latest",
+    "type": "Container Image",
+    "digest": "sha256:9b849b826462756969f1470d0cde5b2febcabfbe32ac392954265306cc2f8c05",
+    "created": "2026-10-15T11:26:00.025866732Z",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:44:30.574Z",
+    "scanEnd": "2026-10-30T11:44:44.427Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 21,
+      "HIGH": 52,
+      "MEDIUM": 57,
+      "LOW": 16,
+      "UNKNOWN": 2
+    },
+    "osVulnerabilities": 7,
+    "appVulnerabilities": 141,
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\revenue_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\revenue_trivy.txt"
+  },
+  {
+    "target": "lgd-active-new-service-discovery:latest",
+    "type": "Container Image",
+    "digest": "sha256:53f93096555de5ef58dba83da237da4171715e5f91ae6ed958de0c0b64c13183",
+    "created": "2026-10-22T07:03:51.007505325Z",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:44:44.611Z",
+    "scanEnd": "2026-10-30T11:44:54.141Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 12,
+      "HIGH": 33,
+      "MEDIUM": 33,
+      "LOW": 14,
+      "UNKNOWN": 0
+    },
+    "osVulnerabilities": 1,
+    "appVulnerabilities": 91,
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\service-discovery_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\service-discovery_trivy.txt"
+  },
+  {
+    "target": "lgd-active-new-user-management:latest",
+    "type": "Container Image",
+    "digest": "sha256:72b761693a1b149c1615a3f61406c18c722faee6ac5afc028aeaeec77d446b0b",
+    "created": "2026-10-22T07:40:14.877507283Z",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:44:54.407Z",
+    "scanEnd": "2026-10-30T11:45:05.371Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 13,
+      "HIGH": 41,
+      "MEDIUM": 47,
+      "LOW": 16,
+      "UNKNOWN": 0
+    },
+    "osVulnerabilities": 1,
+    "appVulnerabilities": 116,
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\user-management_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\user-management_trivy.txt"
+  },
+  {
+    "target": "postgres:15-alpine",
+    "type": "Container Image",
+    "digest": "sha256:d2c2ced0372e855e4c257a9e9b5725f403847c01cfb64facbf2b21dbdadb2d74",
+    "created": "2026-10-21T22:57:27.228360399Z",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:45:05.601Z",
+    "scanEnd": "2026-10-30T11:45:12.453Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 1,
+      "HIGH": 25,
+      "MEDIUM": 31,
+      "LOW": 3,
+      "UNKNOWN": 1
+    },
+    "osVulnerabilities": 0,
+    "appVulnerabilities": 61,
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\postgres-15-alpine_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\postgres-15-alpine_trivy.txt"
+  },
+  {
+    "target": "redis:alpine",
+    "type": "Container Image",
+    "digest": "sha256:3811787313eba226a2ef38658c6ccb91cd5e110edc89c37767de373120a0e5a0",
+    "created": "2026-09-21T17:37:00.659434515Z",
+    "tool": "Aqua Security Trivy v0.76.1",
+    "scanStart": "2026-10-30T11:45:12.611Z",
+    "scanEnd": "2026-10-30T11:45:16.192Z",
+    "exitCode": 0,
+    "summary": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 1,
+      "LOW": 0,
+      "UNKNOWN": 2
+    },
+    "osVulnerabilities": 3,
+    "appVulnerabilities": 0,
+    "jsonReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\redis-alpine_trivy.json",
+    "txtReport": "E:\\System\\Projects\\dockerProject\\Source code\\lgd-active-new\\scratch\\trivy_results\\redis-alpine_trivy.txt"
+  }
+]

@@ -1,0 +1,147 @@
+{
+  "totalInstances": 1252,
+  "uniqueComponents": 825,
+  "totalLicenseAttributions": 1341,
+  "licenseDistribution": [
+    {
+      "spdx": "Apache-2.0",
+      "count": 651
+    },
+    {
+      "spdx": "Bouncy Castle Licence",
+      "count": 5
+    },
+    {
+      "spdx": "BSD-3-Clause",
+      "count": 65
+    },
+    {
+      "spdx": "Indiana University Extreme! Lab Software License",
+      "count": 5
+    },
+    {
+      "spdx": "Public Domain",
+      "count": 11
+    },
+    {
+      "spdx": "EPL-2.0",
+      "count": 34
+    },
+    {
+      "spdx": "GPL-2.0-with-classpath-exception",
+      "count": 24
+    },
+    {
+      "spdx": "MIT",
+      "count": 397
+    },
+    {
+      "spdx": "No License Declared",
+      "count": 5
+    },
+    {
+      "spdx": "BSD licence",
+      "count": 5
+    },
+    {
+      "spdx": "(CDDL-1.0 OR GPL-2.0-with-classpath-exception)",
+      "count": 2
+    },
+    {
+      "spdx": "BSD-4-Clause",
+      "count": 4
+    },
+    {
+      "spdx": "EPL-1.0",
+      "count": 10
+    },
+    {
+      "spdx": "GNU Lesser General Public License",
+      "count": 10
+    },
+    {
+      "spdx": "MIT-0",
+      "count": 5
+    },
+    {
+      "spdx": "LGPL-2.1-only",
+      "count": 9
+    },
+    {
+      "spdx": "BSD-2-Clause",
+      "count": 19
+    },
+    {
+      "spdx": "CC0-1.0",
+      "count": 6
+    },
+    {
+      "spdx": "ISC",
+      "count": 36
+    },
+    {
+      "spdx": "Apache License, 2.0",
+      "count": 7
+    },
+    {
+      "spdx": "Modified BSD",
+      "count": 6
+    },
+    {
+      "spdx": "jQuery license",
+      "count": 5
+    },
+    {
+      "spdx": "W3C license",
+      "count": 5
+    },
+    {
+      "spdx": "The GNU General Public License (GPL), Version 2, With Classpath Exception",
+      "count": 2
+    },
+    {
+      "spdx": "MPL-1.1",
+      "count": 1
+    },
+    {
+      "spdx": "LGPL-2.1-or-later",
+      "count": 3
+    },
+    {
+      "spdx": "(MPL-2.0 OR Apache-2.0)",
+      "count": 1
+    },
+    {
+      "spdx": "MIT OR SEE LICENSE IN FEEL-FREE.md",
+      "count": 1
+    },
+    {
+      "spdx": "(MIT AND Zlib)",
+      "count": 1
+    },
+    {
+      "spdx": "Python-2.0",
+      "count": 1
+    },
+    {
+      "spdx": "CC-BY-4.0",
+      "count": 2
+    },
+    {
+      "spdx": "0BSD",
+      "count": 1
+    },
+    {
+      "spdx": "MPL-2.0",
+      "count": 2
+    }
+  ],
+  "multiLicenseCount": 44,
+  "noLicenseComponents": [
+    {
+      "key": "org.antlr:antlr-runtime:3.4",
+      "module": "api-gateway",
+      "purl": "pkg:maven/org.antlr/antlr-runtime@3.4?type=jar"
+    }
+  ]
+}
