@@ -10,7 +10,7 @@
 
 ## 1. Executive Summary & Strategy
 
-The threat modeling analysis of LGD 2.0 across 8 trust boundaries identified **20 major STRIDE threats**, including **9 Critical-risk threats** and **8 High-risk threats**. The threats stem primarily from:
+The threat modeling analysis of LGD 2.0 across 8 trust boundaries identified **20 major STRIDE threats**, including **12 Critical-risk threats** and **8 High-risk threats** (Total: 20 threats). The threats stem primarily from:
 1. **Perimeter exposure:** Docker publishing internal microservice and database ports directly to `0.0.0.0`.
 2. **Cryptographic weaknesses:** Hardcoded static HMAC secret keys without rotation.
 3. **Multi-tenancy gaps:** Absence of server-side state/district tenant scoping in entity queries (BOLA/IDOR).
@@ -65,19 +65,19 @@ The **Threat Mitigation Roadmap** establishes a phased, defense-in-depth plan to
 
 | Priority | Threat ID | Target Component | Threat Scenario | Remediation Action | Vulnerability Ref | Est. Effort | Verification Method |
 |:---|:---|:---|:---|:---|:---|:---:|:---|
-| **P0** | `THR-STRIDE-012` | PostgreSQL | Direct DB access on port 5432 | Remove host port publishing in `docker-compose.yml`; restrict to internal bridge network | `VULN-007` | 0.5 Day | Port scan from external host confirms port 5432 closed |
+| **P0** | `THR-STRIDE-012` | PostgreSQL | Direct DB access on port 5432 | Remove host port publishing in `docker-compose.yml`; restrict to internal bridge network | `VULN-009` | 0.5 Day | Port scan from external host confirms port 5432 closed |
 | **P0** | `THR-STRIDE-007` | Redis | Unauthenticated `FLUSHALL` wiping token blacklist | Set strong `requirepass` in `redis.conf`; unbind port 6379 from `0.0.0.0` | `VULN-009` | 0.5 Day | `redis-cli ping` without auth returns `(error) NOAUTH` |
 | **P0** | `THR-STRIDE-011` | Discovery & Services | Spring Actuator environment secret leakage | Restrict actuator exposure to `health,info`; require ADMIN role on separate port | `VULN-015` | 1 Day | `curl /actuator/env` returns `404 Not Found` |
-| **P0** | `THR-STRIDE-004` | Revenue & User Mgmt | Direct microservice access bypassing Gateway | Remove host ports `8081`, `8082`, `8083` in docker-compose; route only via Gateway | `VULN-007` | 0.5 Day | External HTTP request to `:8083` times out / connection refused |
+| **P0** | `THR-STRIDE-004` | Revenue & User Mgmt | Direct microservice access bypassing Gateway | Remove host ports `18090`, `18089`, `18062` in docker-compose; route only via Gateway | `VULN-009` | 0.5 Day | External HTTP request to `:18062` times out / connection refused |
 | **P1** | `THR-STRIDE-001` | Auth Service & Gateway | JWT forgery via static HMAC secret | Replace HS256 with RS256 asymmetric keys; store private key in HashiCorp Vault | `VULN-001` | 3 Days | Attempt forging token with custom claims fails cryptographic check |
-| **P1** | `THR-STRIDE-002` | Eureka Discovery | Rogue microservice registration | Enable Spring Security HTTP Basic auth on Eureka; update client credentials | `VULN-008` | 2 Days | Unauthenticated `POST /eureka/apps` returns `401 Unauthorized` |
-| **P1** | `THR-STRIDE-003` | Revenue Service | CDAC eSign callback spoofing | Implement HMAC signature check, Redis one-time nonce verification, and CCA CA chain check | `VULN-006` | 3 Days | Synthetic callback without valid HMAC returns `403 Forbidden` |
+| **P1** | `THR-STRIDE-002` | Eureka Discovery | Rogue microservice registration | Enable Spring Security HTTP Basic auth on Eureka; update client credentials | `VULN-021` | 2 Days | Unauthenticated `POST /eureka/apps` returns `401 Unauthorized` |
+| **P1** | `THR-STRIDE-003` | Revenue Service | CDAC eSign callback spoofing | Implement HMAC signature check, Redis one-time nonce verification, and CCA CA chain check | `VULN-003` | 3 Days | Synthetic callback without valid HMAC returns `403 Forbidden` |
 | **P1** | `THR-STRIDE-016` | Gateway & Auth | Brute force / credential stuffing | Configure Redis Token Bucket rate limiter on `/api/auth/login` (5 attempts/min) | `VULN-019` | 2 Days | 6th rapid login attempt returns `429 Too Many Requests` |
 | **P1** | `THR-STRIDE-008` | Revenue Service | PDF document hash substitution | Store immutable SHA-256 before eSign dispatch; assert exact match upon callback | `VULN-011` | 2 Days | Modifying PDF byte before signing aborts transaction |
-| **P2** | `THR-STRIDE-005` | Revenue Service | Cross-tenant draft manipulation (BOLA) | Implement `TenantSecurityContext` filter binding SQL queries to JWT `stateCode` | `VULN-003` | 4 Days | Requesting State 27 draft using State 19 token returns `403 Forbidden` |
+| **P2** | `THR-STRIDE-005` | Revenue Service | Cross-tenant draft manipulation (BOLA) | Implement `TenantSecurityContext` filter binding SQL queries to JWT `stateCode` | `VULN-006` | 4 Days | Requesting State 27 draft using State 19 token returns `403 Forbidden` |
 | **P2** | `THR-STRIDE-006` | User Management | Role injection via Mass Assignment | Use immutable `UserUpdateDTO` without role fields; dedicated admin role mapping API | `VULN-004` | 3 Days | Submitting `"roles": ["SUPER_ADMIN"]` in user update is ignored or rejected |
-| **P2** | `THR-STRIDE-018` | User Mgmt & Revenue | Missing method-level security | Enable `@EnableMethodSecurity` and annotate all sensitive controller methods | `VULN-012` | 4 Days | Calling admin endpoint with operator token returns `403 Forbidden` |
-| **P2** | `THR-STRIDE-019` | Revenue Service | District-to-State escalation | Implement workflow state machine validating role tier against transition state | `VULN-005` | 3 Days | District token attempting state approval returns `403 Forbidden` |
+| **P2** | `THR-STRIDE-018` | User Mgmt & Revenue | Missing method-level security | Enable `@EnableMethodSecurity` and annotate all sensitive controller methods | `VULN-005` | 4 Days | Calling admin endpoint with operator token returns `403 Forbidden` |
+| **P2** | `THR-STRIDE-019` | Revenue Service | District-to-State escalation | Implement workflow state machine validating role tier against transition state | `VULN-006` | 3 Days | District token attempting state approval returns `403 Forbidden` |
 | **P2** | `THR-STRIDE-015` | Revenue Service | Large upload resource exhaustion | Set multipart max file size to 5MB; validate MIME via Apache Tika magic bytes | `VULN-018` | 2 Days | Uploading 10MB or non-PDF file returns `413` or `415` |
 | **P3** | `THR-STRIDE-014` | React Frontend | Client-side token theft via XSS | Migrate tokens to `HttpOnly, Secure, SameSite=Strict` cookies; configure strict CSP | `VULN-017` | 3 Days | `document.cookie` in browser console cannot read auth token |
 | **P3** | `THR-STRIDE-009` | All Services | Missing entity-level audit trails | Implement Hibernate Envers for automated auditing of entity modifications | `VULN-014` | 4 Days | Modifying village record creates timestamped revision row in DB |
@@ -97,7 +97,7 @@ The **Threat Mitigation Roadmap** establishes a phased, defense-in-depth plan to
 - **Log Obfuscation:** Mask Bearer tokens, passwords, OTPs, and mobile numbers in Gateway logs.
 
 ### 4.2 Layer 2: Service Mesh & Inter-Service Isolation (East-West Security)
-- **Docker Isolation:** Remove all `ports:` directives for backend microservices in `docker-compose.yml`, exposing only port 8080/443 on the Gateway.
+- **Docker Isolation:** Remove all `ports:` directives for backend microservices in `docker-compose.yml`, exposing only port 8092/443 on the Gateway.
 - **Service Discovery Protection:** HTTP Basic authentication on Eureka with individual credentials per microservice.
 - **Service-to-Service Authentication:** Implement HMAC signature or shared secret header (`X-Internal-Service-Key`) verified on every internal call.
 

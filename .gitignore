@@ -8,3 +8,12 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+.env
+*.env
+*.p12
+*.jks
+*.key
+*.pem
+*.cer
+*.crt
+*.dump

@@ -42,7 +42,7 @@ services:
       SPRING_APPLICATION_NAME: auth-service
       SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd_new
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres@206
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_DATA_REDIS_HOST: host.docker.internal
       SPRING_DATA_REDIS_PORT: 6379
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
@@ -69,7 +69,7 @@ services:
       SPRING_APPLICATION_NAME: user-management
       SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd_new
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres@206
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_DATA_REDIS_HOST: host.docker.internal
       SPRING_DATA_REDIS_PORT: 6379
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
@@ -142,7 +142,7 @@ services:
       SPRING_APPLICATION_NAME: revenue
       SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd_new
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres@206
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_DATA_REDIS_HOST: host.docker.internal
       SPRING_DATA_REDIS_PORT: 6379
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
@@ -229,7 +229,7 @@ services:
       SPRING_MAIN_ALLOW_CIRCULAR_REFERENCES: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd_new
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres@206
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
       EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
     extra_hosts:

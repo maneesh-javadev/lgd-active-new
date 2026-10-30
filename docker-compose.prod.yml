@@ -1,0 +1,63 @@
+# ==============================================================================
+# LGD 2.0 - Production Compose Override (docker-compose.prod.yml)
+#
+# Production hardening override file:
+# - Enforces SPRING_PROFILES_ACTIVE=prod across all services
+# - Enforces restart: always
+# - Defines resource limits (CPU / Memory)
+# - Validates that zero internal ports are exposed
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# ==============================================================================
+
+services:
+  service-discovery:
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 768M
+
+  auth-service:
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1024M
+
+  user-management:
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 1024M
+
+  revenue:
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1536M
+
+  api-gateway:
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M

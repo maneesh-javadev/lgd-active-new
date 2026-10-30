@@ -1,0 +1,31 @@
+# ==============================================================================
+# LGD 2.0 - Local Development Compose Override (docker-compose.dev.yml)
+#
+# WARNING: DEVELOPMENT-ONLY CONFIGURATION — NEVER DEPLOY TO PRODUCTION
+#
+# This override file publishes internal microservice ports STRICTLY bound to
+# loopback (127.0.0.1) for local debugging, integration testing, and inspection.
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+# ==============================================================================
+
+services:
+  service-discovery:
+    ports:
+      - "127.0.0.1:8761:8761"
+
+  auth-service:
+    ports:
+      - "127.0.0.1:18090:18090"
+
+  user-management:
+    ports:
+      - "127.0.0.1:18089:18089"
+
+  revenue:
+    ports:
+      - "127.0.0.1:18062:18062"
+
+  api-gateway:
+    ports:
+      - "127.0.0.1:8092:8092"
