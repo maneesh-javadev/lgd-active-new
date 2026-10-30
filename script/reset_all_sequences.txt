@@ -1,0 +1,93 @@
+
+-- select * from um.reset_all_sequences();
+
+-- DROP FUNCTION um.reset_all_sequences(text);
+
+
+
+CREATE OR REPLACE FUNCTION um.reset_all_sequences(p_schema text DEFAULT 'um'::text)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+DECLARE
+    seq_record RECORD;
+    max_id BIGINT;
+    reset_count INTEGER := 0;
+BEGIN
+    FOR seq_record IN
+        SELECT
+            seq_ns.nspname AS sequence_schema,
+            seq.relname AS sequence_name,
+            tbl_ns.nspname AS table_schema,
+            tbl.relname AS table_name,
+            col.attname AS column_name
+        FROM pg_class seq
+        JOIN pg_namespace seq_ns
+            ON seq_ns.oid = seq.relnamespace
+        JOIN pg_depend dep
+            ON dep.objid = seq.oid
+           AND dep.classid = 'pg_class'::regclass
+           AND dep.refclassid = 'pg_class'::regclass
+           AND dep.deptype IN ('a', 'i')
+        JOIN pg_class tbl
+            ON tbl.oid = dep.refobjid
+        JOIN pg_namespace tbl_ns
+            ON tbl_ns.oid = tbl.relnamespace
+        JOIN pg_attribute col
+            ON col.attrelid = tbl.oid
+           AND col.attnum = dep.refobjsubid
+        WHERE seq.relkind = 'S'
+          AND tbl_ns.nspname = p_schema
+          AND tbl.relkind IN ('r', 'p')
+          AND col.attnum > 0
+          AND NOT col.attisdropped
+        ORDER BY tbl.relname, col.attname
+    LOOP
+        EXECUTE format(
+            'SELECT MAX(%I)::BIGINT FROM %I.%I',
+            seq_record.column_name,
+            seq_record.table_schema,
+            seq_record.table_name
+        )
+        INTO max_id;
+
+        IF max_id IS NULL THEN
+            -- Empty table: next generated ID will be 1.
+            PERFORM setval(
+                format(
+                    '%I.%I',
+                    seq_record.sequence_schema,
+                    seq_record.sequence_name
+                )::regclass,
+                1,
+                FALSE
+            );
+        ELSE
+            -- Existing data: next generated ID will be MAX(id) + 1.
+            PERFORM setval(
+                format(
+                    '%I.%I',
+                    seq_record.sequence_schema,
+                    seq_record.sequence_name
+                )::regclass,
+                max_id,
+                TRUE
+            );
+        END IF;
+
+        reset_count := reset_count + 1;
+
+        RAISE NOTICE
+            'Reset sequence %.% for table %.%, column %, max ID = %',
+            seq_record.sequence_schema,
+            seq_record.sequence_name,
+            seq_record.table_schema,
+            seq_record.table_name,
+            seq_record.column_name,
+            COALESCE(max_id::TEXT, 'EMPTY');
+    END LOOP;
+
+    RAISE NOTICE 'Total sequences reset: %', reset_count;
+END;
+$function$
+;

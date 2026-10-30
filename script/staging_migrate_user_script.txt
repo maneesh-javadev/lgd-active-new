@@ -1,0 +1,49 @@
+INSERT INTO um.users
+(user_id, user_login_id, password_hash, state_code, district_code, specific_role_id, specific_org_unit_code, specific_admin_unit_entity_code, user_level, created_on, created_by, last_updated_on, last_updated_by, ip_created, ip_updated, is_active, is_deleted, is_system)
+select um.user_id,s.short_name||'-REVENUE-CHECKER ','$2a$10$8ieX7aOP6/NyzJiu.eKfCO7VERTkwVLYf4WBWiQwVHzXtNaIdqELu',um.state_code ,
+case when um.district_code=0 then null else um.district_code end district_code
+,null,null,null,'State',um.created_on, 1 ,um.last_updated_on,1 ,null,null ,true,false,false 
+from public.um_user um 
+inner join state s on um.state_code =s.state_code and s.isactive 
+where um.isactive  and um.user_login_id ilike '%-revenue-user' order by s.state_code ;
+
+
+INSERT INTO um.user_profile
+(user_profile_id, user_profile_name, designation, mobile_no, email_id, state_code, created_by, created_on, modified_by, modified_on, user_id, is_email_verified, is_mobile_no_verified, maker_checker_status, login_time, ip_address, user_type, "level", district_code, nodal_officer_id)
+select 
+nextval('um.user_profile_user_profile_id_seq'::regclass) ,up.user_profile_name,up.designation,up.mobile_no, up.email_id, up.state_code, up.created_by, up.created_on, up.modified_by, up.modified_on, up.user_id, up.is_email_verified, up.is_mobile_no_verified, up.maker_checker_status, up.login_time, up.ip_address, up.user_type, up."level", up.district_code, up.nodal_officer_id 
+from public.um_user um 
+inner join public.user_profile up on um.user_id=up.user_id   
+where um.isactive  and um.user_login_id ilike '%-revenue-user' order by um.state_code  ;
+
+INSERT INTO um.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+select
+    nextval('um.resource_resource_id_seq'::regclass),
+    UPPER(REPLACE(um.form_name, ' ', '_')) || '_MENU',
+    UPPER(um.form_name) || ' MENU',
+    'MENU',
+    NULL,
+    NULL,
+    NULL,
+    '/',
+    null,
+    NULL,
+    TRUE,
+    NOW(),
+    1,
+    NULL,
+    NULL,
+    ROW_NUMBER() OVER (ORDER BY um.menu_group, um.child_seq) AS index,
+    'folder',
+    FALSE
+FROM public.um_role r
+INNER JOIN public.um_role_menu_mapping m
+ON r.role_id = m.role_id
+INNER JOIN public.um_menu_profile um
+ON m.menu_id = um.menu_id
+WHERE r.role_id = 2
+ORDER BY um.menu_group, um.child_seq;
+
+--
+--nextval('resource_resource_id_seq'),

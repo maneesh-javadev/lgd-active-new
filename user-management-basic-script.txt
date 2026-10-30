@@ -1,0 +1,421 @@
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(1, 'DASHBOARD_MENU', 'Dashboard', 'MENU', NULL, NULL, NULL, '/dashboard', NULL, '', true, '2026-09-22 19:23:23.421', 0, '2026-09-22 13:53:22.646', 0, 1, 'dashboard', true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(2, 'USER_MENAGEMENT_MENU', 'User Management', 'MENU', NULL, NULL, NULL, '/user-management', NULL, '', true, '2026-09-22 19:24:58.992', 0, '2026-09-22 13:54:58.948', 0, 2, 'manage_accounts', true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(3, 'RESOURCE_MENU', 'Resource', 'MENU', NULL, NULL, NULL, '/user-management/resource', 2, '', true, '2026-09-22 19:26:41.726', 0, '2026-09-22 13:56:41.697', 0, 3, 'account_tree', true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(4, 'ROLE_MENU', 'Role', 'MENU', NULL, NULL, NULL, '/user-management/role', 2, '', true, '2026-09-22 19:28:04.673', 0, '2026-09-22 13:58:04.644', 0, 5, 'badge', true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(5, 'USERS_MENU', 'Users', 'MENU', NULL, NULL, NULL, '/user-management/users', 2, '', true, '2026-09-22 19:30:24.023', 0, '2026-09-22 14:00:23.991', 0, 6, 'person', true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(6, 'SVAE_RESOURCE_API', 'Save Resource API', 'API', 'user-management', '/private/v1/resources', 'POST', NULL, NULL, '', true, '2026-09-22 19:54:39.046', 0, '2026-09-22 14:24:38.797', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(7, 'MANAGE_RESOURCE_API', 'Manage Resource API', 'API', 'user-management', '/private/v1/resources', 'GET', NULL, NULL, '', true, '2026-09-22 19:58:49.933', 0, '2026-09-22 14:28:49.908', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(8, 'UPDATE_RESOURCE_API', 'Update Resource API', 'API', 'user-management', '/private/v1/resources/update/*', 'POST', NULL, NULL, '', true, '2026-09-22 20:01:49.398', 0, '2026-09-22 20:02:14.331', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(9, 'DELETE_RESOURCE_API', 'Delete Resource API', 'API', 'user-management', '/private/v1/resources/delete/*', 'POST', NULL, NULL, '', true, '2026-09-22 20:03:33.697', 0, '2026-09-22 14:33:33.675', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(10, 'FETCH_RESOURCE_API', 'Fetch Resource API', 'API', 'user-management', '/private/v1/resources/*', 'GET', NULL, NULL, '', true, '2026-09-22 20:07:18.834', 0, '2026-09-22 14:37:18.811', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(11, 'ROLE_CREATE_API', 'ROLE CREATE API', 'API', 'user-management', '/private/v1/roles', 'POST', NULL, NULL, '', true, '2026-09-22 20:11:08.299', 0, '2026-09-22 14:41:08.270', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(12, 'ROLE_LIST_API', 'ROLE LIST API', 'API', 'user-management', '/private/v1/roles', 'GET', NULL, NULL, '', true, '2026-09-22 20:12:30.495', 0, '2026-09-22 14:42:30.466', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(13, 'ROLE_GET_API', 'ROLE GET API', 'API', 'user-management', '/private/v1/roles/**', 'GET', NULL, NULL, '', true, '2026-09-22 20:13:35.897', 0, '2026-09-22 14:43:35.859', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(14, 'ROLE_GET_BY_CODE_API', 'ROLE GET BY CODE API', 'API', 'user-management', '/private/v1/roles/code/**', 'GET', NULL, NULL, '', true, '2026-09-22 20:15:35.115', 0, '2026-09-22 14:45:35.094', 0, 0, NULL, true);
+
+INSERT INTO umn.resource ( resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system ) 
+VALUES ( 15, 'ROLE_UPDATE_API', 'ROLE UPDATE API', 'API', 'user-management', '/private/v1/roles/**', 'POST', NULL, NULL, '', TRUE, '2026-09-22 20:17:02.038', 0, '2026-09-22 14:47:02.014', 0, 0, NULL, TRUE );
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(16, 'ROLE_DELETE_API', 'ROLE DELETE API', 'API', 'user-management', '/private/v1/roles/**', 'POST', NULL, NULL, '', true, '2026-09-22 20:18:42.435', 0, '2026-09-22 14:48:42.408', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(17, 'ROLE_TOGGLE_STATUS_API', 'ROLE TOGGLE STATUS API', 'API', 'user-management', '/private/v1/roles/*/togglestatus', 'GET', NULL, NULL, '', true, '2026-09-22 20:20:55.218', 0, '2026-09-22 14:50:55.193', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(18, 'ROLE_ACTIVE_LIST_API', 'ROLE ACTIVE LIST API', 'API', 'user-management', '/private/v1/roles/active', 'GET', NULL, NULL, '', true, '2026-09-22 20:21:57.596', 0, '2026-09-22 14:51:57.566', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(19, 'ROLE_BY_LEVEL_API', 'ROLE BY LEVEL API', 'API', 'user-management', '/private/v1/roles/level/**', 'GET', NULL, NULL, '', true, '2026-09-22 20:23:29.544', 0, '2026-09-22 14:53:29.514', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(20, 'ROLE_BY_TYPE_API', 'ROLE BY TYPE API', 'API', 'user-management', '/private/v1/roles/type/**', 'GET', NULL, NULL, '', true, '2026-09-22 20:25:21.383', 0, '2026-09-22 14:55:21.364', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(21, 'ROLE_HISTORY_API', 'ROLE HISTORY API', 'API', 'user-management', '/private/v1/roles/*/history', 'GET', NULL, NULL, '', true, '2026-09-22 20:26:32.291', 0, '2026-09-22 14:56:32.275', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(22, 'ROLE_HISTORY_VERSION_API', 'ROLE HISTORY VERSION API', 'API', 'user-management', '/private/v1/roles/*/history/version/**', 'GET', NULL, NULL, '', true, '2026-09-22 20:27:50.873', 0, '2026-09-22 14:57:50.843', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(23, 'USER_CREATE_API', 'Create User API', 'API', 'user-management', '/private/v1/users', 'POST', NULL, NULL, 'Creates a new user', true, '2026-09-22 21:11:52.592', NULL, NULL, NULL, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(24, 'USER_LIST_API', 'List Users API', 'API', 'user-management', '/private/v1/users', 'GET', NULL, NULL, 'Retrieves all users', true, '2026-09-22 21:11:52.592', NULL, NULL, NULL, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(25, 'USER_GET_API', 'Get User API', 'API', 'user-management', '/private/v1/users/**', 'GET', NULL, NULL, 'Retrieves a user by user ID', true, '2026-09-22 21:11:52.592', 0, '2026-09-22 21:28:34.130', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(26, 'USER_UPDATE_API', 'Update User API', 'API', 'user-management', '/private/v1/users/**', 'POST', NULL, NULL, 'Updates an existing user', true, '2026-09-22 21:11:52.592', 0, '2026-09-22 21:28:53.446', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(27, 'USER_DELETE_API', 'Delete User API', 'API', 'user-management', '/private/v1/users/**', 'POST', NULL, NULL, 'Deletes a user', true, '2026-09-22 21:11:52.592', 0, '2026-09-22 21:29:13.044', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(28, 'USER_GET_BY_LOGIN_ID_API', 'Get User By Login ID API', 'API', 'user-management', '/private/v1/users/loginid/**', 'GET', NULL, NULL, 'Retrieves a user by login ID', true, '2026-09-22 21:11:52.592', 0, '2026-09-22 21:29:33.125', 0, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(29, 'ROLE_LEVEL_LIST_API', 'List Role Levels API', 'API', 'user-management', '/private/v1/role-levels', 'GET', NULL, NULL, 'Retrieves all role levels', true, '2026-09-22 21:33:47.800', NULL, NULL, NULL, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(30, 'ROLE_TYPE_LIST_API', 'List Role Types API', 'API', 'user-management', '/private/v1/role-types', 'GET', NULL, NULL, 'Retrieves all role types', true, '2026-09-22 21:35:14.982', NULL, NULL, NULL, 0, NULL, true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(31, 'PRIVILEGE_MENU', 'Privilege ', 'MENU', NULL, NULL, NULL, '/user-management/privilege', 2, NULL, true, '2026-09-23 19:51:40.164', 0, '2026-09-22 14:00:23.991', 0, 4, 'lock_person', true);
+
+INSERT INTO umn.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES
+(32, 'CHANGE_PASSWORD', 'CHANGE PASSWORD', 'MENU', NULL, NULL, NULL, '/user-management/change-password', 2, '', true, '2026-09-24 20:19:02.504', 0, '2026-09-24 14:49:02.477', 0, 7, 'password', true);
+
+INSERT INTO um.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES(33, 'UM_PRIVILEGE_CREATE', 'Create Privilege', 'API', 'user-management-service', '/private/v1/privileges', 'POST', NULL, NULL, 'Create a new privilege', true, '2026-10-21 10:52:32.162', NULL, NULL, NULL, 1, NULL, true);
+
+INSERT INTO um.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES(34, 'UM_PRIVILEGE_UPDATE', 'Update Privilege', 'API', 'user-management-service', '/private/v1/privileges/update', 'POST', NULL, NULL, 'Update an existing privilege', true, '2026-10-21 10:52:32.162', NULL, NULL, NULL, 2, NULL, true);
+
+INSERT INTO um.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES(35, 'UM_PRIVILEGE_GET_BY_ID', 'Get Privilege By ID', 'API', 'user-management-service', '/private/v1/privileges/{id}', 'GET', NULL, NULL, 'Retrieve privilege details by ID', true, '2026-10-21 10:52:32.162', NULL, NULL, NULL, 3, NULL, true);
+
+INSERT INTO um.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES(36, 'UM_PRIVILEGE_GET_ALL', 'Get All Privileges', 'API', 'user-management-service', '/private/v1/privileges', 'GET', NULL, NULL, 'Retrieve all privileges', true, '2026-10-21 10:52:32.162', NULL, NULL, NULL, 4, NULL, true);
+
+INSERT INTO um.resource
+(resource_id, resource_code, resource_name, resource_type, service_name, api_path, http_method, frontend_route, parent_resource_id, description, is_active, created_at, created_by, updated_at, updated_by, display_order, icon, is_system)
+VALUES(37, 'UM_PRIVILEGE_DELETE', 'Delete Privilege', 'API', 'user-management-service', '/private/v1/privileges/delete/{id}', 'POST', NULL, NULL, 'Delete a privilege if it is not assigned to a role', true, '2026-10-21 10:52:32.162', NULL, NULL, NULL, 5, NULL, true);
+
+----------------------------------------------------
+INSERT INTO um.privilege
+(privilege_id, privilege_code, privilege_name, "action", description, is_active, created_at, created_by, updated_at, updated_by, is_system)
+VALUES
+(1, 'RESOURCE_PRIVILEGE', 'RESOURCE PRIVILEGE', 'CREATE', '', true, '2026-09-23 21:31:52.745', NULL, NULL, NULL, true);
+
+INSERT INTO um.privilege
+(privilege_id, privilege_code, privilege_name, "action", description, is_active, created_at, created_by, updated_at, updated_by, is_system)
+VALUES
+(2, 'DASHBOARD_PRIVILEGE', 'DASHBOARD PRIVILEGE', 'VIEW', '', true, '2026-09-24 06:13:34.379', NULL, NULL, NULL, true);
+
+INSERT INTO um.privilege
+(privilege_id, privilege_code, privilege_name, "action", description, is_active, created_at, created_by, updated_at, updated_by, is_system)
+VALUES
+(3, 'USER_MANAGEMENT', 'USER MANAGEMENT PRIVILEGE', 'VIEW', '', true, '2026-09-24 06:14:22.690', NULL, '2026-09-24 06:15:16.116', NULL, true);
+
+INSERT INTO um.privilege
+(privilege_id, privilege_code, privilege_name, "action", description, is_active, created_at, created_by, updated_at, updated_by, is_system)
+VALUES
+(4, 'PRIVILEGE_PRIVILEGE', 'PRIVILEGE PRIVILEGE', 'CREATE', '', true, '2026-09-24 06:16:10.072', NULL, NULL, NULL, true);
+
+INSERT INTO um.privilege
+(privilege_id, privilege_code, privilege_name, "action", description, is_active, created_at, created_by, updated_at, updated_by, is_system)
+VALUES
+(5, 'ROLE_PRIVILEGE', 'ROLE PRIVILEGE', 'CREATE', '', true, '2026-09-24 06:17:17.086', NULL, NULL, NULL, true);
+
+INSERT INTO um.privilege
+(privilege_id, privilege_code, privilege_name, "action", description, is_active, created_at, created_by, updated_at, updated_by, is_system)
+VALUES
+(6, 'USER_PRIVILEGE', 'USER PRIVILEGE', 'CREATE', '', true, '2026-09-24 06:18:10.869', NULL, NULL, NULL, true);
+
+INSERT INTO um.privilege
+(privilege_id, privilege_code, privilege_name, "action", description, is_active, created_at, created_by, updated_at, updated_by, is_system)
+VALUES
+(7, 'CHANGE_PASSWORD_PRIVILEGE', 'CHANGE PASSWORD PRIVILEGE', 'CREATE', '', true, '2026-09-24 20:55:53.264', NULL, NULL, NULL, true);
+---------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(2, 1, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(3, 2, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(1, 3, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(1, 6, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(1, 7, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(1, 8, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(1, 9, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(1, 10, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(4, 31, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(4, 33, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(4, 34, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(4, 35, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(4, 36, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(4, 37, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 4, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 11, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 12, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 13, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 14, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 15, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 16, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 17, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 18, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 19, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 20, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 21, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(5, 22, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 31, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 33, NULL, NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 34, '2026-10-22 09:51:27.725', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 35, '2026-10-22 09:51:27.727', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 36, '2026-10-22 09:51:27.728', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 37, '2026-10-22 09:51:27.729', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(7, 32, '2026-10-22 09:52:34.179', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 23, '2026-10-22 10:58:03.505', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 24, '2026-10-22 11:02:54.138', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 29, '2026-10-22 11:04:11.574', NULL);
+INSERT INTO um.privilege_resource
+(privilege_id, resource_id, created_at, created_by)
+VALUES(6, 30, '2026-10-22 11:04:49.228', NULL);
+--------------------------------------------------------------------------------------
+INSERT INTO um."role"
+(role_id, role_code, role_name, description, is_active, created_at, created_by, updated_at, updated_by, role_level_code, role_type_code, created_ip, updated_ip, is_system)
+VALUES(1, 'user-admin', 'user admin', '', true, '2026-09-23 22:36:07.317', NULL, '2026-09-24 21:01:07.291', NULL, 'C', 'N', NULL, '::1'::inet, true);
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO um.role_privilege
+(role_privilege_id, role_id, privilege_id, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES(1, 1, 1, true, '2026-10-22 09:56:35.449', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_privilege
+(role_privilege_id, role_id, privilege_id, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES(2, 1, 2, true, '2026-10-22 09:56:35.452', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_privilege
+(role_privilege_id, role_id, privilege_id, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES(3, 1, 3, true, '2026-10-22 09:56:35.453', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_privilege
+(role_privilege_id, role_id, privilege_id, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES(4, 1, 4, true, '2026-10-22 09:56:35.455', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_privilege
+(role_privilege_id, role_id, privilege_id, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES(5, 1, 5, true, '2026-10-22 09:56:35.456', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_privilege
+(role_privilege_id, role_id, privilege_id, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES(6, 1, 6, true, '2026-10-22 09:56:35.457', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_privilege
+(role_privilege_id, role_id, privilege_id, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES(7, 1, 7, true, '2026-10-22 09:56:35.458', NULL, NULL, NULL, NULL, NULL);
+-------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO um.users
+(user_id, user_login_id, password_hash, state_code, district_code, specific_role_id, specific_org_unit_code, specific_admin_unit_entity_code, user_level, created_on, created_by, last_updated_on, last_updated_by, ip_created, ip_updated, is_active, is_deleted, is_system)
+VALUES(1, 'CG-USER-ADMIN', '$2a$10$YgI2BNHyaAJJAGQDORKJs.ydPuJobXMc5MdE8OlkFbg13.Nog9piq', NULL, NULL, 1, NULL, NULL, 'Center', '2026-09-23 22:48:53.145', NULL, NULL, NULL, NULL, NULL, true, false, true);
+-----------------------------------------------------------------
+INSERT INTO um.user_role_mapping
+(user_role_mapping_id, user_id, role_id, is_active, created_on, created_by, last_updated_on, last_updated_by, ip_created, ip_updated)
+VALUES(1, 1, 1, true, '2026-10-22 10:00:26.256', NULL, NULL, NULL, NULL, NULL);
+----------------------------------------------------------------------------------------------------------
+INSERT INTO um.role_type_master
+(role_type_code, role_type_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('C', 'Checker', 'Role responsible for checking/verification', 1, true, '2026-09-19 05:56:16.687', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_type_master
+(role_type_code, role_type_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('M', 'Maker', 'Role responsible for creating/processing', 2, true, '2026-09-19 05:56:16.687', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_type_master
+(role_type_code, role_type_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('N', 'None', 'Role without Maker/Checker classification', 3, true, '2026-09-19 05:56:16.687', NULL, NULL, NULL, NULL, NULL);
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('R', 'Revenue', 'Revenue level', 1, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('P', 'PRI', 'Panchayati Raj Institution', 2, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('U', 'ULB', 'Urban Local Body', 3, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('T', 'Tehsil', 'Tehsil level', 4, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('B', 'Block', 'Block level', 5, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('S', 'SIO', 'SIO level', 6, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('A', 'System Admin', 'System Administrator level', 7, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('C', 'Center', 'Center level', 8, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('E', 'Constitution', 'Constitution level', 9, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('M', 'Super Admin', 'Super Administrator level', 10, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('D', 'Department', 'Department level', 11, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('X', 'DCO', 'DCO level', 12, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('Y', 'RCI', 'RCI level', 13, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('Z', 'Postal Division', 'Postal Division level', 14, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO um.role_level_master
+(role_level_code, role_level_name, description, display_order, is_active, created_at, created_by, updated_at, updated_by, created_ip, updated_ip)
+VALUES('O', 'Other', 'Other role level', 15, true, '2026-09-19 05:55:27.736', NULL, NULL, NULL, NULL, NULL);

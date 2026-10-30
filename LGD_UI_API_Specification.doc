@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>LGD 2.0 UI - API Endpoints Specification</title>
+<!--[if gte mso 9]>
+<xml>
+  <w:WordDocument>
+    <w:View>Print</w:View>
+    <w:Zoom>100</w:Zoom>
+    <w:DoNotOptimizeForBrowser/>
+  </w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+  @page {
+    size: 210mm 297mm;
+    margin: 20mm 18mm 20mm 18mm;
+    mso-header-margin: 10mm;
+    mso-footer-margin: 10mm;
+  }
+  body {
+    font-family: 'Segoe UI', Calibri, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #1e293b;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+  h1, h2, h3, h4 {
+    color: #0f172a;
+    font-weight: 700;
+    margin-top: 20pt;
+    margin-bottom: 8pt;
+    page-break-after: avoid;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #1e3a8a;
+    border-bottom: 2pt solid #2563eb;
+    padding-bottom: 6pt;
+    margin-top: 0;
+  }
+  h2 {
+    font-size: 14pt;
+    color: #1d4ed8;
+    border-bottom: 1pt solid #cbd5e1;
+    padding-bottom: 4pt;
+  }
+  h3 {
+    font-size: 12pt;
+    color: #334155;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 8pt;
+  }
+  .header-banner {
+    background-color: #f8fafc;
+    border: 1pt solid #e2e8f0;
+    border-left: 4pt solid #2563eb;
+    padding: 12pt 14pt;
+    margin-bottom: 18pt;
+  }
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16pt;
+    font-size: 10pt;
+  }
+  .meta-table th {
+    background-color: #f1f5f9;
+    color: #475569;
+    text-align: left;
+    padding: 6pt 10pt;
+    border: 1pt solid #cbd5e1;
+    width: 25%;
+    font-weight: 600;
+  }
+  .meta-table td {
+    padding: 6pt 10pt;
+    border: 1pt solid #cbd5e1;
+    color: #1e293b;
+  }
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8pt;
+    margin-bottom: 18pt;
+    font-size: 9.5pt;
+  }
+  table.data-table th {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    padding: 7pt 8pt;
+    border: 1pt solid #1e3a8a;
+    text-align: left;
+    font-weight: 600;
+  }
+  table.data-table td {
+    padding: 6pt 8pt;
+    border: 1pt solid #cbd5e1;
+    vertical-align: top;
+  }
+  table.data-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+  .badge-get {
+    display: inline-block;
+    padding: 2pt 6pt;
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    font-weight: 700;
+    font-size: 8.5pt;
+    border-radius: 3pt;
+    border: 1pt solid #93c5fd;
+    font-family: Consolas, monospace;
+  }
+  .badge-post {
+    display: inline-block;
+    padding: 2pt 6pt;
+    background-color: #dcfce7;
+    color: #15803d;
+    font-weight: 700;
+    font-size: 8.5pt;
+    border-radius: 3pt;
+    border: 1pt solid #86efac;
+    font-family: Consolas, monospace;
+  }
+  .badge-public {
+    display: inline-block;
+    padding: 1pt 5pt;
+    background-color: #fef3c7;
+    color: #b45309;
+    font-size: 8pt;
+    font-weight: 600;
+    border-radius: 3pt;
+  }
+  .badge-private {
+    display: inline-block;
+    padding: 1pt 5pt;
+    background-color: #ede9fe;
+    color: #6d28d9;
+    font-size: 8pt;
+    font-weight: 600;
+    border-radius: 3pt;
+  }
+  code, .code-font {
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 9pt;
+    background-color: #f1f5f9;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+    color: #0f172a;
+  }
+  .footer-note {
+    margin-top: 30pt;
+    padding-top: 10pt;
+    border-top: 1pt solid #e2e8f0;
+    font-size: 9pt;
+    color: #64748b;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="header-banner">
+  <div style="font-size: 10pt; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5pt;">
+    Government of India &bull; Ministry of Panchayati Raj &bull; LGD 2.0
+  </div>
+  <h1 style="margin: 4pt 0 6pt 0; font-size: 20pt; border: none; padding: 0;">
+    LGD 2.0 UI - API Endpoints Specification
+  </h1>
+  <div style="font-size: 10.5pt; color: #334155;">
+    Comprehensive Catalog of API Routes, Gateways, Proxies, and Handlers in the Frontend Application (<code class="code-font">lgd-um</code>)
+  </div>
+</div>
+
+<table class="meta-table">
+  <tr>
+    <th>System Component</th>
+    <td>LGD User & Access Management UI (<code class="code-font">lgd-um</code>)</td>
+    <th>API Gateway Base</th>
+    <td><code class="code-font">http://localhost:8092</code> (Spring Cloud Gateway)</td>
+  </tr>
+  <tr>
+    <th>Document Version</th>
+    <td>2.0 (Active Release)</td>
+    <th>Security & Auth</th>
+    <td>Bearer JWT & HTTP 401/403 Auto-Interception</td>
+  </tr>
+  <tr>
+    <th>Created Date</th>
+    <td>October 27, 2026</td>
+    <th>Dev Fallback</th>
+    <td>Vite Reverse Proxy (<code class="code-font">vite.config.js</code>)</td>
+  </tr>
+</table>
+
+<h2>1. Gateway & Routing Architecture</h2>
+<p>
+  All network communications from the <strong>lgd-um</strong> frontend are routed through the central <strong>Spring Cloud API Gateway</strong> (default port: <code class="code-font">8092</code>) or via local development Vite proxies. Client requests use the helper function <code class="code-font">fetchWithGatewayFallback()</code> which handles Bearer token attachment, unified error decoding, and automatic 401/403 session redirection.
+</p>
+
+<table class="meta-table">
+  <tr>
+    <th style="width: 25%;">Service Context</th>
+    <th style="width: 35%;">Gateway Base URL</th>
+    <th style="width: 40%;">Vite Dev Proxy Target</th>
+  </tr>
+  <tr>
+    <td><strong>Auth Service</strong></td>
+    <td><code class="code-font">${GATEWAY_URL}/auth</code></td>
+    <td><code class="code-font">/auth</code> &rarr; <code class="code-font">http://localhost:8092</code></td>
+  </tr>
+  <tr>
+    <td><strong>User Management Service</strong></td>
+    <td><code class="code-font">${GATEWAY_URL}/user-management</code></td>
+    <td><code class="code-font">/user-management</code> &rarr; <code class="code-font">http://localhost:8092</code></td>
+  </tr>
+  <tr>
+    <td><strong>Revenue Microservice</strong></td>
+    <td><code class="code-font">${GATEWAY_URL}/revenue</code></td>
+    <td><code class="code-font">/revenue</code> &rarr; <code class="code-font">http://localhost:8092</code></td>
+  </tr>
+</table>
+
+<h2>2. Authentication & Session APIs</h2>
+<p>Managed via <code class="code-font">apiConfig.js</code>, <code class="code-font">Login.jsx</code>, <code class="code-font">Header.jsx</code>, <code class="code-font">UserProfileModal.jsx</code>, and <code class="code-font">main.jsx</code>.</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width: 10%;">Method</th>
+      <th style="width: 32%;">API Gateway Path</th>
+      <th style="width: 28%;">Proxy / Fallback Path</th>
+      <th style="width: 15%;">Component / Function</th>
+      <th style="width: 15%;">Security Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/auth/public/v1/auth/login</code></td>
+      <td><code class="code-font">/auth/public/v1/auth/login</code></td>
+      <td>Login.jsx<br><span style="font-size: 8.5pt; color: #64748b;">handleSubmit</span></td>
+      <td><span class="badge-public">PUBLIC</span></td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/auth/private/v1/auth/profile</code></td>
+      <td><code class="code-font">/auth/private/v1/auth/profile</code></td>
+      <td>Header.jsx, UserProfileModal.jsx</td>
+      <td><span class="badge-private">BEARER JWT</span></td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/auth/private/v1/auth/menus</code></td>
+      <td><code class="code-font">/auth/private/v1/auth/menus</code></td>
+      <td>main.jsx<br><span style="font-size: 8.5pt; color: #64748b;">fetchMenus</span></td>
+      <td><span class="badge-private">BEARER JWT</span></td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/auth/private/v1/auth/logout</code></td>
+      <td><code class="code-font">/auth/private/v1/auth/logout</code></td>
+      <td>apiConfig.js<br><span style="font-size: 8.5pt; color: #64748b;">performLogout</span></td>
+      <td><span class="badge-private">BEARER JWT</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>3. User Management APIs (<code class="code-font">userApi.js</code>)</h2>
+<p>CRUD operations and user-to-role mappings consumed by <code class="code-font">UserManagement.jsx</code> and <code class="code-font">RoleManagement.jsx</code>.</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width: 10%;">Method</th>
+      <th style="width: 38%;">API Gateway Path</th>
+      <th style="width: 24%;">JS Function</th>
+      <th style="width: 28%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/users</code></td>
+      <td><code class="code-font">fetchUsers()</code></td>
+      <td>Fetch all registered users with profiles</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/users</code></td>
+      <td><code class="code-font">createUser(userData)</code></td>
+      <td>Register a new user account</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/users/update</code></td>
+      <td><code class="code-font">updateUser(userData)</code></td>
+      <td>Update existing user details & roles</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/users/delete/{userId}</code></td>
+      <td><code class="code-font">deleteUser(userId)</code></td>
+      <td>Delete or deactivate user by ID</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/user-roles</code></td>
+      <td><code class="code-font">fetchUserRoleMappings()</code></td>
+      <td>Fetch all user-to-role assignment records</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/user-roles</code></td>
+      <td><code class="code-font">createUserRoleMapping(data)</code></td>
+      <td>Assign role to user ID</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>4. Role Management APIs (<code class="code-font">roleApi.js</code>)</h2>
+<p>RBAC Role definitions and classification consumed by <code class="code-font">RoleManagement.jsx</code> and <code class="code-font">UserForm.jsx</code>.</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width: 10%;">Method</th>
+      <th style="width: 40%;">API Gateway Path</th>
+      <th style="width: 24%;">JS Function</th>
+      <th style="width: 26%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/roles</code></td>
+      <td><code class="code-font">fetchRoles()</code></td>
+      <td>Fetch all roles with associated privileges</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/roles</code></td>
+      <td><code class="code-font">createRole(roleData)</code></td>
+      <td>Create new role with privilege mappings</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/roles/update</code></td>
+      <td><code class="code-font">updateRole(...)</code></td>
+      <td>Update role name, level, and privileges</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/roles/delete/{roleId}</code></td>
+      <td><code class="code-font">deleteRole(roleId)</code></td>
+      <td>Delete a role by ID</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/roles/toggle-status/{roleId}</code></td>
+      <td><code class="code-font">toggleRoleStatus(...)</code></td>
+      <td>Toggle role active/inactive status (query param ?reason=)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/role-types</code></td>
+      <td><code class="code-font">fetchActiveRoleTypes()</code></td>
+      <td>Fetch active role types (Maker, Checker, None)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/role-levels</code></td>
+      <td><code class="code-font">fetchActiveRoleLevels()</code></td>
+      <td>Fetch active role levels (State, District, PRI, ULB)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>5. Privilege Management APIs (<code class="code-font">privilegeApi.js</code>)</h2>
+<p>Privilege specifications and resource binding consumed by <code class="code-font">PrivilegeManagement.jsx</code> and <code class="code-font">PrivilegeForm.jsx</code>.</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width: 10%;">Method</th>
+      <th style="width: 44%;">API Gateway Path</th>
+      <th style="width: 22%;">JS Function</th>
+      <th style="width: 24%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/privileges</code></td>
+      <td><code class="code-font">fetchPrivileges()</code></td>
+      <td>Fetch list of all privileges</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/privileges/{id}</code></td>
+      <td><code class="code-font">getPrivilegeById(id)</code></td>
+      <td>Get privilege details with assigned resources</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/privileges</code></td>
+      <td><code class="code-font">createPrivilege(data)</code></td>
+      <td>Create new privilege entity</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/privileges/update</code></td>
+      <td><code class="code-font">updatePrivilege(...)</code></td>
+      <td>Update privilege properties</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/privileges/delete/{id}</code></td>
+      <td><code class="code-font">deletePrivilege(id)</code></td>
+      <td>Delete privilege by ID</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/privilege-resources/privilege/{id}</code></td>
+      <td><code class="code-font">getPrivilegeResources...</code></td>
+      <td>Fetch resources mapped to privilege</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/privilege-resources?privilegeId=...&resourceId=...</code></td>
+      <td><code class="code-font">createPrivilegeResource</code></td>
+      <td>Assign resource to privilege</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/privilege-resources/delete/{privId}/{resId}</code></td>
+      <td><code class="code-font">deletePrivilegeResource</code></td>
+      <td>Remove resource from privilege</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>6. Resource Management APIs (<code class="code-font">resourceApi.js</code>)</h2>
+<p>Fine-grained security resources (APIs, Menu Items, Frontend Routes) consumed by <code class="code-font">ManageResources.jsx</code> and <code class="code-font">ResourceForm.jsx</code>.</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width: 10%;">Method</th>
+      <th style="width: 42%;">API Gateway Path</th>
+      <th style="width: 22%;">JS Function</th>
+      <th style="width: 26%;">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/user-management/private/v1/resources</code></td>
+      <td><code class="code-font">fetchResources()</code></td>
+      <td>Fetch all resources (APIs, Menus, Buttons)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/resources</code></td>
+      <td><code class="code-font">createResource(data)</code></td>
+      <td>Register a new system resource</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/resources/update/{id}</code></td>
+      <td><code class="code-font">updateResource(data)</code></td>
+      <td>Update existing resource definition</td>
+    </tr>
+    <tr>
+      <td><span class="badge-post">POST</span></td>
+      <td><code class="code-font">/user-management/private/v1/resources/delete/{id}</code></td>
+      <td><code class="code-font">deleteResource(id)</code></td>
+      <td>Delete resource by ID</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>7. Revenue & Master Location Data APIs (<code class="code-font">revenueApi.js</code>)</h2>
+<p>Integration with Revenue microservice and master reference data consumed by <code class="code-font">RevenueTestView.jsx</code> and <code class="code-font">UserForm.jsx</code>.</p>
+
+<table class="data-table">
+  <thead>
+    <tr>
+      <th style="width: 10%;">Method</th>
+      <th style="width: 32%;">API Gateway Path</th>
+      <th style="width: 32%;">Direct / External Fallback</th>
+      <th style="width: 26%;">Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/revenue/private/v1/test/api1</code></td>
+      <td><code class="code-font">http://localhost:18062/private/v1/test/api1</code></td>
+      <td>Revenue API 1 (Service Status)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/revenue/private/v1/test/api2</code></td>
+      <td><code class="code-font">http://localhost:18062/private/v1/test/api2</code></td>
+      <td>Revenue API 2 (Health & Activity)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/revenue/private/v1/test/api3</code></td>
+      <td><code class="code-font">http://localhost:18062/private/v1/test/api3</code></td>
+      <td>Revenue API 3 (Management Gateway)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/revenue/private/v1/test/api4</code></td>
+      <td><code class="code-font">http://localhost:18062/private/v1/test/api4</code></td>
+      <td>Revenue API 4 (Server Ping-Pong)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/revenue/private/v1/test/api5</code></td>
+      <td><code class="code-font">http://localhost:18062/private/v1/test/api5</code></td>
+      <td>Revenue API 5 (Verification Completed)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/revenue/public/v1/state</code></td>
+      <td><code class="code-font">https://lgdirectory.gov.in/audit/revenue/public/v1/state</code></td>
+      <td>Fetch all States list (Public master data)</td>
+    </tr>
+    <tr>
+      <td><span class="badge-get">GET</span></td>
+      <td><code class="code-font">/revenue/public/v1/district/{stateCode}</code></td>
+      <td><code class="code-font">https://lgdirectory.gov.in/audit/revenue/public/v1/district/{code}</code></td>
+      <td>Fetch Districts by State code</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="footer-note">
+  Local Government Directory 2.0 &bull; National Informatics Centre (NIC) &bull; Ministry of Panchayati Raj, Government of India
+</div>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+services:
+  service-discovery:
+    build:
+      context: ./discovery
+      dockerfile: Dockerfile
+    container_name: service-discovery
+    ports:
+      - "8761:8761"
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m"
+      SERVER_PORT: 8761
+      SPRING_APPLICATION_NAME: service-discovery
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+      EUREKA_CLIENT_FETCH_REGISTRY: "false"
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8761/eureka/apps > /dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 25s
+    networks:
+      - lgd-network
+    restart: unless-stopped
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "18090:18090"
+    depends_on:
+      service-discovery:
+        condition: service_healthy
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m"
+      SERVER_PORT: 18090
+      SPRING_APPLICATION_NAME: auth-service
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATA_REDIS_HOST: host.docker.internal
+      SPRING_DATA_REDIS_PORT: 6379
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      JWT_SECRET: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+      CORS_ALLOWED_ORIGINS: "http://localhost:3000,http://localhost:4200,http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:5176,http://localhost:*,http://127.0.0.1:*"
+      REVENUE_SERVICE_URL: http://revenue:18062/public/v1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - lgd-network
+    restart: unless-stopped
+
+  user-management:
+    build:
+      context: ./user-management
+      dockerfile: Dockerfile
+    container_name: user-management
+    ports:
+      - "18089:18089"
+    depends_on:
+      service-discovery:
+        condition: service_healthy
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m"
+      SERVER_PORT: 18089
+      SPRING_APPLICATION_NAME: user-management
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATA_REDIS_HOST: host.docker.internal
+      SPRING_DATA_REDIS_PORT: 6379
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      JWT_SECRET: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - lgd-network
+    restart: unless-stopped
+
+  revenue:
+    build:
+      context: ./revenue
+      dockerfile: Dockerfile
+    container_name: revenue
+    ports:
+      - "18062:18062"
+    depends_on:
+      service-discovery:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m"
+      SERVER_PORT: 18062
+      SPRING_APPLICATION_NAME: revenue
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATA_REDIS_HOST: host.docker.internal
+      SPRING_DATA_REDIS_PORT: 6379
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      USER_SERVICE_URL: http://auth-service:18090
+      JWT_SECRET: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+      ESIGN_OUTPUT_FILE_PATH: "/tmp/uploadFile"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - lgd-network
+    restart: unless-stopped
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8092:8092"
+    depends_on:
+      service-discovery:
+        condition: service_healthy
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms256m -Xmx512m"
+      SERVER_PORT: 8092
+      SPRING_APPLICATION_NAME: api-gateway
+      SPRING_MAIN_ALLOW_CIRCULAR_REFERENCES: "true"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/lgd
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://service-discovery:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      USER_MANAGEMENT_SERVICE_URL: http://user-management:18089
+      JWT_SECRET: "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - lgd-network
+    restart: unless-stopped
+
+networks:
+  lgd-network:
+    driver: bridge

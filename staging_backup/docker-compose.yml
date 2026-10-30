@@ -1,0 +1,94 @@
+version: "3.9"
+
+services:
+
+  discovery:
+    build: ./discovery
+    container_name: discovery
+    ports:
+      - "8761:8761"
+    networks:
+      - lgd-network
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "8092:8092"
+    depends_on:
+      - discovery
+      - block
+      - localbody
+      - revenue
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+    networks:
+      - lgd-network
+
+  block:
+    build: ./block
+    container_name: block
+    ports:
+      - "18064:18064"   # change if needed
+    depends_on:
+      - discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+    networks:
+      - lgd-network
+
+  localbody:
+    build: ./localbody
+    container_name: localbody
+    ports:
+      - "18063:18063"   # change if needed
+    depends_on:
+      - discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+    networks:
+      - lgd-network
+
+  revenue:
+    build: ./revenue
+    container_name: revenue
+    ports:
+      - "18062:18062"   # change if needed
+    depends_on:
+      - discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+    networks:
+      - lgd-network
+    volumes:
+      - /san_lgd/staging/uploadgovtorderonline:/san_lgd/staging/uploadgovtorderonline
+
+  reportanddashboard:
+    build: ./reports-dashboard
+    container_name: reports-dashboard
+    ports:
+      - "18065:18065"   # change if needed
+    depends_on:
+      - discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+    networks:
+      - lgd-network
+
+  lgdchatbot:
+    build: ./lgd-chatbot-service
+    container_name: lgd-chatbot-service
+    ports:
+      - "18068:18068"   # change if needed
+    depends_on:
+      - discovery
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+    networks:
+      - lgd-network	
+
+ 
+
+networks:
+  lgd-network:
+    driver: bridge

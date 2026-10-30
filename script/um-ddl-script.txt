@@ -1,0 +1,376 @@
+-- um.privilege definition
+
+-- Drop table
+
+-- DROP TABLE um.privilege;
+
+CREATE TABLE um.privilege (
+	privilege_id bigserial NOT NULL,
+	privilege_code varchar(150) NOT NULL,
+	privilege_name varchar(200) NOT NULL,
+	"action" varchar(50) NOT NULL,
+	description varchar(500) NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	updated_at timestamp NULL,
+	updated_by int8 NULL,
+	is_system bool DEFAULT false NOT NULL,
+	CONSTRAINT privilege_pkey PRIMARY KEY (privilege_id),
+	CONSTRAINT uk_privilege_code UNIQUE (privilege_code)
+);
+
+
+-- um.role_level_master definition
+
+-- Drop table
+
+-- DROP TABLE um.role_level_master;
+
+CREATE TABLE um.role_level_master (
+	role_level_code varchar(10) NOT NULL,
+	role_level_name varchar(100) NOT NULL,
+	description varchar(500) NULL,
+	display_order int4 NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	updated_at timestamp NULL,
+	updated_by int8 NULL,
+	created_ip inet NULL,
+	updated_ip inet NULL,
+	CONSTRAINT chk_role_level_code_not_blank CHECK ((btrim((role_level_code)::text) <> ''::text)),
+	CONSTRAINT chk_role_level_name_not_blank CHECK ((btrim((role_level_name)::text) <> ''::text)),
+	CONSTRAINT role_level_master_pkey PRIMARY KEY (role_level_code),
+	CONSTRAINT uk_role_level_name UNIQUE (role_level_name)
+);
+
+
+-- um.role_type_master definition
+
+-- Drop table
+
+-- DROP TABLE um.role_type_master;
+
+CREATE TABLE um.role_type_master (
+	role_type_code varchar(10) NOT NULL,
+	role_type_name varchar(100) NOT NULL,
+	description varchar(500) NULL,
+	display_order int4 NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	updated_at timestamp NULL,
+	updated_by int8 NULL,
+	created_ip inet NULL,
+	updated_ip inet NULL,
+	CONSTRAINT chk_role_type_code_not_blank CHECK ((btrim((role_type_code)::text) <> ''::text)),
+	CONSTRAINT chk_role_type_name_not_blank CHECK ((btrim((role_type_name)::text) <> ''::text)),
+	CONSTRAINT role_type_master_pkey PRIMARY KEY (role_type_code),
+	CONSTRAINT uk_role_type_name UNIQUE (role_type_name)
+);
+
+
+-- um.user_profile definition
+
+-- Drop table
+
+-- DROP TABLE um.user_profile;
+
+CREATE TABLE um.user_profile (
+	user_profile_id serial4 NOT NULL,
+	user_profile_name varchar(100) NOT NULL,
+	designation varchar(100) NULL,
+	mobile_no varchar(10) NOT NULL,
+	email_id varchar(100) NOT NULL,
+	state_code int4 NOT NULL,
+	created_by int4 NULL,
+	created_on timestamp NULL,
+	modified_by int4 NULL,
+	modified_on timestamp NULL,
+	user_id int8 NOT NULL,
+	is_email_verified bool NULL,
+	is_mobile_no_verified bool NULL,
+	maker_checker_status bpchar(1) NULL,
+	login_time timestamp NULL,
+	ip_address varchar NULL,
+	user_type bpchar(1) NULL,
+	"level" bpchar(1) NULL,
+	district_code int4 NULL,
+	nodal_officer_id int4 NULL,
+	CONSTRAINT user_profile_pk PRIMARY KEY (user_profile_id)
+);
+
+
+-- um.user_role_mapping_history definition
+
+-- Drop table
+
+-- DROP TABLE um.user_role_mapping_history;
+
+CREATE TABLE um.user_role_mapping_history (
+	user_role_mapping_history_id bigserial NOT NULL,
+	user_role_mapping_id int8 NOT NULL,
+	user_id int8 NOT NULL,
+	role_id int8 NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_on timestamp NULL,
+	created_by int8 NULL,
+	last_updated_on timestamp NULL,
+	last_updated_by int8 NULL,
+	ip_created inet NULL,
+	ip_updated inet NULL,
+	operation_type varchar(20) NOT NULL,
+	operation_on timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	operation_by int8 NULL,
+	operation_ip varchar(45) NULL,
+	change_reason varchar(500) NULL,
+	CONSTRAINT user_role_mapping_history_pkey PRIMARY KEY (user_role_mapping_history_id)
+);
+CREATE INDEX idx_urm_hist_mapping_id ON um.user_role_mapping_history USING btree (user_role_mapping_id);
+CREATE INDEX idx_urm_hist_role_id ON um.user_role_mapping_history USING btree (role_id);
+CREATE INDEX idx_urm_hist_user_id ON um.user_role_mapping_history USING btree (user_id);
+
+
+-- um.users definition
+
+-- Drop table
+
+-- DROP TABLE um.users;
+
+CREATE TABLE um.users (
+	user_id bigserial NOT NULL,
+	user_login_id varchar(100) NOT NULL,
+	password_hash varchar(500) NOT NULL,
+	state_code int4 NULL,
+	district_code int4 NULL,
+	specific_role_id int8 NULL,
+	specific_org_unit_code int4 NULL,
+	specific_admin_unit_entity_code int4 NULL,
+	user_level varchar(50) NULL,
+	created_on timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	last_updated_on timestamp NULL,
+	last_updated_by int8 NULL,
+	ip_created varchar(45) NULL,
+	ip_updated varchar(45) NULL,
+	is_active bool DEFAULT true NOT NULL,
+	is_deleted bool DEFAULT false NOT NULL,
+	is_system bool DEFAULT false NOT NULL,
+	CONSTRAINT chk_users_ip_created CHECK (((ip_created IS NULL) OR (length(TRIM(BOTH FROM ip_created)) > 0))),
+	CONSTRAINT chk_users_ip_updated CHECK (((ip_updated IS NULL) OR (length(TRIM(BOTH FROM ip_updated)) > 0))),
+	CONSTRAINT uk_users_login_id UNIQUE (user_login_id),
+	CONSTRAINT users_pkey PRIMARY KEY (user_id)
+);
+CREATE INDEX idx_users_active ON um.users USING btree (is_active) WHERE (is_active = true);
+CREATE INDEX idx_users_active_not_deleted ON um.users USING btree (user_login_id) WHERE ((is_active = true) AND (is_deleted = false));
+CREATE INDEX idx_users_admin_unit_entity ON um.users USING btree (specific_admin_unit_entity_code);
+CREATE INDEX idx_users_district_code ON um.users USING btree (district_code);
+CREATE INDEX idx_users_org_unit ON um.users USING btree (specific_org_unit_code);
+CREATE INDEX idx_users_specific_role ON um.users USING btree (specific_role_id);
+CREATE INDEX idx_users_state_code ON um.users USING btree (state_code);
+
+
+-- um.users_history definition
+
+-- Drop table
+
+-- DROP TABLE um.users_history;
+
+CREATE TABLE um.users_history (
+	user_history_id bigserial NOT NULL,
+	user_id int8 NOT NULL,
+	user_login_id varchar(100) NOT NULL,
+	password_hash varchar(500) NULL,
+	state_code int4 NULL,
+	district_code int4 NULL,
+	specific_role_id int8 NULL,
+	specific_org_unit_code int4 NULL,
+	specific_admin_unit_entity_code int4 NULL,
+	user_level varchar(50) NULL,
+	is_active bool NOT NULL,
+	is_deleted bool NOT NULL,
+	user_created_on timestamp NULL,
+	user_created_by int8 NULL,
+	user_last_updated_on timestamp NULL,
+	user_last_updated_by int8 NULL,
+	operation_type varchar(20) NOT NULL,
+	operation_on timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	operation_by int8 NULL,
+	operation_ip varchar(45) NULL,
+	change_reason varchar(500) NULL,
+	CONSTRAINT chk_users_history_operation_ip CHECK (((operation_ip IS NULL) OR (length(TRIM(BOTH FROM operation_ip)) > 0))),
+	CONSTRAINT chk_users_history_operation_type CHECK (((operation_type)::text = ANY (ARRAY[('INSERT'::character varying)::text, ('UPDATE'::character varying)::text, ('DELETE'::character varying)::text, ('ACTIVATE'::character varying)::text, ('DEACTIVATE'::character varying)::text]))),
+	CONSTRAINT users_history_pkey PRIMARY KEY (user_history_id)
+);
+CREATE INDEX idx_users_history_district_code ON um.users_history USING btree (district_code);
+CREATE INDEX idx_users_history_login_id ON um.users_history USING btree (user_login_id);
+CREATE INDEX idx_users_history_operation_by ON um.users_history USING btree (operation_by);
+CREATE INDEX idx_users_history_operation_on ON um.users_history USING btree (operation_on);
+CREATE INDEX idx_users_history_operation_type ON um.users_history USING btree (operation_type);
+CREATE INDEX idx_users_history_role ON um.users_history USING btree (specific_role_id);
+CREATE INDEX idx_users_history_state_code ON um.users_history USING btree (state_code);
+CREATE INDEX idx_users_history_user_id ON um.users_history USING btree (user_id);
+
+
+-- um.resource definition
+
+-- Drop table
+
+-- DROP TABLE um.resource;
+
+CREATE TABLE um.resource (
+	resource_id bigserial NOT NULL,
+	resource_code varchar(150) NOT NULL,
+	resource_name varchar(200) NOT NULL,
+	resource_type varchar(20) NOT NULL,
+	service_name varchar(150) NULL,
+	api_path varchar(500) NULL,
+	http_method varchar(20) NULL,
+	frontend_route varchar(500) NULL,
+	parent_resource_id int8 NULL,
+	description varchar(500) NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	updated_at timestamp NULL,
+	updated_by int8 NULL,
+	display_order int4 DEFAULT 0 NULL,
+	icon varchar(100) NULL,
+	is_system bool DEFAULT false NOT NULL,
+	CONSTRAINT chk_resource_api_details CHECK ((((resource_type)::text <> 'API'::text) OR ((service_name IS NOT NULL) AND (api_path IS NOT NULL) AND (http_method IS NOT NULL)))),
+	CONSTRAINT chk_resource_frontend_details CHECK ((((resource_type)::text = 'API'::text) OR (frontend_route IS NOT NULL))),
+	CONSTRAINT chk_resource_type CHECK (((resource_type)::text = ANY (ARRAY[('API'::character varying)::text, ('ROUTE'::character varying)::text, ('MENU'::character varying)::text]))),
+	CONSTRAINT resource_pkey PRIMARY KEY (resource_id),
+	CONSTRAINT uk_resource_code UNIQUE (resource_code),
+	CONSTRAINT fk_resource_parent FOREIGN KEY (parent_resource_id) REFERENCES um.resource(resource_id)
+);
+CREATE INDEX idx_resource_parent_order ON um.resource USING btree (parent_resource_id, display_order);
+
+
+-- um."role" definition
+
+-- Drop table
+
+-- DROP TABLE um."role";
+
+CREATE TABLE um."role" (
+	role_id bigserial NOT NULL,
+	role_code varchar(100) NOT NULL,
+	role_name varchar(200) NOT NULL,
+	description varchar(500) NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	updated_at timestamp NULL,
+	updated_by int8 NULL,
+	role_level_code varchar(10) NULL,
+	role_type_code varchar(10) NULL,
+	created_ip inet NULL,
+	updated_ip inet NULL,
+	is_system bool DEFAULT false NOT NULL,
+	CONSTRAINT role_pkey PRIMARY KEY (role_id),
+	CONSTRAINT uk_role_code UNIQUE (role_code),
+	CONSTRAINT uk_role_name UNIQUE (role_name),
+	CONSTRAINT fk_role_level FOREIGN KEY (role_level_code) REFERENCES um.role_level_master(role_level_code),
+	CONSTRAINT fk_role_type FOREIGN KEY (role_type_code) REFERENCES um.role_type_master(role_type_code)
+);
+
+
+-- um.role_history definition
+
+-- Drop table
+
+-- DROP TABLE um.role_history;
+
+CREATE TABLE um.role_history (
+	role_history_id bigserial NOT NULL,
+	role_id int8 NOT NULL,
+	version_no int4 NOT NULL,
+	role_code varchar(100) NOT NULL,
+	role_name varchar(200) NOT NULL,
+	description varchar(500) NULL,
+	role_level_code varchar(10) NOT NULL,
+	role_type_code varchar(10) NOT NULL,
+	is_active bool NOT NULL,
+	"action" varchar(20) NOT NULL,
+	changed_by int8 NULL,
+	changed_ip inet NULL,
+	changed_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	change_reason varchar(1000) NULL,
+	CONSTRAINT chk_role_history_action CHECK (((action)::text = ANY (ARRAY[('CREATE'::character varying)::text, ('UPDATE'::character varying)::text, ('ACTIVATE'::character varying)::text, ('DEACTIVATE'::character varying)::text]))),
+	CONSTRAINT chk_role_history_version CHECK ((version_no > 0)),
+	CONSTRAINT role_history_pkey PRIMARY KEY (role_history_id),
+	CONSTRAINT uk_role_history_version UNIQUE (role_id, version_no),
+	CONSTRAINT fk_role_history_level FOREIGN KEY (role_level_code) REFERENCES um.role_level_master(role_level_code),
+	CONSTRAINT fk_role_history_role FOREIGN KEY (role_id) REFERENCES um."role"(role_id),
+	CONSTRAINT fk_role_history_type FOREIGN KEY (role_type_code) REFERENCES um.role_type_master(role_type_code)
+);
+
+
+-- um.role_privilege definition
+
+-- Drop table
+
+-- DROP TABLE um.role_privilege;
+
+CREATE TABLE um.role_privilege (
+	role_privilege_id bigserial NOT NULL,
+	role_id int8 NOT NULL,
+	privilege_id int8 NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	updated_at timestamp NULL,
+	updated_by int8 NULL,
+	created_ip inet NULL,
+	updated_ip inet NULL,
+	CONSTRAINT role_privilege_pkey PRIMARY KEY (role_privilege_id),
+	CONSTRAINT uq_role_privilege UNIQUE (role_id, privilege_id),
+	CONSTRAINT fk_role_privilege_privilege FOREIGN KEY (privilege_id) REFERENCES um.privilege(privilege_id),
+	CONSTRAINT fk_role_privilege_role FOREIGN KEY (role_id) REFERENCES um."role"(role_id)
+);
+
+
+-- um.user_role_mapping definition
+
+-- Drop table
+
+-- DROP TABLE um.user_role_mapping;
+
+CREATE TABLE um.user_role_mapping (
+	user_role_mapping_id bigserial NOT NULL,
+	user_id int8 NOT NULL,
+	role_id int8 NOT NULL,
+	is_active bool DEFAULT true NOT NULL,
+	created_on timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	last_updated_on timestamp NULL,
+	last_updated_by int8 NULL,
+	ip_created inet NULL,
+	ip_updated inet NULL,
+	CONSTRAINT uk_user_role UNIQUE (user_id, role_id),
+	CONSTRAINT user_role_mapping_pkey PRIMARY KEY (user_role_mapping_id),
+	CONSTRAINT fk_user_role_mapping_role FOREIGN KEY (role_id) REFERENCES um."role"(role_id),
+	CONSTRAINT fk_user_role_mapping_user FOREIGN KEY (user_id) REFERENCES um.users(user_id)
+);
+CREATE INDEX idx_user_role_mapping_active ON um.user_role_mapping USING btree (is_active) WHERE (is_active = true);
+CREATE INDEX idx_user_role_mapping_role ON um.user_role_mapping USING btree (role_id);
+CREATE INDEX idx_user_role_mapping_user ON um.user_role_mapping USING btree (user_id);
+
+
+-- um.privilege_resource definition
+
+-- Drop table
+
+-- DROP TABLE um.privilege_resource;
+
+CREATE TABLE um.privilege_resource (
+	privilege_id int8 NOT NULL,
+	resource_id int8 NOT NULL,
+	created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by int8 NULL,
+	CONSTRAINT pk_privilege_resource PRIMARY KEY (privilege_id, resource_id),
+	CONSTRAINT fk_pr_resource_privilege FOREIGN KEY (privilege_id) REFERENCES um.privilege(privilege_id) ON DELETE CASCADE,
+	CONSTRAINT fk_pr_resource_resource FOREIGN KEY (resource_id) REFERENCES um.resource(resource_id) ON DELETE CASCADE
+);
