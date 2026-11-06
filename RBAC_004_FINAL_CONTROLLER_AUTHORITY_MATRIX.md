@@ -1,0 +1,69 @@
+# LGD 2.0 — RBAC-004 FINAL CONTROLLER AUTHORITY MATRIX
+## Comprehensive 25-Endpoint Authorization & Least-Privilege Separation Specification
+
+| Document Metadata | Authoritative Value |
+| :--- | :--- |
+| **System** | Local Government Directory 2.0 (LGD 2.0) |
+| **Audit Milestone** | **Phase 6: Authorization, RBAC & Multi-Tenancy Boundary Audit** |
+| **Evaluation Scope** | **RBAC-004 Final 25-Endpoint Authority Matrix** |
+| **Document Purpose** | Method-by-Method Inventory of Authorization Rules, Effective Authorities & Separation Status |
+| **Date of Evaluation** | November 5, 2026 |
+| **Total Endpoints Evaluated** | **25 Discrete Controller Endpoints** |
+| **Controllers Evaluated** | `RoleLevelMasterController` (7), `RoleTypeMasterController` (7), `PrivilegeController` (5), `ResourceController` (6) |
+| **Microservice** | [`user-management`](file:///e:/System/Projects/dockerProject/Source%20code/lgd-active-new/user-management) |
+| **Runtime Security Engine** | Spring Security 6.x (`@EnableMethodSecurity` active on [`SecurityConfig.java`](file:///e:/System/Projects/dockerProject/Source%20code/lgd-active-new/user-management/src/main/java/in/nic/lgd/usermanagement/user/security/SecurityConfig.java)) |
+
+---
+
+## 1. Master 25-Endpoint Controller Authority Matrix
+
+The table below records the complete architectural state of all 25 endpoints, comparing baseline (pre-remediation) vs remediated security rules and effective authority requirements.
+
+| # | HTTP Method | Endpoint URI Pattern | Java Method Signature | Op Classification | Baseline Class Rule | Baseline Method Rule | Remediated Class Rule | Remediated Method Rule | Effective Required Authority | Final Security Posture |
+| :-: | :---: | :--- | :--- | :---: | :--- | :---: | :--- | :--- | :--- | :---: |
+| **1** | `POST` | `/private/v1/role-levels` | `saveRoleLevel(RoleLevelMasterDto)` | **WRITE** (Create) | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_LEVEL', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **2** | `GET` | `/private/v1/role-levels` | `manageRoleLevels()` | **READ** (List) | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_ROLE_LEVEL', 'MANAGE_ROLE_LEVEL', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: Viewers & Managers permitted (200) |
+| **3** | `GET` | `/private/v1/role-levels/{roleLevelCode}` | `viewRoleLevel(String)` | **READ** (Details) | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_ROLE_LEVEL', 'MANAGE_ROLE_LEVEL', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: Viewers & Managers permitted (200) |
+| **4** | `POST` | `/private/v1/role-levels/update/{roleLevelCode}` | `updateRoleLevel(String, RoleLevelMasterDto)` | **WRITE** (Update) | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_LEVEL', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **5** | `POST` | `/private/v1/role-levels/delete/{roleLevelCode}` | `deleteRoleLevel(String)` | **WRITE** (Delete) | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_LEVEL', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **6** | `GET` | `/private/v1/role-levels/active` | `getActiveRoleLevels()` | **READ** (Active List) | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_ROLE_LEVEL', 'MANAGE_ROLE_LEVEL', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: Viewers & Managers permitted (200) |
+| **7** | `POST` | `/private/v1/role-levels/update/{roleLevelCode}/toggle-status` | `toggleStatus(String)` | **WRITE** (Status Toggle) | `VIEW_ROLE_LEVEL`, `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_LEVEL', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_LEVEL`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **8** | `POST` | `/private/v1/role-types` | `saveRoleType(RoleTypeMasterDto)` | **WRITE** (Create) | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_TYPE', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **9** | `GET` | `/private/v1/role-types` | `manageRoleTypes()` | **READ** (List) | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_ROLE_TYPE', 'MANAGE_ROLE_TYPE', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: Viewers & Managers permitted (200) |
+| **10** | `GET` | `/private/v1/role-types/{roleTypeCode}` | `viewRoleType(String)` | **READ** (Details) | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_ROLE_TYPE', 'MANAGE_ROLE_TYPE', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: Viewers & Managers permitted (200) |
+| **11** | `POST` | `/private/v1/role-types/update/{roleTypeCode}` | `updateRoleType(String, RoleTypeMasterDto)` | **WRITE** (Update) | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_TYPE', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **12** | `POST` | `/private/v1/role-types/delete/{roleTypeCode}` | `deleteRoleType(String)` | **WRITE** (Delete) | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_TYPE', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **13** | `GET` | `/private/v1/role-types/active` | `getActiveRoleTypes()` | **READ** (Active List) | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_ROLE_TYPE', 'MANAGE_ROLE_TYPE', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: Viewers & Managers permitted (200) |
+| **14** | `POST` | `/private/v1/role-types/update/{roleTypeCode}/toggle-status` | `toggleStatus(String)` | **WRITE** (Status Toggle) | `VIEW_ROLE_TYPE`, `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | None | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_ROLE_TYPE', 'MANAGE_MASTER', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_ROLE_TYPE`, `MANAGE_MASTER`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **15** | `POST` | `/private/v1/privileges` | `createPrivilege(CreatePrivilegeDto)` | **WRITE** (Create) | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_PRIVILEGE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_PRIVILEGE`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **16** | `POST` | `/private/v1/privileges/update`, `/update/{id}` | `updatePrivilege(Long, UpdtaePrivilegeDto)` | **WRITE** (Update) | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_PRIVILEGE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_PRIVILEGE`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **17** | `GET` | `/private/v1/privileges/{id}` | `getPrivilegeById(Long)` | **READ** (Details) | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_PRIVILEGE', 'MANAGE_PRIVILEGE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_PRIVILEGE`, `MANAGE_PRIVILEGE`, `SUPER_ADMIN` | **SECURE (FIXED)**: Least privilege restored (200) |
+| **18** | `GET` | `/private/v1/privileges` | `getAllPrivileges()` | **READ** (List) | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_PRIVILEGE', 'MANAGE_PRIVILEGE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_PRIVILEGE`, `MANAGE_PRIVILEGE`, `SUPER_ADMIN` | **SECURE (FIXED)**: Least privilege restored (200) |
+| **19** | `POST` | `/private/v1/privileges/delete/{id}` | `deletePrivilege(Long)` | **WRITE** (Delete) | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_PRIVILEGE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_PRIVILEGE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_PRIVILEGE`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **20** | `POST` | `/private/v1/resources` | `saveResource(CreateResourceDto)` | **WRITE** (Create) | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_RESOURCE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_RESOURCE`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **21** | `GET` | `/private/v1/resources` | `manageResource()` | **READ** (List) | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_RESOURCE', 'MANAGE_RESOURCE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_RESOURCE`, `MANAGE_RESOURCE`, `SUPER_ADMIN` | **SECURE (FIXED)**: Least privilege restored (200) |
+| **22** | `GET` | `/private/v1/resources/{resourceId}` | `viewResource(Long)` | **READ** (Details) | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_RESOURCE', 'MANAGE_RESOURCE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_RESOURCE`, `MANAGE_RESOURCE`, `SUPER_ADMIN` | **SECURE (FIXED)**: Least privilege restored (200) |
+| **23** | `POST` | `/private/v1/resources/update`, `/update/{resourceId}` | `updateResource(Long, UpdateResourceDto)` | **WRITE** (Update) | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_RESOURCE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_RESOURCE`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **24** | `POST` | `/private/v1/resources/delete/{resourceId}` | `deleteResource(Long)` | **WRITE** (Delete) | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('MANAGE_RESOURCE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `MANAGE_RESOURCE`, `SUPER_ADMIN` | **SECURE (FIXED)**: View-only blocked (403) |
+| **25** | `POST` | `/private/v1/resources/by-privilege-codes` | `getResourcesByPrivilegeCodes(List<String>, String)` | **READ** (Query Body) | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | None | `MANAGE_RESOURCE`, `ROLE_SUPER_ADMIN` | `hasAnyAuthority('VIEW_RESOURCE', 'MANAGE_RESOURCE', 'ROLE_SUPER_ADMIN') or hasAnyRole('SUPER_ADMIN')` | `VIEW_RESOURCE`, `MANAGE_RESOURCE`, `SUPER_ADMIN` | **SECURE (FIXED)**: Least privilege restored (200) |
+
+---
+
+## 2. Statistical Breakdown
+
+```
+========================================================================================
+CONTROLLER AUTHORITY MATRIX DISTRIBUTION
+========================================================================================
+Total Endpoints Evaluated:                             25
+Total Write Endpoints (Create / Update / Delete / Toggle): 14
+Total Read Endpoints (List / Details / Active / Query):    11
+
+Endpoints with Method-Level @PreAuthorize:             25 / 25 (100% Explicit Coverage)
+Endpoints Protecting Writes from View-Only Roles:      14 / 14 (100% Protected)
+Endpoints Permitting Reads to View-Only Roles:          11 / 11 (100% Functional)
+Unauthenticated Access Denied (HTTP 401):              25 / 25 (100% Protected)
+Unauthorized ROLE_USER Denied (HTTP 403):              25 / 25 (100% Protected)
+SUPER_ADMIN Access Permitted across All:               25 / 25 (100% Accessible)
+========================================================================================
+```

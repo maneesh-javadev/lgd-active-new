@@ -1,0 +1,17 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD-P8-10 - Repository Integrity & Git State Snapshot
+Timestamp: 2026-11-06T09:06:00+05:30
+================================================================================
+ROOT REPOSITORY:
+Branch: master
+HEAD: e2df50f8c30197144377a2f931a4b3fbf03aeb1c
+Working tree status: Preserved without destructive changes.
+
+NESTED REPOSITORIES:
+- api-gateway:      dev (1e19cca2aface10f1561fda37d32efc144310fa9)
+- auth-service:     dev (2f3ab070da64f8675a8a6ea70b06eb522224e786)
+- discovery:        dev (f7f7adcf50f6818c7477a1fc08f39351160d83a2)
+- lgd-um:           dev (d65c994083ca05c9c1f4badeef1d1d821817f4de)
+- revenue:          master (6697a77d73a28a22765e1b750f6a085be8e32922)
+- user-management:  dev (a0017c536eee7cefa57845c30fa4d5210a4af9ce)
+================================================================================

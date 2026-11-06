@@ -1,0 +1,68 @@
+================================================================================
+LGD 2.0 FINAL REMEDIATION - AUTHORITATIVE SUREFIRE TEST CENSUS
+Timestamp: 2026-11-06T14:41:21+05:30
+Total Suites: 55 | Total Tests: 423 | Passed: 423 | Failures: 0 | Errors: 0 | Skipped: 0
+Overall Pass Rate: 100.0%
+================================================================================
+Service: discovery | Suites: 1 | Tests: 2 | Passed: 2 | Failed: 0 | Errors: 0 | Skipped: 0
+Service: auth-service | Suites: 11 | Tests: 46 | Passed: 46 | Failed: 0 | Errors: 0 | Skipped: 0
+Service: user-management | Suites: 31 | Tests: 304 | Passed: 304 | Failed: 0 | Errors: 0 | Skipped: 0
+Service: revenue | Suites: 7 | Tests: 48 | Passed: 48 | Failed: 0 | Errors: 0 | Skipped: 0
+Service: api-gateway | Suites: 5 | Tests: 23 | Passed: 23 | Failed: 0 | Errors: 0 | Skipped: 0
+
+INDIVIDUAL TEST SUITES:
+TEST-in.gov.lgd.gateway.filter.AuthenticationFilterTest.xml | Tests: 8 | Failures: 0 | Errors: 0 | Time: 2.137s
+TEST-in.gov.lgd.gateway.filter.IdentityHeaderSanitizationFilterTest.xml | Tests: 3 | Failures: 0 | Errors: 0 | Time: 0.02s
+TEST-in.gov.lgd.gateway.filter.RouteValidatorTest.xml | Tests: 5 | Failures: 0 | Errors: 0 | Time: 0.012s
+TEST-in.gov.lgd.gateway.filter.SecurityHeadersFilterTest.xml | Tests: 1 | Failures: 0 | Errors: 0 | Time: 0.016s
+TEST-in.gov.lgd.gateway.util.JwtUtilSecurityTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 1.135s
+TEST-in.nic.lgd.auth.controller.AuthPrimaryControllerTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 1.801s
+TEST-in.nic.lgd.auth.controller.AuthSecondaryControllerTest.xml | Tests: 1 | Failures: 0 | Errors: 0 | Time: 0.021s
+TEST-in.nic.lgd.auth.controller.JwksControllerTest.xml | Tests: 1 | Failures: 0 | Errors: 0 | Time: 0.817s
+TEST-in.nic.lgd.auth.security.JwtHardeningRegressionTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 12.12s
+TEST-in.nic.lgd.auth.security.JwtUtilTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 0.449s
+TEST-in.nic.lgd.auth.security.ProductionSecurityValidatorTest.xml | Tests: 5 | Failures: 0 | Errors: 0 | Time: 0.005s
+TEST-in.nic.lgd.auth.security.SecurityConfigTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 2.33s
+TEST-in.nic.lgd.auth.service.impl.AuthServiceImplTest.xml | Tests: 7 | Failures: 0 | Errors: 0 | Time: 0.512s
+TEST-in.nic.lgd.auth.service.impl.MenuServiceImplTest.xml | Tests: 3 | Failures: 0 | Errors: 0 | Time: 0.065s
+TEST-in.nic.lgd.auth.service.impl.RouteServiceImplTest.xml | Tests: 3 | Failures: 0 | Errors: 0 | Time: 0.0s
+TEST-in.nic.lgd.auth.service.impl.UserProfileServiceImplTest.xml | Tests: 2 | Failures: 0 | Errors: 0 | Time: 0.065s
+TEST-in.nic.servicediscovery.egra.service_discovery.EurekaSecurityTest.xml | Tests: 2 | Failures: 0 | Errors: 0 | Time: 5.405s
+TEST-in.nic.lgd.revenue.security.DraftTenantSecurityTest.xml | Tests: 9 | Failures: 0 | Errors: 0 | Time: 1.487s
+TEST-in.nic.lgd.revenue.security.EsignCallbackSecurityTest.xml | Tests: 13 | Failures: 0 | Errors: 0 | Time: 0.721s
+TEST-in.nic.lgd.revenue.security.EsignValidationSecurityTest.xml | Tests: 4 | Failures: 0 | Errors: 0 | Time: 0.096s
+TEST-in.nic.lgd.revenue.security.JwtUtilSecurityTest.xml | Tests: 4 | Failures: 0 | Errors: 0 | Time: 1.208s
+TEST-in.nic.lgd.revenue.security.SubDistrictPrimaryControllerSecurityTest.xml | Tests: 7 | Failures: 0 | Errors: 0 | Time: 1.189s
+TEST-in.nic.lgd.revenue.security.TestController40RouteCensusSecurityTest.xml | Tests: 5 | Failures: 0 | Errors: 0 | Time: 0.17s
+TEST-in.nic.lgd.revenue.security.XmlSignatureSecurityTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 0.019s
+TEST-in.nic.lgd.usermanagement.integration.LiveHttpSecurityIntegrationTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 12.908s
+TEST-in.nic.lgd.usermanagement.integration.Rbac001SecurityNegativeTest.xml | Tests: 10 | Failures: 0 | Errors: 0 | Time: 3.456s
+TEST-in.nic.lgd.usermanagement.integration.Rbac004EndpointSecurityIntegrationTest.xml | Tests: 58 | Failures: 0 | Errors: 0 | Time: 1.336s
+TEST-in.nic.lgd.usermanagement.integration.RbacSecurityIntegrationTest.xml | Tests: 10 | Failures: 0 | Errors: 0 | Time: 0.089s
+TEST-in.nic.lgd.usermanagement.integration.SecurityIntegrationTest.xml | Tests: 2 | Failures: 0 | Errors: 0 | Time: 0.025s
+TEST-in.nic.lgd.usermanagement.integration.UserManagementIntegrationTest.xml | Tests: 2 | Failures: 0 | Errors: 0 | Time: 1.21s
+TEST-in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeControllerTest.xml | Tests: 2 | Failures: 0 | Errors: 0 | Time: 1.579s
+TEST-in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeResourceControllerTest.xml | Tests: 3 | Failures: 0 | Errors: 0 | Time: 0.742s
+TEST-in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeResourceServiceImplTest.xml | Tests: 5 | Failures: 0 | Errors: 0 | Time: 0.467s
+TEST-in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeServiceImplTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 0.128s
+TEST-in.nic.lgd.usermanagement.modules.privilege.validator.CreatePrivilegeValidatorTest.xml | Tests: 13 | Failures: 0 | Errors: 0 | Time: 0.044s
+TEST-in.nic.lgd.usermanagement.modules.privilege.validator.PrivilegeValidatorTest.xml | Tests: 7 | Failures: 0 | Errors: 0 | Time: 0.016s
+TEST-in.nic.lgd.usermanagement.modules.resource.controller.ResourceControllerTest.xml | Tests: 10 | Failures: 0 | Errors: 0 | Time: 0.845s
+TEST-in.nic.lgd.usermanagement.modules.resource.mapper.ResourceMapperTest.xml | Tests: 5 | Failures: 0 | Errors: 0 | Time: 0.008s
+TEST-in.nic.lgd.usermanagement.modules.resource.service.impl.ResourceServiceImplTest.xml | Tests: 9 | Failures: 0 | Errors: 0 | Time: 0.027s
+TEST-in.nic.lgd.usermanagement.modules.resource.validator.CreateResourceValidatorTest.xml | Tests: 17 | Failures: 0 | Errors: 0 | Time: 0.037s
+TEST-in.nic.lgd.usermanagement.modules.resource.validator.UpdateResourceValidatorTest.xml | Tests: 19 | Failures: 0 | Errors: 0 | Time: 0.04s
+TEST-in.nic.lgd.usermanagement.modules.role.controller.RoleControllerTest.xml | Tests: 5 | Failures: 0 | Errors: 0 | Time: 0.771s
+TEST-in.nic.lgd.usermanagement.modules.role.service.impl.RoleServiceImplTest.xml | Tests: 11 | Failures: 0 | Errors: 0 | Time: 0.748s
+TEST-in.nic.lgd.usermanagement.modules.role.validator.CreateRoleValidatorTest.xml | Tests: 7 | Failures: 0 | Errors: 0 | Time: 0.013s
+TEST-in.nic.lgd.usermanagement.modules.role.validator.UpdateRoleValidatorTest.xml | Tests: 7 | Failures: 0 | Errors: 0 | Time: 0.013s
+TEST-in.nic.lgd.usermanagement.modules.user.controller.UserControllerTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 0.613s
+TEST-in.nic.lgd.usermanagement.modules.user.controller.UserRoleMappingControllerTest.xml | Tests: 7 | Failures: 0 | Errors: 0 | Time: 0.38s
+TEST-in.nic.lgd.usermanagement.modules.user.repository.UserRepositoryTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 1.114s
+TEST-in.nic.lgd.usermanagement.modules.user.repository.UserRoleMappingRepositoryTest.xml | Tests: 6 | Failures: 0 | Errors: 0 | Time: 0.091s
+TEST-in.nic.lgd.usermanagement.modules.user.service.impl.UserRoleMappingServiceImplTest.xml | Tests: 13 | Failures: 0 | Errors: 0 | Time: 0.179s
+TEST-in.nic.lgd.usermanagement.modules.user.service.impl.UserServiceImplTest.xml | Tests: 15 | Failures: 0 | Errors: 0 | Time: 0.406s
+TEST-in.nic.lgd.usermanagement.modules.user.validator.CreateUserValidatorTest.xml | Tests: 9 | Failures: 0 | Errors: 0 | Time: 0.012s
+TEST-in.nic.lgd.usermanagement.modules.user.validator.UpdateUserValidatorTest.xml | Tests: 8 | Failures: 0 | Errors: 0 | Time: 0.011s
+TEST-in.nic.lgd.usermanagement.user.security.JwtAuthenticationFilterTest.xml | Tests: 4 | Failures: 0 | Errors: 0 | Time: 0.018s
+TEST-in.nic.lgd.usermanagement.user.security.JwtUtilTest.xml | Tests: 16 | Failures: 0 | Errors: 0 | Time: 1.255s

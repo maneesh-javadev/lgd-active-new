@@ -1,0 +1,5 @@
+1e19cca chore: update tomcat and spring-security versions in api-gateway pom.xml
+e6d78e8 feat: add API gateway security filters, route validation, and comprehensive tests
+f3ae749 feat: implement JWT authentication and route authorization filters in api-gateway
+c6da3f3 feat(gateway): configure dynamic routes, authentication filter and user management client
+3b366d2 feat: integrate User Management Feign client and update gitignore

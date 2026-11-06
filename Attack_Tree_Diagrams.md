@@ -21,13 +21,13 @@ flowchart TD
     %% Main Branches
     ROOT --> B1[Path A: Direct Database Exposure]
     ROOT --> B2[Path B: API Gateway & Downstream IDOR / BOLA]
-    ROOT --> B3[Path C: SQL Injection / Data Layer Tampering]
+    ROOT --> B3["Path C: SQL Injection / Data Layer Tampering (Investigated & Refuted - Confirmed Secure)"]
     ROOT --> B4[Path D: Administrative Credential Hijack]
 
-    %% Branch A
-    B1 --> A1[Scan Exposed Docker Port 5432 on Host]
+    %% Branch A (Historical Threat Scenario - Mitigated in Active Deployment)
+    B1 --> A1["Scan Host for Exposed PostgreSQL Port 5432 (Historical: 0.0.0.0:5432 exposed; Active: port unmapped, internal bridge only)"]
     A1 --> A2{Postgres Port Exposed in docker-compose?}
-    A2 -- Yes --> A3[Brute Force / Exploit Hardcoded DB Password]
+    A2 -- "Historical Baseline: VULN-009 / THR-STRIDE-012" --> A3["Brute Force / Exploit Hardcoded DB Password (VULN-017)"]
     A3 --> A4[Direct psql Connection as Superuser]
     A4 --> IMPACT1[CRITICAL: Exfiltrate / Modify all Government Records]
 
@@ -35,15 +35,15 @@ flowchart TD
     B2 --> C1[Identify Draft Document / Entity Endpoints]
     C1 --> C2[Craft Request with Arbitrary stateCode or districtCode]
     C2 --> C3{Service Enforces Tenant Context on JWT?}
-    C3 -- No: VULN-003/VULN-005 --> C4[Fetch or Overwrite Entity of Foreign State/District]
+    C3 -- No: VULN-006 (BOLA) --> C4[Fetch or Overwrite Entity of Foreign State/District]
     C4 --> IMPACT2[HIGH: Cross-Tenant Data Tampering & Information Disclosure]
 
-    %% Branch C
+    %% Branch C (Historical Hypothesis Refuted - Confirmed Secure)
     B3 --> D1[Identify Native SQL Query in Repository Layer]
     D1 --> D2[Inject Malicious SQL via Search / Filter Parameters]
     D2 --> D3{Input Sanitized or Parameterized?}
-    D3 -- No: VULN-010 --> D4[Execute Arbitrary SQL via Native Query Execution]
-    D4 --> IMPACT3[CRITICAL: Bulk Data Exfiltration or Table Truncation]
+    D3 -- Investigated: OBS-SQLI-01 (Refuted / False Positive) --> D4[All 24 JPA Repositories Parameterized - Exploit Refuted / Safe]
+    D4 --> IMPACT3[CONFIRMED SECURE: Named Parameter Binding Prevents Injection]
 
     %% Branch D
     B4 --> E1[Extract JWT from Gateway Logs or Unmasked Storage]
@@ -53,7 +53,7 @@ flowchart TD
 
     %% Defensive Controls
     subgraph Defenses [Key Defensive Controls]
-        DEF1[Bind PostgreSQL only to internal Docker network]
+        DEF1[Bind PostgreSQL only to internal Docker network; remove host port mapping; RR-05 tracks firewall scoping]
         DEF2[Enforce Server-Side Tenant Context Validation in BaseService]
         DEF3[Mandate Spring Data JPA Parameterized Specifications]
         DEF4[Implement Strict Data Masking in ApiLoggingFilter]
@@ -68,9 +68,9 @@ flowchart TD
     classDef high fill:#ff9933,stroke:#cc6600,stroke-width:2px,color:#fff;
     classDef defense fill:#2eb85c,stroke:#1b6d36,stroke-width:2px,color:#fff;
 
-    class IMPACT1,IMPACT3 critical;
+    class IMPACT1 critical;
     class IMPACT2,IMPACT4 high;
-    class DEF1,DEF2,DEF3,DEF4 defense;
+    class IMPACT3,DEF1,DEF2,DEF3,DEF4 defense;
 ```
 
 ---
@@ -114,7 +114,7 @@ flowchart TD
 
     %% Vector 4 Details
     T4 --> S1[Gain Access to Docker Internal Network or Bypass Gateway]
-    S1 --> S2[Call Revenue Microservice Directly on Port 8083]
+    S1 --> S2[Call Revenue Microservice Directly (Historical Port 8083 / Active Internal Port 18062)]
     S2 --> S3[Inject Forged Headers: X-User-State: 27, X-User-Role: STATE_ADMIN]
     S3 --> S4{Microservice validates JWT independently or trusts header blindly?}
     S4 -- Blind Trust --> S5[Process administrative approval for foreign state]
@@ -358,30 +358,30 @@ flowchart TD
     ROOT --> INF_3[Vector 3: Docker Host Port Direct Ingress]
     ROOT --> INF_4[Vector 4: Unauthenticated Actuator & Metadata Leakage]
 
-    %% Vector 1
-    INF_1 --> EU1[Access Eureka Discovery Server on Port 8761]
+    %% Vector 1 (Historical Threat Scenario - Mitigated in Active Deployment)
+    INF_1 --> EU1["Access Eureka Discovery Server on Port 8761 (Historical: 0.0.0.0:8761 open; Active: internal container port unmapped to host)"]
     EU1 --> EU2{Is Eureka Dashboard & Registration API Password Protected?}
-    EU2 -- No Authentication: VULN-008 --> EU3[Register Malicious Service under appName: 'AUTH-SERVICE']
+    EU2 -- "Historical Baseline: No Auth (VULN-021)" --> EU3[Register Malicious Service under appName: 'AUTH-SERVICE']
     EU3 --> EU4[API Gateway balances user authentication traffic to Rogue Node]
     EU4 --> INF_IMP1[CRITICAL: Mass Harvesting of Plaintext User Credentials]
 
-    %% Vector 2
-    INF_2 --> RD1[Access Redis on Exposed Port 6379 or from Docker Network]
+    %% Vector 2 (Historical Threat Scenario - Mitigated in Active Deployment)
+    INF_2 --> RD1["Access Redis on Port 6379 (Historical: 0.0.0.0:6379 open; Active: loopback 127.0.0.1:6379 only)"]
     RD1 --> RD2{Is Redis Protected by Strong 'requirepass'?}
-    RD2 -- Default / No Password: VULN-009 --> RD3[Execute FLUSHALL or DEL token_blacklist:*]
+    RD2 -- "Historical Baseline: No Password (VULN-007)" --> RD3[Execute FLUSHALL or DEL token_blacklist:*]
     RD3 --> INF_IMP2[HIGH: Complete Invalidation of Token Blacklist & Session Revocation]
 
-    %% Vector 3
+    %% Vector 3 (Historical Threat Scenario - Mitigated in Active Deployment)
     INF_3 --> DK1[Port Scan Target Server IP]
-    DK1 --> DK2[Discover Ports 8081, 8082, 8083, 5432, 6379, 8761 open to 0.0.0.0]
-    DK2 --> DK3[Bypass API Gateway entirely; send crafted requests directly to services]
+    DK1 --> DK2["Discover Exposed Ports (Historical Baseline: 8081-8083, 5432, 6379, 8761 open to 0.0.0.0; Active: Gateway 8092 published, internal services unmapped)"]
+    DK2 -- "Historical Baseline: Direct Port Exposure (VULN-009)" --> DK3[Bypass API Gateway entirely; send crafted requests directly to services]
     DK3 --> INF_IMP3[CRITICAL: Total Bypass of Gateway Filters, CORS, and Rate Limits]
 
-    %% Vector 4
+    %% Vector 4 (Historical Threat Scenario - Mitigated in Active Deployment)
     INF_4 --> AC1[Scan Microservices for Spring Boot Actuator Endpoints]
     AC1 --> AC2[Access /actuator/env, /actuator/heapdump, /actuator/mappings]
     AC2 --> AC3{Are Actuator Endpoints Restricted or Exposed?}
-    AC3 -- Exposed Unauthenticated: VULN-015 --> AC4[Download Application Secrets, DB Passwords, & Internal IP Maps]
+    AC3 -- "Historical Baseline: Exposed Unauthenticated (THR-STRIDE-011)" --> AC4[Download Application Secrets, DB Passwords, & Internal IP Maps]
     AC4 --> INF_IMP4[CRITICAL: Complete Architectural & Cryptographic Exposure]
 
     %% Defensive Mitigations
@@ -412,9 +412,9 @@ flowchart TD
 
 | Tree ID | Attack Scenario Goal | Primary STRIDE Vector | Root Vulnerability Reference | Highest Impact Rating | Primary Defensive Countermeasure |
 |:---|:---|:---|:---|:---|:---|
-| **AT-01** | Government Master Data Compromise | Tampering / Info Disclosure | `VULN-003`, `VULN-005`, `VULN-010` | **Critical (CVSS 9.8)** | Server-side tenant filtering, parameterized JPA queries |
-| **AT-02** | State/District Tenant Boundary Bypass | Elevation of Privilege / Tampering | `VULN-003`, `VULN-004` | **Critical (CVSS 9.1)** | JWT claim validation, Hibernate tenant row-level filtering |
-| **AT-03** | JWT Compromise & Session Hijacking | Spoofing / Repudiation | `VULN-001`, `VULN-002`, `VULN-013` | **Critical (CVSS 9.8)** | Asymmetric RS256 keys, Redis blacklist enforcement |
-| **AT-04** | eSign Transaction Forgery | Spoofing / Tampering | `VULN-006`, `VULN-011` | **Critical (CVSS 9.6)** | Callback one-time nonce verification, SHA-256 PDF hash audit |
-| **AT-05** | Privilege Escalation (RBAC Breakdown) | Elevation of Privilege | `VULN-004`, `VULN-012` | **Critical (CVSS 9.4)** | Method-level `@PreAuthorize`, strict DTO parameter binding |
-| **AT-06** | Internal Infrastructure Compromise | Spoofing / Denial of Service | `VULN-007`, `VULN-008`, `VULN-009` | **Critical (CVSS 9.8)** | Eureka HTTP Basic auth, Docker host port unbinding |
+| **AT-01** | Government Master Data Compromise | Tampering / Info Disclosure | `VULN-006`, `VULN-005`, `VULN-009` *(Amplifier: `VULN-017`)*, `OBS-SQLI-01` *(Refuted)* | **Critical (CVSS 9.8)** | Server-side tenant filtering, parameterized JPA queries |
+| **AT-02** | State/District Tenant Boundary Bypass | Elevation of Privilege / Tampering | `VULN-006` | **Critical (CVSS 9.1)** | JWT claim validation, Hibernate tenant row-level filtering |
+| **AT-03** | JWT Compromise & Session Hijacking | Spoofing / Repudiation | `VULN-001`, `VULN-007`, `VULN-008` | **Critical (CVSS 9.8)** | Asymmetric RS256 keys, Redis blacklist enforcement |
+| **AT-04** | eSign Transaction Forgery | Spoofing / Tampering | `VULN-003` | **Critical (CVSS 9.6)** | Callback one-time nonce verification, SHA-256 PDF hash audit |
+| **AT-05** | Privilege Escalation (RBAC Breakdown) | Elevation of Privilege | `VULN-005`, *[Unassigned]* (Mass Assignment) | **Critical (CVSS 9.4)** | Method-level `@PreAuthorize`, strict DTO parameter binding |
+| **AT-06** | Internal Infrastructure Compromise | Spoofing / Denial of Service | `VULN-007`, `VULN-009`, `VULN-021`, `VULN-013` | **Critical (CVSS 9.8)** | Eureka HTTP Basic auth, Docker host port unbinding |

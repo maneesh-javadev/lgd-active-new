@@ -1,0 +1,292 @@
+[
+  {
+    "lineNum": 153,
+    "method": "ep01_createRoleLevel_Authorized",
+    "display": "EP01: POST /private/v1/role-levels -> MANAGE_ROLE_LEVEL Authorized (HTTP 201)"
+  },
+  {
+    "lineNum": 172,
+    "method": "ep01_createRoleLevel_ViewOnly_Forbidden",
+    "display": "EP01: POST /private/v1/role-levels -> VIEW_ROLE_LEVEL Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 187,
+    "method": "ep01_createRoleLevel_RoleUser_Forbidden",
+    "display": "EP01: POST /private/v1/role-levels -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 196,
+    "method": "ep01_createRoleLevel_Unauthenticated",
+    "display": "EP01: POST /private/v1/role-levels -> Unauthenticated (HTTP 401)"
+  },
+  {
+    "lineNum": 207,
+    "method": "ep02_getRoleLevels_Authorized",
+    "display": "EP02: GET /private/v1/role-levels -> VIEW_ROLE_LEVEL Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 216,
+    "method": "ep02_getRoleLevels_RoleUser_Forbidden",
+    "display": "EP02: GET /private/v1/role-levels -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 225,
+    "method": "ep03_viewRoleLevel_Authorized",
+    "display": "EP03: GET /private/v1/role-levels/{code} -> VIEW_ROLE_LEVEL Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 234,
+    "method": "ep03_viewRoleLevel_RoleUser_Forbidden",
+    "display": "EP03: GET /private/v1/role-levels/{code} -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 243,
+    "method": "ep04_updateRoleLevel_Authorized",
+    "display": "EP04: POST /private/v1/role-levels/update/{code} -> MANAGE_ROLE_LEVEL Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 262,
+    "method": "ep04_updateRoleLevel_ViewOnly_Forbidden",
+    "display": "EP04: POST /private/v1/role-levels/update/{code} -> VIEW_ROLE_LEVEL Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 273,
+    "method": "ep05_deleteRoleLevel_Authorized",
+    "display": "EP05: POST /private/v1/role-levels/delete/{code} -> MANAGE_ROLE_LEVEL Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 290,
+    "method": "ep05_deleteRoleLevel_ViewOnly_Forbidden",
+    "display": "EP05: POST /private/v1/role-levels/delete/{code} -> VIEW_ROLE_LEVEL Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 299,
+    "method": "ep06_getActiveRoleLevels_Authorized",
+    "display": "EP06: GET /private/v1/role-levels/active -> VIEW_ROLE_LEVEL Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 308,
+    "method": "ep06_getActiveRoleLevels_RoleUser_Forbidden",
+    "display": "EP06: GET /private/v1/role-levels/active -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 317,
+    "method": "ep07_toggleStatusRoleLevel_Authorized",
+    "display": "EP07: POST /private/v1/role-levels/update/{code}/toggle-status -> MANAGE_ROLE_LEVEL Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 326,
+    "method": "ep07_toggleStatusRoleLevel_ViewOnly_Forbidden",
+    "display": "EP07: POST /private/v1/role-levels/update/{code}/toggle-status -> VIEW_ROLE_LEVEL Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 339,
+    "method": "ep08_createRoleType_Authorized",
+    "display": "EP08: POST /private/v1/role-types -> MANAGE_ROLE_TYPE Authorized (HTTP 201)"
+  },
+  {
+    "lineNum": 358,
+    "method": "ep08_createRoleType_ViewOnly_Forbidden",
+    "display": "EP08: POST /private/v1/role-types -> VIEW_ROLE_TYPE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 368,
+    "method": "ep08_createRoleType_RoleUser_Forbidden",
+    "display": "EP08: POST /private/v1/role-types -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 379,
+    "method": "ep09_getRoleTypes_Authorized",
+    "display": "EP09: GET /private/v1/role-types -> VIEW_ROLE_TYPE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 388,
+    "method": "ep09_getRoleTypes_RoleUser_Forbidden",
+    "display": "EP09: GET /private/v1/role-types -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 397,
+    "method": "ep10_viewRoleType_Authorized",
+    "display": "EP10: GET /private/v1/role-types/{code} -> VIEW_ROLE_TYPE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 406,
+    "method": "ep10_viewRoleType_RoleUser_Forbidden",
+    "display": "EP10: GET /private/v1/role-types/{code} -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 415,
+    "method": "ep11_updateRoleType_Authorized",
+    "display": "EP11: POST /private/v1/role-types/update/{code} -> MANAGE_ROLE_TYPE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 434,
+    "method": "ep11_updateRoleType_ViewOnly_Forbidden",
+    "display": "EP11: POST /private/v1/role-types/update/{code} -> VIEW_ROLE_TYPE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 445,
+    "method": "ep12_deleteRoleType_Authorized",
+    "display": "EP12: POST /private/v1/role-types/delete/{code} -> MANAGE_ROLE_TYPE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 462,
+    "method": "ep12_deleteRoleType_ViewOnly_Forbidden",
+    "display": "EP12: POST /private/v1/role-types/delete/{code} -> VIEW_ROLE_TYPE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 471,
+    "method": "ep13_getActiveRoleTypes_Authorized",
+    "display": "EP13: GET /private/v1/role-types/active -> VIEW_ROLE_TYPE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 480,
+    "method": "ep13_getActiveRoleTypes_RoleUser_Forbidden",
+    "display": "EP13: GET /private/v1/role-types/active -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 489,
+    "method": "ep14_toggleStatusRoleType_Authorized",
+    "display": "EP14: POST /private/v1/role-types/update/{code}/toggle-status -> MANAGE_ROLE_TYPE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 498,
+    "method": "ep14_toggleStatusRoleType_ViewOnly_Forbidden",
+    "display": "EP14: POST /private/v1/role-types/update/{code}/toggle-status -> VIEW_ROLE_TYPE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 511,
+    "method": "ep15_createPrivilege_Authorized",
+    "display": "EP15: POST /private/v1/privileges -> MANAGE_PRIVILEGE Authorized (HTTP 201)"
+  },
+  {
+    "lineNum": 531,
+    "method": "ep15_createPrivilege_ViewOnly_Forbidden",
+    "display": "EP15: POST /private/v1/privileges -> VIEW_PRIVILEGE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 541,
+    "method": "ep15_createPrivilege_RoleUser_Forbidden",
+    "display": "EP15: POST /private/v1/privileges -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 552,
+    "method": "ep16_updatePrivilege_Authorized",
+    "display": "EP16: POST /private/v1/privileges/update -> MANAGE_PRIVILEGE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 572,
+    "method": "ep16_updatePrivilege_ViewOnly_Forbidden",
+    "display": "EP16: POST /private/v1/privileges/update -> VIEW_PRIVILEGE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 583,
+    "method": "ep17_getPrivilegeById_Authorized",
+    "display": "EP17: GET /private/v1/privileges/{id} -> VIEW_PRIVILEGE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 591,
+    "method": "ep17_getPrivilegeById_RoleUser_Forbidden",
+    "display": "EP17: GET /private/v1/privileges/{id} -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 600,
+    "method": "ep18_getAllPrivileges_Authorized",
+    "display": "EP18: GET /private/v1/privileges -> VIEW_PRIVILEGE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 608,
+    "method": "ep18_getAllPrivileges_RoleUser_Forbidden",
+    "display": "EP18: GET /private/v1/privileges -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 617,
+    "method": "ep19_deletePrivilege_Authorized",
+    "display": "EP19: POST /private/v1/privileges/delete/{id} -> MANAGE_PRIVILEGE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 636,
+    "method": "ep19_deletePrivilege_ViewOnly_Forbidden",
+    "display": "EP19: POST /private/v1/privileges/delete/{id} -> VIEW_PRIVILEGE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 649,
+    "method": "ep20_saveResource_Authorized",
+    "display": "EP20: POST /private/v1/resources -> MANAGE_RESOURCE Authorized (HTTP 201)"
+  },
+  {
+    "lineNum": 670,
+    "method": "ep20_saveResource_ViewOnly_Forbidden",
+    "display": "EP20: POST /private/v1/resources -> VIEW_RESOURCE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 680,
+    "method": "ep20_saveResource_RoleUser_Forbidden",
+    "display": "EP20: POST /private/v1/resources -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 691,
+    "method": "ep21_manageResource_Authorized",
+    "display": "EP21: GET /private/v1/resources -> VIEW_RESOURCE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 700,
+    "method": "ep21_manageResource_RoleUser_Forbidden",
+    "display": "EP21: GET /private/v1/resources -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 709,
+    "method": "ep22_viewResource_Authorized",
+    "display": "EP22: GET /private/v1/resources/{id} -> VIEW_RESOURCE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 718,
+    "method": "ep22_viewResource_RoleUser_Forbidden",
+    "display": "EP22: GET /private/v1/resources/{id} -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 727,
+    "method": "ep23_updateResource_Authorized",
+    "display": "EP23: POST /private/v1/resources/update -> MANAGE_RESOURCE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 748,
+    "method": "ep23_updateResource_ViewOnly_Forbidden",
+    "display": "EP23: POST /private/v1/resources/update -> VIEW_RESOURCE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 759,
+    "method": "ep24_deleteResource_Authorized",
+    "display": "EP24: POST /private/v1/resources/delete/{id} -> MANAGE_RESOURCE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 781,
+    "method": "ep24_deleteResource_ViewOnly_Forbidden",
+    "display": "EP24: POST /private/v1/resources/delete/{id} -> VIEW_RESOURCE Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 790,
+    "method": "ep25_getResourcesByPrivilegeCodes_Authorized",
+    "display": "EP25: POST /private/v1/resources/by-privilege-codes -> VIEW_RESOURCE Authorized (HTTP 200)"
+  },
+  {
+    "lineNum": 800,
+    "method": "ep25_getResourcesByPrivilegeCodes_RoleUser_Forbidden",
+    "display": "EP25: POST /private/v1/resources/by-privilege-codes -> ROLE_USER Forbidden (HTTP 403)"
+  },
+  {
+    "lineNum": 814,
+    "method": "global_superAdmin_CanAccessReadAndWrite",
+    "display": "GLOBAL: ROLE_SUPER_ADMIN can access read and write endpoints"
+  },
+  {
+    "lineNum": 835,
+    "method": "global_unknownAuthority_FailsClosed",
+    "display": "GLOBAL: Unknown or malformed authority fails closed (HTTP 403)"
+  },
+  {
+    "lineNum": 852,
+    "method": "global_unauthenticatedRequest_Returns401",
+    "display": "GLOBAL: Unauthenticated request fails with HTTP 401 Unauthorized"
+  }
+]

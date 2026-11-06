@@ -250,7 +250,7 @@ for (let r = 1; r < dastData.length; r++) {
             dastData[r][c] = dastData[r][c]
                 .replace(/postgres@206/g, '[REDACTED_DATABASE_PASSWORD]')
                 .replace(/amITbPANCH@E/g, '[REDACTED_KEYSTORE_PASSWORD]')
-                .replace(/404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970/g, '[REDACTED_JWT_SECRET]');
+                .replace(/[REDACTED_COMPROMISED_SECRET]/g, '[REDACTED_JWT_SECRET]');
         }
     }
 }

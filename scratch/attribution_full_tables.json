@@ -1,0 +1,1004 @@
+{
+  "modTable": [
+    {
+      "id": 1,
+      "path": ".gitignore",
+      "status": " M",
+      "cat": "UNDETERMINED",
+      "rationale": "Modified to ignore local artifacts (*.token, *.p12, scratch/*.env); lacks pre-audit snapshot in root_status.txt."
+    },
+    {
+      "id": 2,
+      "path": "API_Vulnerability_Exploitation_Log.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 3,
+      "path": "Attack_Surface_Register.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 4,
+      "path": "Attack_Tree_Diagrams.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 5,
+      "path": "Consolidated_Remediation_Report.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 6,
+      "path": "DAST_Evidence_Register.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 7,
+      "path": "DAST_Penetration_Test_Report.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 8,
+      "path": "Master_Finding_Traceability_Register.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 9,
+      "path": "PHASE1_PHASE2_PHASE3_SIGNOFF_REPORT.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 10,
+      "path": "PHASE1_THREAT_MODEL_REMEDIATION_REPORT.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 11,
+      "path": "PHASE3_DAST_REMEDIATION_REPORT.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 12,
+      "path": "PHASE_4_EVIDENCE_REGISTER.md",
+      "status": " M",
+      "cat": "CURRENT_CYCLE_CHANGE",
+      "rationale": "Updated during current audit cycle to integrate 4-blocker accounting (BLK-01 to BLK-04), PostgreSQL 14 engine distinction, and live container digests."
+    },
+    {
+      "id": 13,
+      "path": "PHASE_4_SCA_ASSESSMENT_REPORT.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 14,
+      "path": "Residual_Risk_Register.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 15,
+      "path": "SAST_Findings_Log.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 16,
+      "path": "SCA_FINDINGS_REGISTER.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 17,
+      "path": "SCA_LICENSE_COMPLIANCE_REPORT.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 18,
+      "path": "SCA_REMEDIATION_PLAN.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 19,
+      "path": "SECURITY_MASTER_FINDING_REGISTER.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 20,
+      "path": "SECURITY_PHASE_TRACKER.md",
+      "status": " M",
+      "cat": "CURRENT_CYCLE_CHANGE",
+      "rationale": "Updated during current audit cycle to record Gate A/B/C dispositions, 4-blocker inventory, and mandatory stopping statement."
+    },
+    {
+      "id": 21,
+      "path": "SECURITY_RESIDUAL_RISK_REGISTER.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 22,
+      "path": "SOFTWARE_BILL_OF_MATERIALS.json",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Generated in preliminary SCA baseline cycles prior to current audit; documented in pre-audit baseline snapshot root_status.txt."
+    },
+    {
+      "id": 23,
+      "path": "STRIDE_Threat_Register.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 24,
+      "path": "Security_Architecture_Inventory.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 25,
+      "path": "Security_Phase_Execution_Plan.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 26,
+      "path": "Threat_Mitigation_Roadmap.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 27,
+      "path": "Threat_Model_Report.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 28,
+      "path": "Trust_Boundary_Analysis.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 29,
+      "path": "Vulnerability_Master_Register.md",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Phase 0-4 governance registers, threat models, finding logs, or execution plans updated under authorized remediation charters."
+    },
+    {
+      "id": 30,
+      "path": "api-gateway",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Submodule pointer; authorized security commits under approved Phase 1-4 remediation charters."
+    },
+    {
+      "id": 31,
+      "path": "auth-service",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Submodule pointer; authorized security commits under approved Phase 1-4 remediation charters."
+    },
+    {
+      "id": 32,
+      "path": "discovery",
+      "status": " m",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Submodule pointer; authorized security commits under approved Phase 1-4 remediation charters."
+    },
+    {
+      "id": 33,
+      "path": "docker-compose.yml",
+      "status": " M",
+      "cat": "UNDETERMINED",
+      "rationale": "Host port unmapping and loopback-restricted Redis mapping; modified in prior remediation but lacks pre-audit snapshot in root_status.txt."
+    },
+    {
+      "id": 34,
+      "path": "lgd-um",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Submodule pointer; authorized security commits under approved Phase 1-4 remediation charters."
+    },
+    {
+      "id": 35,
+      "path": "revenue",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Submodule pointer; authorized security commits under approved Phase 1-4 remediation charters."
+    },
+    {
+      "id": 36,
+      "path": "scratch/license_analysis_data.json",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Generated in preliminary SCA baseline cycles prior to current audit; documented in pre-audit baseline snapshot root_status.txt."
+    },
+    {
+      "id": 37,
+      "path": "scratch/reconcile_cyclonedx_sbom.js",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Generated in preliminary SCA baseline cycles prior to current audit; documented in pre-audit baseline snapshot root_status.txt."
+    },
+    {
+      "id": 38,
+      "path": "scratch/trivy_results/api-gateway_trivy.json",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 39,
+      "path": "scratch/trivy_results/api-gateway_trivy.txt",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 40,
+      "path": "scratch/trivy_results/auth-service_trivy.json",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 41,
+      "path": "scratch/trivy_results/auth-service_trivy.txt",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 42,
+      "path": "scratch/trivy_results/container_scan_summary.json",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 43,
+      "path": "scratch/trivy_results/redis-alpine_trivy.json",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 44,
+      "path": "scratch/trivy_results/redis-alpine_trivy.txt",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 45,
+      "path": "scratch/trivy_results/revenue_trivy.json",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 46,
+      "path": "scratch/trivy_results/revenue_trivy.txt",
+      "status": " M",
+      "cat": "PRE_EXISTING",
+      "rationale": "Aqua Security Trivy container scan output committed in baseline e2df50f and modified in preliminary pre-audit scan runs."
+    },
+    {
+      "id": 47,
+      "path": "scratch/trivy_results/service-discovery_trivy.json",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Aqua Security Trivy scan output re-scanned post-remediation of Eureka auth / UserMapper DTO."
+    },
+    {
+      "id": 48,
+      "path": "scratch/trivy_results/service-discovery_trivy.txt",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Aqua Security Trivy scan output re-scanned post-remediation of Eureka auth / UserMapper DTO."
+    },
+    {
+      "id": 49,
+      "path": "scratch/trivy_results/user-management_trivy.json",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Aqua Security Trivy scan output re-scanned post-remediation of Eureka auth / UserMapper DTO."
+    },
+    {
+      "id": 50,
+      "path": "scratch/trivy_results/user-management_trivy.txt",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Aqua Security Trivy scan output re-scanned post-remediation of Eureka auth / UserMapper DTO."
+    },
+    {
+      "id": 51,
+      "path": "scratch/update_excel_registers.js",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Register synchronization utility committed in 57f7f40; updated under authorized remediation to redact exposed secrets."
+    },
+    {
+      "id": 52,
+      "path": "user-management",
+      "status": " M",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Submodule pointer; authorized security commits under approved Phase 1-4 remediation charters."
+    }
+  ],
+  "untrackedTable": [
+    {
+      "id": 1,
+      "path": "PHASE0_4_EVIDENCE_INDEX.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 2,
+      "path": "PHASE0_4_FINAL_CROSS_DOCUMENT_CONSISTENCY_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 3,
+      "path": "PHASE0_4_FINAL_DELIVERABLE_SHA256_MANIFEST.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 4,
+      "path": "PHASE0_4_FINAL_EVIDENCE_INTEGRITY_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 5,
+      "path": "PHASE0_4_FINAL_GATE_A_ASSESSMENT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 6,
+      "path": "PHASE0_4_FINAL_GATE_B_TECHNICAL_ASSESSMENT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 7,
+      "path": "PHASE0_4_FINAL_GATE_C_RISK_ACCEPTANCE_STATUS.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 8,
+      "path": "PHASE0_4_FINAL_INDEPENDENT_AUDIT_DISPOSITION.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 9,
+      "path": "PHASE0_4_FINAL_INDEPENDENT_REVIEW_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 10,
+      "path": "PHASE0_4_FINAL_REGRESSION_AND_BUILD_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 11,
+      "path": "PHASE0_4_FINAL_SHA256_RECONCILIATION.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 12,
+      "path": "PHASE0_4_MASTER_TRACEABILITY_AND_DOCUMENT_RECONCILIATION_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 13,
+      "path": "PHASE0_4_REMAINING_BLOCKERS_REGISTER.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 14,
+      "path": "PHASE0_4_REMEDIATION_EXECUTION_LOG.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 15,
+      "path": "PHASE0_BASELINE_RECONCILIATION_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 16,
+      "path": "PHASE1_THREAT_MODEL_VERIFICATION_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 17,
+      "path": "PHASE2_SAST_INDEPENDENT_VERIFICATION_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 18,
+      "path": "PHASE3_FINAL_DAST_INDEPENDENT_VERIFICATION_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 19,
+      "path": "PHASE4_SCA_INDEPENDENT_VERIFICATION_REPORT.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 20,
+      "path": "PHASE5_ENTRY_READINESS_DECISION.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Formal governance deliverable, verification report, or readiness assessment created under authorized audit mandate."
+    },
+    {
+      "id": 21,
+      "path": "scratch/TokenGen.java",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 22,
+      "path": "scratch/analyze_trivy_findings.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 23,
+      "path": "scratch/attribution_analysis.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 24,
+      "path": "scratch/audit_crosswalk_checks.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 25,
+      "path": "scratch/audit_phase_search.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 26,
+      "path": "scratch/audit_secrets.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 27,
+      "path": "scratch/baseline_attribution_summary.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 28,
+      "path": "scratch/bom-1.5.schema.json",
+      "status": "??",
+      "cat": "PRE_EXISTING",
+      "rationale": "Pre-existing untracked artifact documented in pre-remediation baseline snapshot root_status.txt."
+    },
+    {
+      "id": 29,
+      "path": "scratch/build_canonical_sbom.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 30,
+      "path": "scratch/calculate_all_deliverables.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 31,
+      "path": "scratch/check_all_hashes_and_sync.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 32,
+      "path": "scratch/check_audit_scope.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 33,
+      "path": "scratch/check_baseline_attribution.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 34,
+      "path": "scratch/check_evidence_index.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 35,
+      "path": "scratch/check_evidence_index_hashes.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 36,
+      "path": "scratch/check_schema.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 37,
+      "path": "scratch/cp.txt",
+      "status": "??",
+      "cat": "UNDETERMINED",
+      "rationale": "Ad-hoc Maven dependency classpath dump; lacks formal task tracking or pre-audit baseline snapshot."
+    },
+    {
+      "id": 38,
+      "path": "scratch/dread_search_results.txt",
+      "status": "??",
+      "cat": "UNDETERMINED",
+      "rationale": "Ad-hoc text search output dump; lacks formal task tracking or pre-audit baseline snapshot."
+    },
+    {
+      "id": 39,
+      "path": "scratch/execute_and_verify_dast.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 40,
+      "path": "scratch/extract_schema.js",
+      "status": "??",
+      "cat": "PRE_EXISTING",
+      "rationale": "Pre-existing untracked artifact documented in pre-remediation baseline snapshot root_status.txt."
+    },
+    {
+      "id": 41,
+      "path": "scratch/final_documentation_scan.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 42,
+      "path": "scratch/final_scan_report.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 43,
+      "path": "scratch/find_dast_tables.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 44,
+      "path": "scratch/find_fingerprint.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 45,
+      "path": "scratch/generate_manifest.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 46,
+      "path": "scratch/generate_package_license_report.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 47,
+      "path": "scratch/generate_sha256_report.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 48,
+      "path": "scratch/generate_updated_sca_report.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 49,
+      "path": "scratch/inspect_container_identities.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 50,
+      "path": "scratch/inspect_env_sanitized.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 51,
+      "path": "scratch/inspect_git_attribution.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 52,
+      "path": "scratch/jsf-0.82.schema.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 53,
+      "path": "scratch/live_dast_evidence_records.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 54,
+      "path": "scratch/package_license_compliance_report.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 55,
+      "path": "scratch/phase0_4_authoritative_sha256_manifest.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 56,
+      "path": "scratch/phase0_4_authoritative_sha256_manifest.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 57,
+      "path": "scratch/pre_remediation_backup/",
+      "status": "??",
+      "cat": "PRE_EXISTING",
+      "rationale": "Pre-existing untracked artifact documented in pre-remediation baseline snapshot root_status.txt."
+    },
+    {
+      "id": 58,
+      "path": "scratch/recalculate_all_hashes.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 59,
+      "path": "scratch/recalculated_file_hashes.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 60,
+      "path": "scratch/repo_wide_search.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 61,
+      "path": "scratch/run_live_november2_trivy_scans.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 62,
+      "path": "scratch/sbom_graph_validation_report.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 63,
+      "path": "scratch/sbom_validation_output.txt",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 64,
+      "path": "scratch/scan_git_history_secrets.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 65,
+      "path": "scratch/search_all_audit_terms.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 66,
+      "path": "scratch/search_dread_terms.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 67,
+      "path": "scratch/search_key_phrases.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 68,
+      "path": "scratch/search_results.txt",
+      "status": "??",
+      "cat": "UNDETERMINED",
+      "rationale": "Ad-hoc text search output dump; lacks formal task tracking or pre-audit baseline snapshot."
+    },
+    {
+      "id": 69,
+      "path": "scratch/spdx.schema.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 70,
+      "path": "scratch/strong_copyleft_table.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 71,
+      "path": "scratch/surefire_regression_execution_summary.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 72,
+      "path": "scratch/sync_evidence_index.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 73,
+      "path": "scratch/test_hashes.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 74,
+      "path": "scratch/test_validator_negative_fixtures.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 75,
+      "path": "scratch/trivy_results/postgresql_host_native_trivy.json",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 76,
+      "path": "scratch/trivy_results/postgresql_host_native_trivy.txt",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 77,
+      "path": "scratch/update_evidence_index.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 78,
+      "path": "scratch/validate_documentation_semantics.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 79,
+      "path": "scratch/validate_sbom_schema.js",
+      "status": "??",
+      "cat": "PRE_EXISTING",
+      "rationale": "Pre-existing untracked artifact documented in pre-remediation baseline snapshot root_status.txt."
+    },
+    {
+      "id": 80,
+      "path": "scratch/verify_all_audit_requirements.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 81,
+      "path": "scratch/verify_cross_doc_consistency.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 82,
+      "path": "scratch/verify_detached_manifest.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 83,
+      "path": "scratch/verify_evidence_index.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 84,
+      "path": "scratch/verify_jwt_env_fingerprints.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 85,
+      "path": "scratch/verify_phase4_hashes.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 86,
+      "path": "scratch/verify_sha256_report.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 87,
+      "path": "scratch/verify_sha_recon.js",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 88,
+      "path": "scratch/weak_copyleft_table.md",
+      "status": "??",
+      "cat": "AUTHORIZED_PREVIOUS_REMEDIATION",
+      "rationale": "Audit verification script, schema, raw JSON evidence, or test runner created under authorized audit mandate."
+    },
+    {
+      "id": 89,
+      "path": "scratch/wsl_host_proxy.py",
+      "status": "??",
+      "cat": "PRE_EXISTING",
+      "rationale": "Pre-existing untracked artifact documented in pre-remediation baseline snapshot root_status.txt."
+    }
+  ],
+  "modCounts": {
+    "UNDETERMINED": 2,
+    "AUTHORIZED_PREVIOUS_REMEDIATION": 36,
+    "CURRENT_CYCLE_CHANGE": 2,
+    "PRE_EXISTING": 12
+  },
+  "untrackedCounts": {
+    "AUTHORIZED_PREVIOUS_REMEDIATION": 81,
+    "PRE_EXISTING": 5,
+    "UNDETERMINED": 3
+  }
+}

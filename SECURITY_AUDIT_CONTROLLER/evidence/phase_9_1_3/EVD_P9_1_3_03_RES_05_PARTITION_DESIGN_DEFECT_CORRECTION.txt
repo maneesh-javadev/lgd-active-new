@@ -1,0 +1,110 @@
+================================================================================
+PHASE 9.1.3 EVIDENCE: RES-05 NETWORK PARTITION DESIGN DEFECT ANALYSIS & CORRECTION
+Timestamp: 2026-11-06T11:26:00+05:30
+Evaluator: Antigravity Independent Security Audit Team
+Governance Scope: Phase 9.1.3 Workstream D Verification (Resilience Plan RES-05)
+================================================================================
+
+1. DEFECT IDENTIFICATION IN PHASE 9.1.2 RES-05 SPECIFICATION (DISC-P913-03):
+--------------------------------------------------------------------------------
+Phase 9.1.2 Scenario RES-05 Execution Step:
+  "docker network disconnect lgd-data-tier redis-primary"
+
+CRITICAL ARCHITECTURAL FLAW:
+  1. What 'docker network disconnect' actually does:
+     - It detaches the container's virtual ethernet interface from the bridge network.
+     - As a result, 'redis-primary' can no longer communicate with ANY container:
+       It is severed from redis-sentinel-1, redis-sentinel-2, redis-sentinel-3,
+       redis-replica-1, redis-replica-2, and all application clients!
+  2. Why this fails the objective of Split-Brain Resistance testing:
+     - The objective of split-brain testing is to verify that a minority partition
+       CANNOT elect a rogue master or accept inconsistent writes, while a majority
+       partition DOES elect a master and maintains availability.
+     - By disconnecting 'redis-primary' completely, 'redis-sentinel-1' also sees
+       'redis-primary' as dead. There is NO minority partition that still believes
+       the old primary is healthy!
+     - This test collapses entirely into Scenario RES-01 (Primary Process Crash/Loss)
+       and fails to test selective network partition behavior.
+
+2. MATHEMATICALLY & ARCHITECTURALLY CORRECT RES-05 DESIGN:
+--------------------------------------------------------------------------------
+CLUSTER TOPOLOGY:
+  - 3 Sentinels: S1, S2, S3 (Quorum = 2)
+  - 1 Primary:   P
+  - 2 Replicas:  R1, R2
+
+TARGET SELECTIVE PARTITION ARCHITECTURE:
+  =============================================================================
+  PARTITION A (Minority Partition):
+    - Members: Primary (P) + Sentinel 1 (S1)
+    - Quorum Available: 1 / 3 (< Quorum 2)
+    - Intended Behavior: S1 sees P as alive. However, S1 cannot reach S2 or S3,
+      so S1 CANNOT reach quorum. S1 CANNOT authorize new failovers or epochs.
+  =============================================================================
+  PARTITION B (Majority Partition):
+    - Members: Sentinel 2 (S2) + Sentinel 3 (S3) + Replica 1 (R1) + Replica 2 (R2) + Clients
+    - Quorum Available: 2 / 3 (>= Quorum 2)
+    - Intended Behavior: S2 and S3 detect P as down ('sdown' -> 'odown').
+      Because S2 and S3 can talk to each other (Quorum = 2), they elect a leader,
+      promote R1 (or R2) to new Primary (P'), and update configuration epoch.
+  =============================================================================
+  PARTITION HEALING:
+    - Cross-partition link is restored.
+    - S1 receives higher epoch from S2/S3.
+    - Old Primary P discovers it has lower epoch and is demoted to Replica (REPLICAOF P').
+    - Zero split-brain data corruption occurs.
+
+3. CONCRETE IMPLEMENTATION USING IP FILTERING (IPTABLES IN DOCKER-USER):
+--------------------------------------------------------------------------------
+Execution Steps for Stage B Authorization:
+  Step 1: Identify Container IP addresses on 'lgd-data-tier':
+    IP_P  = docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-primary
+    IP_S1 = docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-sentinel-1
+    IP_S2 = docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-sentinel-2
+    IP_S3 = docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-sentinel-3
+    IP_R1 = docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-replica-1
+    IP_R2 = docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-replica-2
+
+  Step 2: Inject Bi-Directional Packet Drop between Partition A and Partition B:
+    # Block traffic between Partition A (P, S1) and Partition B (S2, S3, R1, R2)
+    # Using iptables in WSL2/Docker host network namespace:
+    iptables -I DOCKER-USER -s $IP_P  -d $IP_S2 -j DROP
+    iptables -I DOCKER-USER -s $IP_P  -d $IP_S3 -j DROP
+    iptables -I DOCKER-USER -s $IP_P  -d $IP_R1 -j DROP
+    iptables -I DOCKER-USER -s $IP_P  -d $IP_R2 -j DROP
+    iptables -I DOCKER-USER -s $IP_S1 -d $IP_S2 -j DROP
+    iptables -I DOCKER-USER -s $IP_S1 -d $IP_S3 -j DROP
+    iptables -I DOCKER-USER -s $IP_S1 -d $IP_R1 -j DROP
+    iptables -I DOCKER-USER -s $IP_S1 -d $IP_R2 -j DROP
+
+    # Symmetrical reverse rules:
+    iptables -I DOCKER-USER -s $IP_S2 -d $IP_P  -j DROP
+    iptables -I DOCKER-USER -s $IP_S3 -d $IP_P  -j DROP
+    iptables -I DOCKER-USER -s $IP_R1 -d $IP_P  -j DROP
+    iptables -I DOCKER-USER -s $IP_R2 -d $IP_P  -j DROP
+    iptables -I DOCKER-USER -s $IP_S2 -d $IP_S1 -j DROP
+    iptables -I DOCKER-USER -s $IP_S3 -d $IP_S1 -j DROP
+    iptables -I DOCKER-USER -s $IP_R1 -d $IP_S1 -j DROP
+    iptables -I DOCKER-USER -s $IP_R2 -d $IP_S1 -j DROP
+
+  Step 3: Verify Partition State:
+    - P and S1 can ping each other (Partition A intact).
+    - S2, S3, R1, R2 can ping each other (Partition B intact).
+    - P cannot ping S2/S3/R1/R2.
+
+  Step 4: Verify Failover & Split-Brain Resistance:
+    - S2 & S3 elect leader (Quorum 2 met).
+    - R1 promoted to master.
+    - S1 logs 'voting aborted: quorum not reached' (Split-brain prevented).
+
+  Step 5: Heal Partition & Rollback:
+    # Flush injected test iptables rules:
+    iptables -D DOCKER-USER ... (remove all injected DROP rules)
+    - P reconciles, demotes to replica of R1.
+    - Configuration epoch synchronized across S1, S2, S3.
+
+CONCLUSION:
+  This design provides genuine, mathematically sound split-brain testing.
+  Execution Status: Preserved strictly as TEST_DESIGN_ONLY.
+================================================================================
+

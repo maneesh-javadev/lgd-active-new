@@ -42,11 +42,11 @@ graph TB
     end
 
     subgraph PersistenceZone ["Zone 2: Data Persistence & Revocation Store"]
-        subgraph DBBoundaryTB04 ["Trust Boundary TB-04: Microservices to DB"]
-            PostgreSQL[("PostgreSQL 14+ (Port 5432)<br/>Database: lgd_new")]
+        subgraph DBBoundaryTB04 ["Trust Boundary TB-04: Microservices to Host DB"]
+            PostgreSQL[("PostgreSQL 14+ (Host Native: 5432)<br/>via host.docker.internal<br/>Unencrypted Plaintext TCP")]
         end
         subgraph CacheBoundaryTB05 ["Trust Boundary TB-05: Microservices to Redis"]
-            RedisCache[("Redis Standalone (Port 6379)<br/>Blacklist & Master Cache")]
+            RedisCache[("Redis Container (Port 6379)<br/>Hardened to Loopback 127.0.0.1:6379<br/>Unencrypted Plaintext TCP")]
         end
     end
 
@@ -137,38 +137,40 @@ graph TB
 
 ### TB-04: Microservices to PostgreSQL (Persistence Boundary)
 
-- **Demarcation:** Transitions SQL commands and database transactions from microservices to PostgreSQL (`10.248.213.206:5432/lgd_new`).
-- **Protocols & Transports:** JDBC over TCP via HikariCP connection pool; Hibernate ORM / Spring Data JPA.
+- **Demarcation:** Transitions SQL commands and database transactions from microservices to PostgreSQL. **Actual Runtime Topology:** PostgreSQL 14 is installed natively on the Host OS (`listen_addresses = '*'`, configured to listen on `0.0.0.0:5432` / `[::]:5432` when active). Containerized backend microservices route out of the Docker bridge network to the host via `jdbc:postgresql://host.docker.internal:5432/lgd`. At audit time, the host PostgreSQL service is stopped (State: Stopped). When active, effective Windows Firewall inbound rules (`Rule: PostgreSQL Server`) allow traffic on port 5432 across Public network profiles, exposing the database to the local area network unless restricted.
+- **Protocols & Transports:** JDBC over plaintext TCP via HikariCP connection pool; Hibernate ORM / Spring Data JPA. **Unencrypted plaintext transit** (no `sslmode=require`).
 - **Assets Exposed at Boundary:** All database tables (`users`, `user_history`, `district_draft`, `subdistrict_draft`, `attachment`, `ws_access_log`, master tables).
 - **Trust Assumptions in Baseline:**
-  - Assumption that database traffic on the internal network does not require TLS encryption.
+  - Assumption that database traffic on the bridge gateway (`host.docker.internal`) does not require TLS encryption.
   - Assumption that application database users possess appropriate least-privilege permissions.
 - **Threat Vector Analysis:**
-  1. *Hardcoded Credential Compromise:* Plaintext credentials (`postgres:postgres@206`) committed across multiple `application.properties` files in the repository.
-  2. *Eavesdropping on Sensitive Queries:* Database connections lack `sslmode=verify-full`, allowing network eavesdroppers to inspect database queries, password hashes, and user records in transit.
+  1. *Host Port Exposure & Firewall Permissiveness (RR-05):* Host PostgreSQL binding `0.0.0.0:5432` combined with a permissive Windows Firewall Public profile inbound rule permits external network clients to reach the database port directly. Access must be restricted by tightening the Windows Firewall inbound rule to Docker's virtual gateway/subnet (`172.16.0.0/12`), preserving `host.docker.internal` routing while blocking LAN/WAN access.
+  2. *Unencrypted Network Transit (RR-05):* Database connections lack `sslmode=require` / `sslmode=verify-full`, allowing network eavesdroppers on the host/bridge to inspect database queries, password hashes, and user records in transit.
   3. *Excessive Database Privileges:* Applications connect using the administrative `postgres` superuser account rather than an unprivileged role restricted to application schemas.
-  4. *ORM / SQL Injection:* Audited custom repositories (`CreateDistrictRepositoryImpl`, `ChangeNameSubdistrictRepositoryImpl`, `DistrictDraftRepository`). All native queries use prepared parameters (`:p_state_code`, `:districtCode`), mitigating direct SQL injection.
+  4. *ORM / SQL Injection:* Audited custom repositories (`CreateDistrictRepositoryImpl`, `ChangeNameSubdistrictRepositoryImpl`, `DistrictDraftRepository`). All native queries use prepared parameters (`:p_state_code`, `:districtCode`), mitigating direct SQL injection (`EV-021`).
 - **Defensive Posture & Status:**
   - Parameterized queries confirmed across codebase.
-  - Credential externalization to environment secrets and TLS connection enforcement mandated.
+  - Credential externalization completed; network segmentation and transport encryption tracked under residual risk `RR-05` (pending formal acceptance).
 
 ---
 
 ### TB-05: Microservices to Redis (Cache & Session Boundary)
 
-- **Demarcation:** Transitions cache read/write operations and session blacklist lookups from microservices to Redis (`Port 6379`).
-- **Protocols & Transports:** RESP (REdis Serialization Protocol) via Lettuce / Spring Data Redis.
+- **Demarcation:** Transitions cache read/write operations and session blacklist lookups from microservices to Redis. **Actual Runtime Topology:** Redis runs in a Docker container (`redis:alpine`) with port 6379 published strictly to loopback interface `127.0.0.1:6379:6379` via compose specification. Probes against external host interfaces (`10.25.85.121:6379`) confirmed connection refused / inaccessible from external networks. Internal microservices communicate securely across `lgd-network` via `redis:6379`.
+- **Protocols & Transports:** RESP (REdis Serialization Protocol) over plaintext TCP via Lettuce / Spring Data Redis. **Unencrypted plaintext transit**.
 - **Assets Exposed at Boundary:** Token revocation blacklist keys (`blacklist:<jti>`), cached district lists (`districtByDlc`), cached state records.
 - **Trust Assumptions in Baseline:**
-  - Assumption that Redis is inaccessible to non-application hosts.
+  - Assumption that Redis loopback-only publication prevents unauthorized network access.
   - Assumption that Redis key collisions between services cannot occur.
 - **Threat Vector Analysis:**
-  1. *Unauthenticated Store Access:* Redis configuration operates without password authentication (`requirepass` is omitted). Any container or network device reaching port 6379 can query or delete keys.
-  2. *Token Blacklist Tampering:* An attacker with Redis access can issue `DEL blacklist:*` or `FLUSHALL`, instantly resurrecting all revoked tokens across the platform and bypassing session terminations.
+  1. *Unauthenticated Store Access (Local/Internal):* Redis configuration operates without password authentication (`requirepass` is omitted). Any local process on loopback or container on `lgd-network` can query or delete keys.
+  2. *Token Blacklist Tampering:* An actor with access to the Docker network can issue `DEL blacklist:*` or `FLUSHALL`, resurrecting revoked tokens across the platform.
   3. *Cache Poisoning:* Modifying cached entity keys (`districtByDlc`) to cause false data to be returned to clients without querying PostgreSQL.
+  4. *Unencrypted Network Transit (RR-05):* Cache transfers and session blacklist tokens traverse unencrypted plaintext TCP.
 - **Defensive Posture & Status:**
+  - Hardened Docker Compose port binding strictly to `127.0.0.1:6379:6379`. External network interface scan confirmed connection refused.
   - Redis key naming uses explicit namespaces (`blacklist:<jti>`).
-  - Mandatory password protection and isolated virtual network containment required.
+  - Redis password authentication (`requirepass`) and unencrypted transit tracked under residual risks `RR-02` and `RR-05` (pending formal acceptance).
 
 ---
 

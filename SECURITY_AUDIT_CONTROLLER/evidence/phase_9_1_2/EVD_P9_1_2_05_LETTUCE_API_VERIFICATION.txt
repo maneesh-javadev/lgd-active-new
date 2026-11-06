@@ -1,0 +1,33 @@
+================================================================================
+PHASE 9.1.2 FORENSIC EVIDENCE: LETTUCE & SPRING DATA REDIS API VERIFICATION
+Timestamp: 2026-11-06T10:49:00+05:30
+Evaluator: Principal Infrastructure Security Architect & Senior Java/Spring Engineer
+================================================================================
+
+1. RESOLVED ARTIFACT IDENTIFIERS:
+--------------------------------------------------------------------------------
+- io.lettuce:lettuce-core:jar:6.3.2.RELEASE (api-gateway, auth-service, user-management)
+- io.lettuce:lettuce-core:jar:6.3.1.RELEASE (revenue)
+- org.springframework.data:spring-data-redis:jar:3.2.12
+- org.springframework.boot:spring-boot-autoconfigure:jar:3.2.12
+
+2. BYTECODE DISASSEMBLY (JAVAP) ON LETTUCESSLCLIENTCONFIGURATIONBUILDER:
+--------------------------------------------------------------------------------
+Compiled from "LettuceClientConfiguration.java"
+public class org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration$LettuceSslClientConfigurationBuilder {
+  org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration$LettuceSslClientConfigurationBuilder(org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration$LettuceClientConfigurationBuilder);
+  public org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration$LettuceSslClientConfigurationBuilder disablePeerVerification();
+  public org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration$LettuceSslClientConfigurationBuilder startTls();
+  public org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration$LettuceClientConfigurationBuilder and();
+  public org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration build();
+}
+
+--------------------------------------------------------------------------------
+FORENSIC FINDING ON COMPILATION DEFECT:
+- Method 'disablePeerVerification()' takes NO arguments.
+- Proposed snippet 'builder.useSsl().disablePeerVerification(false);' fails compilation (method not found).
+- In Spring Data Redis, peer verification is enabled by default ('verifyPeer = true').
+- Calling 'disablePeerVerification()' unconditionally DISABLES verification!
+- Proper SSL invocation without peer verification disabling: 'builder.useSsl();'.
+================================================================================
+

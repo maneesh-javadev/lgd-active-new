@@ -1,0 +1,394 @@
+{
+  "total_indexed_sources": 20,
+  "generated_at": "2026-11-05T14:29:00+05:30",
+  "manifest_id": "SOURCE-REG-MANIFEST-V1",
+  "architect_role": "LGD 2.0 Security Audit Controller Architect and Evidence Governance Agent",
+  "indexed_sources": [
+    {
+      "sha256": "5901167DC40BD1F43E98F7F0CDBF44B19A830575FBE5DC2DB46FB6D9C2069B85",
+      "document_type": "FINDING_TRACEABILITY_REGISTER",
+      "size_bytes": 49553,
+      "phase": "Phase 2 / Phase 3",
+      "title": "LGD 2.0 Master Finding Traceability Register",
+      "document_id": "DOC-FINDING-01",
+      "exists": true,
+      "last_modified": "2026-11-03T14:47:07.3767703+05:30",
+      "relative_path": "Master_Finding_Traceability_Register.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EV-001..EV-020",
+        "EV-021"
+      ],
+      "indexed_finding_namespaces": [
+        "SAST-001..SAST-021",
+        "EXP-001..EXP-021",
+        "VULN-001..VULN-023",
+        "THR-STRIDE-001..020",
+        "DREAD-01..20"
+      ]
+    },
+    {
+      "sha256": "CF165AB86913EA48B32E39D09176B895C5ECEA46467B18C9C6500DA936F89E9B",
+      "document_type": "FINDING_VERIFICATION_REGISTER",
+      "size_bytes": 21784,
+      "phase": "Phase 1 / Phase 2 / Phase 3",
+      "title": "LGD 2.0 Security Master Finding Register",
+      "document_id": "DOC-FINDING-02",
+      "exists": true,
+      "last_modified": "2026-11-03T13:58:40.4604308+05:30",
+      "relative_path": "SECURITY_MASTER_FINDING_REGISTER.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EV-001..EV-020",
+        "EV-021"
+      ],
+      "indexed_finding_namespaces": [
+        "SAST-001..SAST-021",
+        "EXP-001..EXP-021",
+        "VULN-001..VULN-023",
+        "THR-STRIDE-001..020",
+        "DREAD-01..20"
+      ]
+    },
+    {
+      "sha256": "4E4E69AAF0EC0B518D8CB4E94854471B704D38A1FD1E891EB9B96088A13A9F96",
+      "document_type": "FINDING_DISPOSITION_MATRIX",
+      "size_bytes": 29129,
+      "phase": "Phase 6",
+      "title": "LGD 2.0 Phase 6 Final Finding Disposition Matrix",
+      "document_id": "DOC-FINDING-03",
+      "exists": true,
+      "last_modified": "2026-11-05T13:38:16.0490146+05:30",
+      "relative_path": "PHASE_6_FINAL_FINDING_DISPOSITION_MATRIX.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EVD-RBAC-01..22",
+        "EV-001..EV-020",
+        "EV-021"
+      ],
+      "indexed_finding_namespaces": [
+        "RBAC-001..RBAC-016",
+        "RBAC-004-EP-01..25",
+        "EXP-001..EXP-021",
+        "OBS-SQLI-01"
+      ]
+    },
+    {
+      "sha256": "CC4C0AD2B571B8227BA255F1DF2E27C803E08C542E9D5CAC3E036A468C8CC77A",
+      "document_type": "FINDING_REGISTER",
+      "size_bytes": 31106,
+      "phase": "Phase 6",
+      "title": "LGD 2.0 Phase 6 RBAC Findings Register",
+      "document_id": "DOC-FINDING-04",
+      "exists": true,
+      "last_modified": "2026-11-04T16:09:17.2819500+05:30",
+      "relative_path": "PHASE_6_RBAC_FINDINGS_REGISTER.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EVD-RBAC-01..22"
+      ],
+      "indexed_finding_namespaces": [
+        "RBAC-001..RBAC-016"
+      ]
+    },
+    {
+      "sha256": "2DFAE1284162427CBF7AAEA9D1051945BF19EFD24DF84B8D442C2EEF89B3EB83",
+      "document_type": "ENDPOINT_AUTHORITY_MATRIX",
+      "size_bytes": 18762,
+      "phase": "Phase 6",
+      "title": "LGD 2.0 Phase 6 Authorization Endpoint Matrix",
+      "document_id": "DOC-FINDING-05",
+      "exists": true,
+      "last_modified": "2026-11-04T11:24:35.1667879+05:30",
+      "relative_path": "PHASE_6_AUTHORIZATION_ENDPOINT_MATRIX.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EVD-RBAC-08",
+        "EVD-RBAC-13"
+      ],
+      "indexed_finding_namespaces": [
+        "RBAC-004-EP-01..25"
+      ]
+    },
+    {
+      "sha256": "16C1A2EE5F1C745A5990B035508493E725CB0F48EF287DE959D8E4E41F681B02",
+      "document_type": "FINDING_REGISTER",
+      "size_bytes": 29318,
+      "phase": "Phase 4",
+      "title": "LGD 2.0 Software Composition Analysis (SCA) Findings Register",
+      "document_id": "DOC-FINDING-06",
+      "exists": true,
+      "last_modified": "2026-11-02T12:02:31.2975975+05:30",
+      "relative_path": "SCA_FINDINGS_REGISTER.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "CycloneDX SBOM",
+        "Maven Dependencies",
+        "npm audit"
+      ],
+      "indexed_finding_namespaces": [
+        "SCA-001..SCA-012"
+      ]
+    },
+    {
+      "sha256": "C3E97FB66A1F938381DF794F191DAB07882D2A42AD6A1BE85E9F18F995792EB4",
+      "document_type": "BASELINE_HYPOTHESIS_REGISTER",
+      "size_bytes": 19232,
+      "phase": "Phase 0",
+      "title": "LGD 2.0 Vulnerability Master Register",
+      "document_id": "DOC-FINDING-07",
+      "exists": true,
+      "last_modified": "2026-11-02T15:15:09.4313884+05:30",
+      "relative_path": "Vulnerability_Master_Register.md",
+      "authority_level": "HISTORICAL_BASELINE",
+      "indexed_evidence_namespaces": [],
+      "indexed_finding_namespaces": [
+        "VULN-001..VULN-023"
+      ]
+    },
+    {
+      "sha256": "F6B3A455A8D65E8BE3BED85C28F784984369B1E3161D99217B1DB190C896B042",
+      "document_type": "THREAT_REGISTER",
+      "size_bytes": 17890,
+      "phase": "Phase 1",
+      "title": "LGD 2.0 STRIDE Threat Register",
+      "document_id": "DOC-FINDING-08",
+      "exists": true,
+      "last_modified": "2026-11-03T10:29:09.1733808+05:30",
+      "relative_path": "STRIDE_Threat_Register.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [],
+      "indexed_finding_namespaces": [
+        "THR-STRIDE-001..THR-STRIDE-020"
+      ]
+    },
+    {
+      "sha256": "204E26999FFD18B4DBD5666D7B157271D35052F183D4B72BCE2EF39CA7FA9828",
+      "document_type": "RISK_ASSESSMENT",
+      "size_bytes": 9908,
+      "phase": "Phase 1",
+      "title": "LGD 2.0 DREAD Risk Assessment",
+      "document_id": "DOC-FINDING-09",
+      "exists": true,
+      "last_modified": "2026-10-30T12:17:40.8714586+05:30",
+      "relative_path": "DREAD_Risk_Assessment.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [],
+      "indexed_finding_namespaces": [
+        "DREAD-01..DREAD-20"
+      ]
+    },
+    {
+      "sha256": "5B59CAB0BC20CCE9BEA2CA2F1CFDFADBFD26B4245A2DBA4BFFA759E5D0D6979C",
+      "document_type": "RESIDUAL_RISK_REGISTER",
+      "size_bytes": 30683,
+      "phase": "Phase 6 / Gate C",
+      "title": "LGD 2.0 Gate C RR-01 to RR-11 Decision Register",
+      "document_id": "DOC-FINDING-10",
+      "exists": true,
+      "last_modified": "2026-11-03T17:37:36.8292462+05:30",
+      "relative_path": "GATE_C_RR_01_TO_RR_11_DECISION_REGISTER.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [],
+      "indexed_finding_namespaces": [
+        "RR-01..RR-11"
+      ]
+    },
+    {
+      "sha256": "F6183EFAF51F5420038366DD8CDF7F31C051199D33C35C8F9691E59C5D4AE3C1",
+      "document_type": "EVIDENCE_REGISTER",
+      "size_bytes": 15944,
+      "phase": "Phase 6",
+      "title": "LGD 2.0 Phase 6 Final Evidence Register",
+      "document_id": "DOC-EVIDENCE-01",
+      "exists": true,
+      "last_modified": "2026-11-05T13:45:09.2801534+05:30",
+      "relative_path": "PHASE_6_FINAL_EVIDENCE_REGISTER.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EVD-RBAC-01..22",
+        "EV-001..EV-020",
+        "EV-021",
+        "EVD-GATEB-01..04"
+      ],
+      "indexed_finding_namespaces": [
+        "RBAC-001..RBAC-016",
+        "EXP-001..EXP-021",
+        "OBS-SQLI-01",
+        "BLK-CANON-01..04"
+      ]
+    },
+    {
+      "sha256": "45F51C898F9D3E4EF04EB3F8BF1851D97B727F7DDC911A9274AFB2AA5D9090F8",
+      "document_type": "EVIDENCE_REGISTER",
+      "size_bytes": 34467,
+      "phase": "Phase 3",
+      "title": "LGD 2.0 DAST Evidence Register",
+      "document_id": "DOC-EVIDENCE-02",
+      "exists": true,
+      "last_modified": "2026-11-02T17:54:17.2542193+05:30",
+      "relative_path": "DAST_Evidence_Register.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EV-001..EV-020",
+        "EV-021"
+      ],
+      "indexed_finding_namespaces": [
+        "EXP-001..EXP-021",
+        "OBS-SQLI-01"
+      ]
+    },
+    {
+      "sha256": "8CFE62C29F886C4E00F3DF3867D30F64B055865757B10007BF340C53B6DCCDDF",
+      "document_type": "EVIDENCE_INDEX",
+      "size_bytes": 18454,
+      "phase": "Phase 0–4",
+      "title": "LGD 2.0 Phase 0–4 Evidence Index",
+      "document_id": "DOC-EVIDENCE-03",
+      "exists": true,
+      "last_modified": "2026-11-03T16:00:55.8336668+05:30",
+      "relative_path": "PHASE0_4_EVIDENCE_INDEX.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EV-001..EV-021"
+      ],
+      "indexed_finding_namespaces": [
+        "VULN-001..023",
+        "SAST-001..021",
+        "SCA-001..012"
+      ]
+    },
+    {
+      "sha256": "035DF45D23B7F7F32C32D22BEB3F089B4EECCBA5FB7137D2B0625659D0FD6039",
+      "document_type": "EVIDENCE_REGISTER",
+      "size_bytes": 16704,
+      "phase": "Phase 4",
+      "title": "LGD 2.0 Phase 4 SCA Evidence Register",
+      "document_id": "DOC-EVIDENCE-04",
+      "exists": true,
+      "last_modified": "2026-11-03T15:37:29.6427535+05:30",
+      "relative_path": "PHASE_4_EVIDENCE_REGISTER.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "CycloneDX SBOM",
+        "Trivy Scans"
+      ],
+      "indexed_finding_namespaces": [
+        "SCA-001..SCA-012"
+      ]
+    },
+    {
+      "sha256": "E3BD62D74E1AC9EEEBB58699BA193709BA59C271D8105C92A362B0C7DA686037",
+      "document_type": "EVIDENCE_REGISTER",
+      "size_bytes": 10957,
+      "phase": "Phase 5",
+      "title": "LGD 2.0 Phase 5 Auth Evidence Register",
+      "document_id": "DOC-EVIDENCE-05",
+      "exists": true,
+      "last_modified": "2026-11-03T18:02:52.8284518+05:30",
+      "relative_path": "PHASE_5_EVIDENCE_REGISTER.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EVD-AUTH-01..08"
+      ],
+      "indexed_finding_namespaces": [
+        "AUTH-001..AUTH-008"
+      ]
+    },
+    {
+      "sha256": "3B6F74E277782AD691BCC134CAB8108B8D91C16404B1B79ADDA14F2B8AD1B26E",
+      "document_type": "TEST_CENSUS_REPORT",
+      "size_bytes": 25429,
+      "phase": "Phase 6",
+      "title": "LGD 2.0 Phase 6 Final Surefire Test Suite Census Report",
+      "document_id": "DOC-EVIDENCE-06",
+      "exists": true,
+      "last_modified": "2026-11-05T12:38:56.3966324+05:30",
+      "relative_path": "PHASE_6_FINAL_SUREFIRE_CENSUS.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EVD-RBAC-20 (397 tests / 50 suites)"
+      ],
+      "indexed_finding_namespaces": [
+        "Full Automated Test Coverage"
+      ]
+    },
+    {
+      "sha256": "A098C1C1A92E81EF91BC6D10D1F6017A72ECE2CC5455B4392F03703919990282",
+      "document_type": "BLOCKER_RECONCILIATION_REPORT",
+      "size_bytes": 10818,
+      "phase": "Phase 6",
+      "title": "LGD 2.0 Phase 6 Blocker Identity and Status Reconciliation Report",
+      "document_id": "DOC-BLOCKER-01",
+      "exists": true,
+      "last_modified": "2026-11-05T12:38:55.6207741+05:30",
+      "relative_path": "PHASE_6_BLOCKER_IDENTITY_AND_STATUS_RECONCILIATION.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "EVD-GATEB-01..04"
+      ],
+      "indexed_finding_namespaces": [
+        "BLK-CANON-01..04",
+        "BLK-P6-01..04"
+      ]
+    },
+    {
+      "sha256": "F2B525FC3DC9183E1AD03D605A1906C4D743C8CE72EBF9EEC6A007FD7BF9044F",
+      "document_type": "GATE_DISPOSITION_REPORT",
+      "size_bytes": 11397,
+      "phase": "Phase 6",
+      "title": "LGD 2.0 Phase 6 Gate A, B, and C Final Disposition Report",
+      "document_id": "DOC-GATE-01",
+      "exists": true,
+      "last_modified": "2026-11-05T12:38:56.3875499+05:30",
+      "relative_path": "PHASE_6_GATE_A_B_C_FINAL_DISPOSITION.md",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "Gate A/B/C Multi-Tier Evidence"
+      ],
+      "indexed_finding_namespaces": [
+        "Gate A",
+        "Gate B",
+        "Gate C",
+        "Phase 7",
+        "RR-01..RR-11"
+      ]
+    },
+    {
+      "sha256": "1B9C1D5CBFD17A2216C99710A9BC14936C0F72BE45A456844B9850C4A4C41BD2",
+      "document_type": "GOVERNANCE_APPROVAL_PACKAGE",
+      "size_bytes": 12444,
+      "phase": "Phase 6 / Gate C",
+      "title": "LGD 2.0 Gate C Executive Risk Acceptance & Formal Sign-Off Package",
+      "document_id": "DOC-GATE-02",
+      "exists": true,
+      "last_modified": "2026-11-03T17:36:43.4350353+05:30",
+      "relative_path": "GATE_C_DAA_CISO_APPROVAL_REQUEST.md",
+      "authority_level": "FORMAL_SUBMISSION",
+      "indexed_evidence_namespaces": [
+        "DAA / CISO Executive Signatures (Pending)"
+      ],
+      "indexed_finding_namespaces": [
+        "RR-01..RR-11"
+      ]
+    },
+    {
+      "sha256": "99BA796566D50A5D171E55FFBC7DA9946BE0B1BBAF2B5BE566AF6A623A79993B",
+      "document_type": "SBOM_ARTIFACT",
+      "size_bytes": 1805646,
+      "phase": "Phase 4",
+      "title": "LGD 2.0 CycloneDX 1.5 Software Bill of Materials (Canonical)",
+      "document_id": "DOC-SBOM-01",
+      "exists": true,
+      "last_modified": "2026-11-02T11:43:57.1231121+05:30",
+      "relative_path": "SOFTWARE_BILL_OF_MATERIALS.json",
+      "authority_level": "AUTHORITATIVE",
+      "indexed_evidence_namespaces": [
+        "Schema Validated AJV 8.20.0"
+      ],
+      "indexed_finding_namespaces": [
+        "916 Unique Components, 1348 Instances"
+      ]
+    }
+  ]
+}

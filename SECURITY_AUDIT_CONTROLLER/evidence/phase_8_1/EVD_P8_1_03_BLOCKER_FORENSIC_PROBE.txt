@@ -1,0 +1,22 @@
+================================================================================
+PHASE 8.1 CANONICAL BLOCKER FORENSIC PROBE
+Timestamp: 2026-11-06T09:46:05+05:30
+Evaluator: Principal Application Security Auditor & Independent Assessment Lead
+================================================================================
+
+=== PROBE 1: POSTGRESQL 14 SERVICE & TCP 5432 (BLK-CANON-03) ===
+Service Name: postgresql-x64-14 | Display: postgresql-x64-14 - PostgreSQL Server 14 | Status: Stopped
+TCP 5432 Probe: TcpTestSucceeded = False
+
+=== PROBE 2: DOCKER CONTAINER CLUSTER CENSUS (BLK-CANON-02) ===
+NAMES                            STATUS                     PORTS                      CONTAINER ID sleepy_kilby                     Created                                               55297b40d4b8 nervous_gagarin                  Exited (0) 3 weeks ago                                b28b932381bc bold_darwin                      Exited (0) 3 weeks ago                                fc137bee2916 naughty_edison                   Created                                               e3c4965bb672 fervent_lehmann                  Created                                               c3924997b04a buildx_buildkit_default          Exited (0) 292 years ago                              6c70db4ce47a 7f3a1bb29b10_service-discovery   Exited (0) 292 years ago   8761/tcp                   a8d947322baa redis                            Exited (0) 292 years ago   127.0.0.1:6379->6379/tcp   a1a298d9928d user-management                  Exited (0) 292 years ago   18089/tcp                  64e33b1714cf auth-service                     Exited (0) 25 hours ago    18090/tcp                  8a3088e0b6fc api-gateway                      Exited (0) 292 years ago   0.0.0.0:8092->8092/tcp     ff6a44951851 revenue                          Exited (0) 25 hours ago    18062/tcp                  d9f41a9feba0
+
+=== PROBE 3: PERIMETER INGRESS PORT 8092 & TLS STATUS (BLK-CANON-01) ===
+TCP 8092 Probe: TcpTestSucceeded = False
+TCP 443 (HTTPS) Probe: TcpTestSucceeded = False
+
+=== PROBE 4: GOVERNANCE SIGNATURE STATUS (BLK-CANON-04) ===
+Risk Acceptance Memorandum: EXISTS (SECURITY_AUDIT_CONTROLLER/PHASE_8_RISK_ACCEPTANCE_MEMORANDUM.md)
+DAA Signature Present: False (Unsigned placeholder detected)
+CISO Signature Present: False (Unsigned placeholder detected)
+Status: PENDING_FORMAL_ACCEPTANCE (Zero simulated signatures)

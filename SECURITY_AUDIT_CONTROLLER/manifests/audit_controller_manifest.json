@@ -1,0 +1,512 @@
+﻿{
+  "manifest_id": "AUDIT-CONTROLLER-MANIFEST-V1-5-0",
+  "system": "Local Government Directory 2.0 (LGD 2.0)",
+  "controller_version": "1.5.0",
+  "generated_at": "2026-11-06T10:00:00+05:30",
+  "architect_role": "Principal Application Security Auditor & Independent Assessment Lead",
+  "controller_root": "E:/System/Projects/dockerProject/Source code/lgd-active-new/SECURITY_AUDIT_CONTROLLER",
+  "overall_program_status": "PHASE_8_1_INDEPENDENT_RECONCILIATION_COMPLETED_CONDITIONAL_READY",
+  "production_deployment_status": "NOT_APPROVED (GATE_B_HOLD & GATE_C_PENDING)",
+  "active_release_gates": {
+    "gate_a": "QUALIFIED_PASS (PRESERVED)",
+    "gate_b": "HOLD (MANDATORY)",
+    "gate_c": "PENDING_FORMAL_ACCEPTANCE (MANDATORY)",
+    "phase_7_remediation": "COMPLETED_AND_VERIFIED",
+    "phase_8_validation": "COMPLETED_AND_VERIFIED (CONDITIONAL_READY)",
+    "phase_8_1_reconciliation": "COMPLETED_AND_VERIFIED (100% RECONCILED)"
+  },
+  "blocker_namespaces": {
+    "canonical_foundation_blockers": {
+      "BLK-CANON-01": "OPEN / PARTIALLY_VERIFIED (EXP-016 TLS/HSTS over HTTP)",
+      "BLK-CANON-02": "OPEN / PARTIALLY_VERIFIED (EXP-021 TestController probe / revenue offline)",
+      "BLK-CANON-03": "OPEN / BLOCKED_BY_ENVIRONMENT (PostgreSQL 14 stopped)",
+      "BLK-CANON-04": "OPEN / PENDING_FORMAL_ACCEPTANCE (DAA/CISO risk acceptance memo unsigned)"
+    },
+    "phase_6_milestone_blockers": {
+      "BLK-P6-01": "CLOSED / SATISFIED (RBAC traceability reconciled)",
+      "BLK-P6-02": "CLOSED / SATISFIED (Evidence completeness verified)",
+      "BLK-P6-03": "CLOSED / SATISFIED (Automated test attestation coverage verified)",
+      "BLK-P6-04": "CLOSED / SATISFIED (Production config parity verified)"
+    }
+  },
+  "reconciled_finding_counts": {
+    "technical_findings_total": 124,
+    "technical_findings_verified": 110,
+    "technical_findings_blocked_or_mitigated": 14,
+    "technical_closure_rate": "88.7%",
+    "sast_findings": 21,
+    "exploit_vectors": 21,
+    "safety_observations": 1,
+    "rbac_findings": 16,
+    "rbac_004_endpoints": 25,
+    "sca_findings": 12,
+    "crypto_and_sec_findings": 5,
+    "baseline_vulnerabilities": 23,
+    "residual_risks_total": 11,
+    "residual_risks_formally_accepted": 0,
+    "residual_risks_pending_approval": 11,
+    "canonical_blockers_total": 4,
+    "canonical_blockers_open": 4,
+    "total_tracked_program_entities": 139
+  },
+  "test_verification_summary": {
+    "total_suites_audited": 54,
+    "total_tests_executed": 418,
+    "total_tests_passed": 418,
+    "total_failures": 0,
+    "total_errors": 0,
+    "total_skipped": 0,
+    "platform_pass_rate": "100.0%",
+    "raw_xml_census_status": "VERIFIED_FROM_RAW_XML_REPORTS"
+  },
+  "files": [
+    {
+      "relative_path": "evidence/phase_8_1/EVD_P8_1_01_GIT_INTEGRITY_SNAPSHOT.txt",
+      "sha256": "F039E114732923EF0CBD90B9692E1EF4C5A7F68EDFCB5B34FC245AFD9AFDEE6B",
+      "size_bytes": 14376,
+      "last_modified": "2026-11-06T09:45:43+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8_1/EVD_P8_1_02_SUREFIRE_XML_CENSUS.txt",
+      "sha256": "F2DD8AD7FA111C7BBA45EC68523EB3CDE70D5385DF351526EC76AED0F641755D",
+      "size_bytes": 10681,
+      "last_modified": "2026-11-06T09:45:55+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8_1/EVD_P8_1_03_BLOCKER_FORENSIC_PROBE.txt",
+      "sha256": "0DDBF0DB975853FB42D9114F690A81BCA379E70C988556AA6AC76CDB5E88373B",
+      "size_bytes": 2428,
+      "last_modified": "2026-11-06T09:46:25+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_01_AUTH_SERVICE_TEST_EXECUTION.txt",
+      "sha256": "849645C0D808AA3B783C277D844F178E0EDDA185AD29B29700FA0F34FDCC792C",
+      "size_bytes": 2011,
+      "last_modified": "2026-11-06T09:08:00+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_02_API_GATEWAY_TEST_EXECUTION.txt",
+      "sha256": "3BDC013536E72A194F9175E9E057DF0A40D22DC896F78AC63EAD9DC83B3BE373",
+      "size_bytes": 1287,
+      "last_modified": "2026-11-06T09:08:00+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_03_USER_MANAGEMENT_TEST_EXECUTION.txt",
+      "sha256": "E21A9C53E5CBDF9A54DA50BDED594F5BFFC67F465E0CD95A2926CA3D96F26929",
+      "size_bytes": 5206,
+      "last_modified": "2026-11-06T09:08:01+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_04_REVENUE_TEST_EXECUTION.txt",
+      "sha256": "390A144624826E69920518E56F0DDA17FA5C72D5BBEBD481693F7F444B61E04E",
+      "size_bytes": 1424,
+      "last_modified": "2026-11-06T09:08:01+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_05_DISCOVERY_TEST_EXECUTION.txt",
+      "sha256": "132046825E2DCBAD2C742D193C0B117B15DC4A29593058C1095982F051C96B37",
+      "size_bytes": 806,
+      "last_modified": "2026-11-06T09:08:01+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_06_POSTGRESQL_SERVICE_PROBE.txt",
+      "sha256": "771B4D795E3B922A61D87D5AE5D8FF5D73013692AFD334F42A3E0215283BDC8F",
+      "size_bytes": 1079,
+      "last_modified": "2026-11-06T09:06:59+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_07_DOCKER_CONTAINER_CENSUS.txt",
+      "sha256": "85C33216F6265D7DF654B811BDAC8F8F8223B6F15036D4CC9A3D8F92D0A4A36C",
+      "size_bytes": 2309,
+      "last_modified": "2026-11-06T09:07:00+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_08_BCRYPT_COST12_BENCHMARK.txt",
+      "sha256": "62EFB7F04F097EE50C0321AE24C4CD7286B690D2668972B7BC2B3D7985FE4A95",
+      "size_bytes": 1003,
+      "last_modified": "2026-11-06T09:07:00+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_09_SECRETS_CONFIG_INSPECTION.txt",
+      "sha256": "1D472A9EBEF75E58DC0D402CBDE5F9009F7FEA0FE8E24F43202D9FC59E097F45",
+      "size_bytes": 2248,
+      "last_modified": "2026-11-06T09:24:58+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "evidence/phase_8/EVD_P8_10_GIT_INTEGRITY_SNAPSHOT.txt",
+      "sha256": "C297F3B8DB77AF1067707D27F5FE457C635ECF2D7306535B411407A805BC8C3C",
+      "size_bytes": 918,
+      "last_modified": "2026-11-06T09:07:00+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "manifests/computed_phase8_1_hashes.json",
+      "sha256": "507808C277BB19625C93E478814A8379ED41B49786B67D9D2FEA869F865E09EE",
+      "size_bytes": 13648,
+      "last_modified": "2026-11-06T09:50:59+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "manifests/repository_baseline.json",
+      "sha256": "39F77A2658AF95DECCCAE5C25AE094F38E4B5840BB9F7C0A2AF79C03AD0286C6",
+      "size_bytes": 19862,
+      "last_modified": "2026-11-05T15:08:37+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "manifests/source_register_manifest.json",
+      "sha256": "DB21C6C5579DB026ADC06CD88B2A8B9AC09C76E438EC6E77DB20A726985CB638",
+      "size_bytes": 14148,
+      "last_modified": "2026-11-05T14:29:19+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_AUDIT_CHANGELOG.md",
+      "sha256": "B3D2D99F1CACB0CB95158C6ABF63468AC13B024BCED9D19DEA0435F8E102951E",
+      "size_bytes": 29980,
+      "last_modified": "2026-11-06T09:53:32+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_AUDIT_STATE.md",
+      "sha256": "DAB6EC42E9C241DACC97A04AD2D1410DEB90E4D150F7C1A37774233985592783",
+      "size_bytes": 30790,
+      "last_modified": "2026-11-06T09:53:10+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_BLOCKER_REGISTER.md",
+      "sha256": "559AF997CF79936E0EF9E963CCC97FF39ECF18B8D1A070B7379CB64976DC4114",
+      "size_bytes": 15509,
+      "last_modified": "2026-11-06T09:53:53+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_CONFIGURATION_BASELINE.md",
+      "sha256": "174F74E8073E93C8BC792D64C1AD82C3CF56C32136FA30680618EB5D9E5D09E0",
+      "size_bytes": 10721,
+      "last_modified": "2026-11-06T09:22:42+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_EVIDENCE_REGISTER.md",
+      "sha256": "A81BA24CE74273191711C24631BBCCEEBCD27935AE2E179DC89CF20BDC3CAA6D",
+      "size_bytes": 26763,
+      "last_modified": "2026-11-06T09:20:54+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_FINDING_REGISTER.md",
+      "sha256": "0A7690670517E63DA0B85B6C767FD9F1071B772DC878415C06DCE74C09FC74B6",
+      "size_bytes": 54020,
+      "last_modified": "2026-11-06T08:31:39+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_GATE_STATUS.md",
+      "sha256": "0DBAC7755738E862167E013BC4D719CE726C4F935056861E95392F0345F68EB0",
+      "size_bytes": 15238,
+      "last_modified": "2026-11-06T09:54:25+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_PHASE_TRACKER.md",
+      "sha256": "A0448F58CCFCFAB3B6E3C59F3A2478D783D9D9240461AFFCABF1BAE0777C9B5C",
+      "size_bytes": 9427,
+      "last_modified": "2026-11-06T09:54:52+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "MASTER_TEST_EXECUTION_HISTORY.md",
+      "sha256": "9977C195DEC7FD856CE29058628B111A0869092C580F2842670D09E2E18C2A42",
+      "size_bytes": 23777,
+      "last_modified": "2026-11-06T09:55:25+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_3_CONTROLLER_VALIDATION_REPORT.md",
+      "sha256": "16B8AD7AAF8DB29EA1BCF6445A683A59CB4AC7A017E1DE90815B589F54869538",
+      "size_bytes": 44015,
+      "last_modified": "2026-11-05T14:53:31+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_4_CONTROLLER_REMEDIATION_REPORT.md",
+      "sha256": "9C42448859E7D7DFE6571445B36531545B0CABA798D268AC7AC7F697A79B9D7F",
+      "size_bytes": 27713,
+      "last_modified": "2026-11-05T15:12:31+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_5_6_7_MASTER_EXECUTION_REPORT.md",
+      "sha256": "D62C46DBC85435C97E91B86828057904C407D8FD8EE3956A8C412B645020C141",
+      "size_bytes": 19893,
+      "last_modified": "2026-11-05T15:31:49+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_5_CHANGE_IMPACT_MATRIX.md",
+      "sha256": "4C7968ABBC024494B6EE76EE27B790C59BF3B6E908ADE9DBCE0312D3E19358AF",
+      "size_bytes": 17869,
+      "last_modified": "2026-11-05T15:31:49+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_5_INCREMENTAL_SECURITY_AUDIT_REPORT.md",
+      "sha256": "2DC7FED5F37D8327E195881EE5C6D2CF23E787060F8C09106D7C98CFA3556A66",
+      "size_bytes": 12252,
+      "last_modified": "2026-11-05T15:31:49+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_5_TEST_EXECUTION_REGISTER.md",
+      "sha256": "675D39551845947BBB1188C958F933CEAC106F9B5963AEF4D647D1BC88513C79",
+      "size_bytes": 9470,
+      "last_modified": "2026-11-05T15:31:49+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_6_BLOCKER_CLOSURE_MATRIX.md",
+      "sha256": "9F0536E13BA06096A1BCE3723BF155F6BAC24527BCBFFCF830DAD306A564D1F8",
+      "size_bytes": 9651,
+      "last_modified": "2026-11-05T15:31:49+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_6_RUNTIME_EVIDENCE_REGISTER.md",
+      "sha256": "5FBF59E0FB170EFA0D02A552CFB47CDA3C4194201AE625DB00FEE91E67DBA663",
+      "size_bytes": 7795,
+      "last_modified": "2026-11-05T15:31:50+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_6_TECHNICAL_VERIFICATION_REPORT.md",
+      "sha256": "B930AE8A825251A51113A59EA224161A0EBC6BD92C9D4BFA5CE3820DC5DABDF7",
+      "size_bytes": 8868,
+      "last_modified": "2026-11-05T15:31:50+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_7_CRYPTOGRAPHIC_INVENTORY.md",
+      "sha256": "AAAF35408357E287188015CF1F87782DA562E45FBD02A39E5E2D06CA1D38FE6B",
+      "size_bytes": 7519,
+      "last_modified": "2026-11-05T15:31:50+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_7_CRYPTOGRAPHY_AND_SECRETS_ASSESSMENT.md",
+      "sha256": "E8E8E6AB698264BDE5DCFF8E42002AB6C5D5FDAAE3905E01916D71AC6D1D2608",
+      "size_bytes": 7357,
+      "last_modified": "2026-11-05T15:31:50+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_7_REMEDIATION_EXECUTION_REPORT.md",
+      "sha256": "7DF966E358A2A946C48EA9611CD4EF81C4255DFA1067EDB198F72DCB5957EE8A",
+      "size_bytes": 22743,
+      "last_modified": "2026-11-06T08:37:39+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_7_REMEDIATION_PLAN.md",
+      "sha256": "4AD359E4D89FF45525BD65FBC8A2F96BED15A6C0CC67D27BF66F50DA952284FB",
+      "size_bytes": 7439,
+      "last_modified": "2026-11-05T15:31:50+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_7_SECRETS_MANAGEMENT_DESIGN.md",
+      "sha256": "EF2B44575B38B579E13FE88BBEFF5B730C7A41C7BC5ACF0C0EEDB6DFF046E10E",
+      "size_bytes": 5458,
+      "last_modified": "2026-11-05T15:31:50+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_7_TEST_STRATEGY.md",
+      "sha256": "BED10B78F58A16474E90B083BA32E3C9E76F56E60D8C5BDFBDDF85633B43309D",
+      "size_bytes": 7247,
+      "last_modified": "2026-11-05T15:31:50+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_7_VERIFICATION_EVIDENCE_REGISTER.md",
+      "sha256": "79424BE3EE2D274352D5384F9ECAD74E53DEC7DE74667D801018734DD8F2A4F7",
+      "size_bytes": 9358,
+      "last_modified": "2026-11-06T08:37:39+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_CANONICAL_BLOCKER_REGISTER.md",
+      "sha256": "E915A1E50D39DCF6C1AD5A3157FADB78F7C9F99551FBCAF3C63B5B670D26706F",
+      "size_bytes": 14361,
+      "last_modified": "2026-11-06T09:50:16+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_CONTROLLER_CHANGELOG.md",
+      "sha256": "447B9BEF245AE42F006FFF836C608257BE68677E4530817059D30A5F0CBF2DA6",
+      "size_bytes": 9131,
+      "last_modified": "2026-11-06T09:52:38+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_EVIDENCE_INTEGRITY_REPORT.md",
+      "sha256": "1CB0003AED3637DEFCF650FE668B6392410DE7614975C4E3D7578DE64B3A2452",
+      "size_bytes": 14615,
+      "last_modified": "2026-11-06T09:56:05+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_FINAL_AUDIT_RECONCILIATION_REPORT.md",
+      "sha256": "C58470C61DB7F281EDD1A33E6A95853491D2B2E731FF0ED55FAD35711562D151",
+      "size_bytes": 24945,
+      "last_modified": "2026-11-06T09:47:44+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_GATE_DECISION_REPORT.md",
+      "sha256": "B02FDB133B8A05DF1FD80BF0DACEE5F916D998AEFA382C0AA568DF9F7BDA30F1",
+      "size_bytes": 7526,
+      "last_modified": "2026-11-06T09:52:16+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_MASTER_FINDING_RECONCILIATION.md",
+      "sha256": "0DABFA66424384033DCBE0A560E783261025D3DA042CF063D4C38A13F311FCDA",
+      "size_bytes": 42616,
+      "last_modified": "2026-11-06T09:49:11+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_PHASE_STATUS_REGISTER.md",
+      "sha256": "96E118D2E7ABDED1ED597F3AEA2BFA7E25A942E86B08478245BC98284BCE1C2A",
+      "size_bytes": 15580,
+      "last_modified": "2026-11-06T09:49:44+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_RESIDUAL_RISK_RECONCILIATION.md",
+      "sha256": "6B3EDD3C4A65B2403A1C28E530428968BC5DCE2F9F773773ADA498CC5A2DCF42",
+      "size_bytes": 17327,
+      "last_modified": "2026-11-06T09:50:52+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_1_TEST_EVIDENCE_VALIDATION.md",
+      "sha256": "549786E14600947096C456A648D3875C30DCF3F64422446BFB34A10908338DC6",
+      "size_bytes": 14118,
+      "last_modified": "2026-11-06T09:52:00+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_CRYPTOGRAPHIC_VALIDATION_REPORT.md",
+      "sha256": "6B8CBFD268E69050573109E71E8A9B3B709803F55133C8A07467D2FB2E222CBC",
+      "size_bytes": 8093,
+      "last_modified": "2026-11-06T09:24:57+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_DEPENDENCY_VULNERABILITY_REPORT.md",
+      "sha256": "DAD5FDD80CD888A72E87FD5831AD7957FDCEE1C199B92500D0C594D33DA57361",
+      "size_bytes": 7159,
+      "last_modified": "2026-11-06T09:24:57+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_ESIGN_XML_SECURITY_REPORT.md",
+      "sha256": "0A4A25AD510E72B1B2C86242B42340CDE47CF66E2EA80915496A0BBE2B4F832E",
+      "size_bytes": 6605,
+      "last_modified": "2026-11-06T09:24:57+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_EXECUTION_PLAN.md",
+      "sha256": "6486E82AD69BAD4FB24613D469DAC59FB32D3722E13099E33B59840C50E1F010",
+      "size_bytes": 6988,
+      "last_modified": "2026-11-06T09:24:57+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_FINAL_SECURITY_AUDIT_REPORT.md",
+      "sha256": "B0E9E7D5B1906108BC73F401D8C1FB80DEEA0381B2B45F7EF725365845A7879E",
+      "size_bytes": 14289,
+      "last_modified": "2026-11-06T09:24:59+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_FINDING_CLOSURE_MATRIX.md",
+      "sha256": "DA47606E1BE32876493DB0CF0DCC323A266A73E1784C7DF7EB9C6D8629AC8525",
+      "size_bytes": 19093,
+      "last_modified": "2026-11-06T09:24:59+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_GATE_B_RUNTIME_VERIFICATION_REPORT.md",
+      "sha256": "710806C927932286A6E2C9C22EA3B1A1B7843EC578D706677D3EB24392B717F3",
+      "size_bytes": 7631,
+      "last_modified": "2026-11-06T09:24:58+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_INITIAL_BASELINE_REPORT.md",
+      "sha256": "A81D58AC123EFBE297D769E4ECF8A9282F6C1C4AA4D9E743ABE0BD61C6402353",
+      "size_bytes": 6701,
+      "last_modified": "2026-11-06T09:24:58+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_PERFORMANCE_TEST_REPORT.md",
+      "sha256": "051D1158AB64AA42E8ED4C2AC8E48C427507EE3CE7417319A2B7FA7CC3E3BD4C",
+      "size_bytes": 10062,
+      "last_modified": "2026-11-06T09:24:59+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_PHASE_7_INDEPENDENT_VERIFICATION_REPORT.md",
+      "sha256": "B16BBACAA8724E3D0644FF0F9D3768808E0D9E3761B338EB0A2382B3AEFB575B",
+      "size_bytes": 9575,
+      "last_modified": "2026-11-06T09:24:58+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_PRODUCTION_READINESS_ASSESSMENT.md",
+      "sha256": "3AF57941D0005B17EF02F4AECBB757556C2A3E7FA25C2CB094556FC0FD6EA698",
+      "size_bytes": 10901,
+      "last_modified": "2026-11-06T09:24:59+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_RISK_ACCEPTANCE_MEMORANDUM.md",
+      "sha256": "219D02F7D30F26654203DF72DA9D65B3A3758705BCF9F551BC357875CA9AAA5C",
+      "size_bytes": 11094,
+      "last_modified": "2026-11-06T09:24:59+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_SECRETS_MANAGEMENT_VALIDATION_REPORT.md",
+      "sha256": "643B957292983746459070F7D21F98DED8A2671FD11F1DFA0952F23571B77C19",
+      "size_bytes": 6558,
+      "last_modified": "2026-11-06T09:24:58+05:30",
+      "exists": true
+    },
+    {
+      "relative_path": "PHASE_8_SECURITY_REGRESSION_REPORT.md",
+      "sha256": "29C9253F4A6E2D20435FA07628189962F70703999955645BF559B0CB53223EC1",
+      "size_bytes": 6452,
+      "last_modified": "2026-11-06T09:24:58+05:30",
+      "exists": true
+    }
+  ]
+}

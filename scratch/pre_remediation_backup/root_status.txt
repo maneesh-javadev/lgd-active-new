@@ -1,0 +1,42 @@
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+	modified:   API_Vulnerability_Exploitation_Log.md
+	modified:   DAST_Evidence_Register.md
+	modified:   DAST_Penetration_Test_Report.md
+	modified:   Master_Finding_Traceability_Register.md
+	modified:   PHASE3_DAST_REMEDIATION_REPORT.md
+	modified:   PHASE_4_EVIDENCE_REGISTER.md
+	modified:   PHASE_4_SCA_ASSESSMENT_REPORT.md
+	modified:   Residual_Risk_Register.md
+	modified:   SCA_FINDINGS_REGISTER.md
+	modified:   SCA_LICENSE_COMPLIANCE_REPORT.md
+	modified:   SCA_REMEDIATION_PLAN.md
+	modified:   SECURITY_MASTER_FINDING_REGISTER.md
+	modified:   SECURITY_PHASE_TRACKER.md
+	modified:   SECURITY_RESIDUAL_RISK_REGISTER.md
+	modified:   SOFTWARE_BILL_OF_MATERIALS.json
+	modified:   Security_Phase_Execution_Plan.md
+	modified:   api-gateway (new commits, modified content)
+	modified:   auth-service (new commits)
+	modified:   lgd-um (new commits)
+	modified:   lgd_react (modified content, untracked content)
+	modified:   revenue (new commits)
+	modified:   scratch/license_analysis_data.json
+	modified:   scratch/reconcile_cyclonedx_sbom.js
+	modified:   user-management (new commits)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	scratch/bom-1.5.schema.json
+	scratch/extract_schema.js
+	scratch/pre_remediation_backup/
+	scratch/validate_sbom_schema.js
+	scratch/wsl_host_proxy.py
+
+no changes added to commit (use "git add" and/or "git commit -a")

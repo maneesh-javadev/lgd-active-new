@@ -1,0 +1,113 @@
+================================================================================
+LGD 2.0 SECURITY AUDIT CONTROLLER — PHYSICAL EVIDENCE RECORD
+EVIDENCE ID: EVD_P9_1_5_05_POSTGRESQL_CERTIFICATE_BACKUP_AND_ROLLBACK_AUDIT
+================================================================================
+Timestamp: 2026-11-06T12:45:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.5 Workstream E (DISC-P914-05, BLK-CANON-03, RR-05)
+Target Files: server.crt, server.key, ca.crt, postgresql.conf, pg_hba.conf
+Target Location: E:\Program Files\PostgreSQL\14\data\
+================================================================================
+
+1. INSPECTION SOURCE & PURPOSE:
+--------------------------------------------------------------------------------
+Source Inspected:
+  - Phase 9.1.4 Stage B Blueprint (Step B1-01, Step B1-02, Step B1-05)
+  - Windows Access Control List Architecture (icacls.exe)
+  - PostgreSQL Utility Reference (pg_dumpall --globals-only)
+Purpose:
+  Independently verify finding DISC-P914-05 regarding the omission of certificate
+  files and NTFS ACLs in the Stage B1 backup procedure, and the credential exposure
+  and collision hazards of 'pg_dumpall --globals-only'. Formulate a robust 11-step
+  certificate recovery procedure and selective, encrypted role restoration protocol.
+
+2. CERTIFICATE BACKUP DEFICIT IDENTIFIED:
+--------------------------------------------------------------------------------
+Phase 9.1.4 Deficit:
+  - Step B1-01 backed up ONLY 'postgresql.conf' and 'pg_hba.conf'.
+  - Step B1-02 deployed 'server.crt', 'server.key', and 'ca.crt' into the data directory
+    and altered NTFS ACLs with 'icacls ... /inheritance:r'.
+  - GAPS:
+      1. Pre-existing certificate files (if present) were not backed up.
+      2. Original NTFS ACLs were not captured or preserved.
+      3. No procedure existed to restore original certificates or revert ACL mutations.
+      4. If TLS deployment failed or certs were corrupted, DBA had no clean recovery runbook.
+
+3. AUTHORITATIVE 11-CONTROL CERTIFICATE BACKUP & RECOVERY RUNBOOK:
+--------------------------------------------------------------------------------
+Pre-Change Procedure:
+  Control 1: Certificate File Census:
+    Enumerate existing *.crt, *.key, *.pem in data directory.
+  Control 2: Pre-Change Isolated Archiving:
+    Copy existing cert files to timestamped backup directory:
+    $backupDir = "SECURITY_AUDIT_CONTROLLER\backup\stage_b_$ts\postgresql_certs"
+  Control 3: Original NTFS ACL Preservation:
+    Capture exact security descriptors using icacls:
+    icacls "E:\Program Files\PostgreSQL\14\data\*.*" /save "$backupDir\NTFS_ACLS_ORIG.acl"
+  Control 4: SHA-256 Checksum Manifest:
+    Compute SHA-256 hashes of all backed up certificates and keys:
+    Get-FileHash "$backupDir\*.*" -Algorithm SHA256 | Out-File "$backupDir\CERT_SHA256_MANIFEST.txt"
+  Control 5: Backup Storage Access Hardening:
+    Restrict backup directory NTFS permissions strictly to Administrators:
+    icacls "$backupDir" /inheritance:r /grant:r "Administrators:(OI)(CI)(F)"
+  Control 6: Encryption at Rest:
+    Protect private key backup copies with DPAPI / Windows Encrypting File System (cipher /e).
+
+Rollback & Recovery Procedure:
+  Control 7: Certificate Removal / Restoration:
+    If newly deployed certs fail: remove server.crt, server.key, ca.crt. If pre-existing
+    certs existed, restore from $backupDir.
+  Control 8: NTFS ACL Restoration:
+    Restore exact original security descriptors:
+    icacls "E:\Program Files\PostgreSQL\14\data" /restore "$backupDir\NTFS_ACLS_ORIG.acl"
+  Control 9: Restored File Integrity Verification:
+    Assert restored file SHA-256 hashes match CERT_SHA256_MANIFEST.txt.
+  Control 10: Restored ACL Attestation:
+    Verify service account (NT SERVICE\postgresql-x64-14) permissions match pre-change state.
+  Control 11: Service Health & TLS State Verification:
+    Restart PostgreSQL service and confirm healthy socket binding without SSL errors.
+
+4. ROLE BACKUP SAFETY & PG_DUMPALL HAZARDS:
+--------------------------------------------------------------------------------
+Hazards of 'pg_dumpall --globals-only':
+  1. Plaintext Hash Exposure:
+     pg_dumpall generates SQL script containing 'ALTER ROLE ... ENCRYPTED PASSWORD '...';'.
+     Even with SCRAM, SCRAM verifiers (salt, stored key, server key) are written to disk
+     in plaintext, exposing them to unauthorized read access and offline cracking.
+  2. Indiscriminate Cluster-Wide Overwrite:
+     Restoring globals-only applies to ALL cluster users, tablespaces, and database-level
+     configurations. Unrelated role modifications made by other DBAs are silently destroyed.
+  3. Lockout Risk:
+     If admin credentials were changed during migration, applying full globals can lock out
+     administrative accounts.
+
+Selective, Hardened Role Restoration Protocol:
+  1. Role-Specific Dump / Scripting:
+     Instead of cluster-wide restore, generate selective, targeted role rollback script:
+     ALTER ROLE lgd_prod_user WITH PASSWORD '${PRE_CHANGE_APP_PASSWORD}';
+     ALTER ROLE lgd_repl_user WITH PASSWORD '${PRE_CHANGE_REPL_PASSWORD}';
+     ALTER ROLE lgd_monitor WITH PASSWORD '${PRE_CHANGE_MONITOR_PASSWORD}';
+  2. Backup Encryption:
+     If globals dump is taken, it MUST be encrypted immediately with AES-256 (e.g. OpenSSL
+     or GPG) with the key held exclusively in the enterprise password vault.
+  3. Post-Restore Verification:
+     Query pg_roles to confirm targeted roles restored and login capability operational.
+
+5. STATUS CLASSIFICATION:
+--------------------------------------------------------------------------------
+- In accordance with audit governance policy, because this rollback procedure has not
+  been physically executed in a staging maintenance window, its status remains:
+  ROLLBACK_DESIGN_ONLY.
+
+6. LIMITATIONS:
+--------------------------------------------------------------------------------
+- Cannot be executed against live database until maintenance window is authorized.
+- No private key contents or password hashes are included in evidence.
+
+7. RELATED FINDINGS:
+--------------------------------------------------------------------------------
+- DISC-P914-05: Incomplete certificate backup and rollback resolved in design.
+- BLK-CANON-03: PostgreSQL 14 availability and runtime verification.
+- RR-05: Infrastructure security and transport encryption.
+================================================================================
+

@@ -1,0 +1,29 @@
+================================================================================
+LGD 2.0 FINAL REMEDIATION - MAVEN BUILD ARTIFACTS & SHA-256 DIGESTS
+Timestamp: 2026-11-06T14:41:37+05:30
+================================================================================
+Module: discovery
+Artifact: service-discovery-0.0.1-SNAPSHOT.jar
+Size: 61244100 bytes
+SHA256: 7D9CA0E66365375FD16BA708E4C7A3A100CDC739C87F1A632CE408FF29BEB677
+--------------------------------------------------------------------------------
+Module: auth-service
+Artifact: auth-service-0.0.1-SNAPSHOT.jar
+Size: 91535780 bytes
+SHA256: 7A42CB99D180D7DF1ADBB5C7705AED43048528839D28CE6A856B7878FB61AA6E
+--------------------------------------------------------------------------------
+Module: revenue
+Artifact: revenue-0.0.1-SNAPSHOT.jar
+Size: 96296489 bytes
+SHA256: 5C6097F1269609CD09011AFF80800826F472D2B9B7F35A6149882C8E7CDA5088
+--------------------------------------------------------------------------------
+Module: api-gateway
+Artifact: api-gateway-1.0.0.jar
+Size: 91165267 bytes
+SHA256: D6A0DEE1B9A15B7B58A6016A6156781C54C034A36A2B766C588C0ADCC8C76468
+--------------------------------------------------------------------------------
+Module: user-management
+Artifact: user-management-0.0.1-SNAPSHOT.jar
+Size: 92364562 bytes
+SHA256: BEE8EBAC82984E8AFBDA3864972BC5905D129C7C48CAF8FBF8CCFDE316D1C44D
+--------------------------------------------------------------------------------

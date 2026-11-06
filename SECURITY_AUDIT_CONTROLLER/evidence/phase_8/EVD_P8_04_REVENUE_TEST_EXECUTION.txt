@@ -1,0 +1,17 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD_P8_04_REVENUE_TEST_EXECUTION
+Service Module: revenue
+Execution Timestamp: 2026-11-06T09:05:00+05:30
+Surefire XML Reports Directory: revenue/target/surefire-reports
+Summary: Suites=6, Total=43, Passed=43, Failed=0, Errors=0, Skipped=0 (100.0% Pass Rate)
+================================================================================
+ITEMIZED TEST SUITES:
+   1. in.nic.lgd.revenue.security.DraftTenantSecurityTest | Tests: 9 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.423s
+   2. in.nic.lgd.revenue.security.EsignCallbackSecurityTest | Tests: 13 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.678s
+   3. in.nic.lgd.revenue.security.EsignValidationSecurityTest | Tests: 4 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.086s
+   4. in.nic.lgd.revenue.security.JwtUtilSecurityTest | Tests: 4 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.950s
+   5. in.nic.lgd.revenue.security.SubDistrictPrimaryControllerSecurityTest | Tests: 7 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.115s
+   6. in.nic.lgd.revenue.security.XmlSignatureSecurityTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.015s
+================================================================================
+VERIFIED FORENSIC DETERMINATION: 100% PASS
+================================================================================

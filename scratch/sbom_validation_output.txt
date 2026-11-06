@@ -1,0 +1,37 @@
+Target SBOM: E:\System\Projects\dockerProject\Source code\lgd-active-new\SOFTWARE_BILL_OF_MATERIALS.json
+File SHA-256 Digest: 99ba796566d50a5d171e55ffbc7da9946be0b1bbaf2b5be566af6a623a79993b
+BOM Format: CycloneDX 1.5
+Serial Number: urn:uuid:000ec80b-40ed-4ff1-9c2c-158ff7881799
+Timestamp: 2026-11-02T06:13:56.869Z
+
+--- Step 1: Official CycloneDX 1.5 JSON Schema Validation ---
+SCHEMA VALIDATION RESULT: PASSED (0 errors)
+Verified against official unmodified bom-1.5.schema.json, spdx.schema.json, and jsf-0.82.schema.json
+Validator Engine: ajv@8.20.0 (non-strict mode with custom regex format checks for date-time, uri, iri, iri-reference, idn-email).
+Note: Custom regex format checks provide syntactic filtering but have not been evaluated against full RFC 3986/3987 formal grammar test suites.
+
+--- Step 2: Separate Referential Integrity Check ---
+Total Declared bom-ref Identifiers: 924
+Referential Integrity Summary:
+- Total Dependency Graph Nodes: 924
+- Orphan 'ref' Pointers: 0
+- Orphan 'dependsOn' Target Pointers: 0
+REFERENTIAL INTEGRITY RESULT: PASSED (100% referential closure across all components and edges)
+
+--- Step 3: Directed Dependency-Graph Cycle Analysis ---
+Detected Directed Graph Cycles: 3
+  [Cycle 1] pkg:npm/browserslist@4.29.5 -> pkg:npm/update-browserslist-db@1.3.4 -> pkg:npm/browserslist@4.29.5
+  [Cycle 2] pkg:npm/%40babel/core@7.29.7 -> pkg:npm/%40babel/helper-module-transforms@7.29.7 -> pkg:npm/%40babel/core@7.29.7
+  [Cycle 3] pkg:npm/eslint@9.39.5 -> pkg:npm/%40eslint-community/eslint-utils@4.10.1 -> pkg:npm/eslint@9.39.5
+
+Cycle Technical Investigation & Disposition:
+1. Cycle 1 (browserslist <-> update-browserslist-db):
+   - Relationship: 'browserslist@4.29.5' depends on 'update-browserslist-db', which specifies peerDependency 'browserslist: >=4.21.0'.
+   - Nature: Legitimate npm peer-dependency relationship. Permitted by CycloneDX specification standard.
+2. Cycle 2 (@babel/core <-> @babel/helper-module-transforms):
+   - Relationship: '@babel/core@7.29.7' invokes '@babel/helper-module-transforms', which declares '@babel/core' as peerDependency.
+   - Nature: Legitimate npm compiler peer-dependency relationship.
+3. Cycle 3 (eslint <-> @eslint-community/eslint-utils):
+   - Relationship: 'eslint@9.39.5' bundles '@eslint-community/eslint-utils', which declares peerDependency 'eslint: ^6.0.0 || ^7.0.0 || >=8.0.0'.
+   - Nature: Legitimate npm linter peer-dependency relationship.
+Conclusion: Cycles are authentic packaging peer-dependency structures in the frontend Node.js ecosystem, NOT cross-module merge defects.

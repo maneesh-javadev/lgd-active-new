@@ -1,0 +1,530 @@
+{
+  "deliverables": [
+    {
+      "file": "PHASE_6_FINAL_INDEPENDENT_ACCEPTANCE_REPORT.md",
+      "hash": "bb446a2a5107738a495454fc004e5cdca32307d743da50b65a1c11b81cb464a2",
+      "size": 33938
+    },
+    {
+      "file": "PHASE_6_FINAL_SUREFIRE_CENSUS.md",
+      "hash": "682681e8d14e13ae6379582fe120fe00db21f01f24e3687b592c873b93d53f3d",
+      "size": 25428
+    },
+    {
+      "file": "PHASE_6_BLOCKER_IDENTITY_AND_STATUS_RECONCILIATION.md",
+      "hash": "74c9eab7aee851416929806ccf63143e0e53e00a10216f97b983deb37aeab7b9",
+      "size": 10817
+    },
+    {
+      "file": "PHASE_6_FINAL_EVIDENCE_INTEGRITY_REPORT.md",
+      "hash": "9ef6fade6ab6b200905aaed532d37924c0c75a69d19417afc1c73f795127e0de",
+      "size": 17716
+    },
+    {
+      "file": "PHASE_6_FINAL_FINDING_DISPOSITION_MATRIX.md",
+      "hash": "ea790831d5da4e9eb2736b39d953a7a7f473c8c11ad3aa8ae49f27c455574514",
+      "size": 22610
+    },
+    {
+      "file": "PHASE_6_GATE_A_B_C_FINAL_DISPOSITION.md",
+      "hash": "748be637711418e74d2e5c92e1aba079733243296de855925bf224200046493a",
+      "size": 11396
+    }
+  ],
+  "auditRegisters": [
+    {
+      "file": "PHASE_6_RBAC_FINDINGS_REGISTER.md",
+      "hash": "cc4c0ad2b571b8227ba255f1df2e27c803e08c542e9d5cac3e036a468c8cc77a",
+      "size": 31106
+    },
+    {
+      "file": "PHASE_6_AUTHORIZATION_ENDPOINT_MATRIX.md",
+      "hash": "2dfae1284162427cbf7aaea9d1051945bf19efd24df84b8d442c2eef89b3eb83",
+      "size": 18762
+    },
+    {
+      "file": "PHASE_6_EVIDENCE_REGISTER.md",
+      "hash": "9fbc7ab0785c742e2cae7a9436dba5da2cbb4891959e1571ae0e7cf27005e08e",
+      "size": 24766
+    },
+    {
+      "file": "PHASE_6_MULTITENANCY_TEST_REGISTER.md",
+      "hash": "587e41927071ca007e3c3926367f7b063b7dc465baa13d0534afdc7b785b1fad",
+      "size": 13923
+    },
+    {
+      "file": "PHASE_6_GATE_B_REGRESSION_AND_RETEST_REPORT.md",
+      "hash": "26e562f1bed643f766fc55b1d54a5350a02bc89090e312f60e09df9cc1b5a9af",
+      "size": 11002
+    },
+    {
+      "file": "PHASE_6_GATE_B_TECHNICAL_EVIDENCE_REGISTER.md",
+      "hash": "356a838973337200c9d9b70e90d4517e6c3f5ba80fa72979af13c726629a7a80",
+      "size": 9081
+    },
+    {
+      "file": "PHASE_6_GATE_B_TECHNICAL_VERIFICATION_CLOSURE_REPORT.md",
+      "hash": "61a753a87009c4858023ca56c3721ec667c1120418b52c9b84d21ef67570d15b",
+      "size": 19578
+    },
+    {
+      "file": "RBAC_004_FINAL_CONTROLLER_AUTHORITY_MATRIX.md",
+      "hash": "7c6816280cefe04c32419ed83729d2b9cc945d3e8d19b9e1c02797caafde22a1",
+      "size": 13831
+    },
+    {
+      "file": "RBAC_004_FINAL_EVIDENCE_REGISTER.md",
+      "hash": "ded75ddacb4826dfda2e4accead03398d82fc5168a527ffbead88b64c57d7c95",
+      "size": 19423
+    },
+    {
+      "file": "RBAC_004_GOVERNANCE_DISPOSITION.md",
+      "hash": "e0f0ebbe6c38ea9b29e9b4bd448ea2a149a275211afe9a7c39032a9c98631678",
+      "size": 5850
+    },
+    {
+      "file": "RBAC_004_NEGATIVE_POSITIVE_TEST_EVIDENCE.md",
+      "hash": "5c089b5f5eda9e1095a49ea8c81bf54f2a27b4e698987361cfd8f4ed4e0f9b43",
+      "size": 17356
+    },
+    {
+      "file": "RBAC_004_REMEDIATION_AND_RETEST.md",
+      "hash": "4fcdcee70db6fce2e210176ea1bab54deaf130f5cfd6327b68b684bafaa68a09",
+      "size": 12010
+    },
+    {
+      "file": "RBAC_004_SUREFIRE_RECONCILIATION.md",
+      "hash": "6cd66b7266db7f7d7777e43b566a4e942c4ef6a0a8091f5f66aa019e137a3b4b",
+      "size": 13937
+    },
+    {
+      "file": "BLK_01_EXP_016_TLS_HSTS_VERIFICATION_REPORT.md",
+      "hash": "bec6a9b9e8dd763f4231507eb183002599f10a9077d465db432fe78ebd3bb990",
+      "size": 12121
+    },
+    {
+      "file": "BLK_02_EXP_021_REVENUE_TESTCONTROLLER_CENSUS.md",
+      "hash": "88818c3309d5989f166742b8d0a3e672216f0f3eb6e47819966f1a9dc2e48d19",
+      "size": 16595
+    },
+    {
+      "file": "BLK_03_POSTGRESQL14_REVENUE_STEADY_STATE_REPORT.md",
+      "hash": "868faa1efd210bd0095448949056c089f54fa70e992c467482134a59534dc83b",
+      "size": 11813
+    },
+    {
+      "file": "GATE_B_GATE_C_CROSS_DOCUMENT_CONSISTENCY_REPORT.md",
+      "hash": "e902fd3ae9dcb004636410df6d02413baa98c1d6d7f625fa2b085201e0b33627",
+      "size": 9948
+    },
+    {
+      "file": "GATE_B_TECHNICAL_VERIFICATION_CLOSURE_REPORT.md",
+      "hash": "a9e748cc8bfe0a02e8c09269092422c302f1e61fa0a03d0edc1abedfc395bee5",
+      "size": 9609
+    },
+    {
+      "file": "GATE_C_DAA_CISO_APPROVAL_REQUEST.md",
+      "hash": "1b9c1d5cbfd17a2216c99710a9bc14936c0f72be45a456844b9850c4a4c41bd2",
+      "size": 12444
+    },
+    {
+      "file": "PHASE0_4_REMAINING_BLOCKERS_REGISTER.md",
+      "hash": "f0b3ab67f199a5f77971cfdce7455fdfdab0c06a0cb32d7011fcd5e14ec8a5dc",
+      "size": 15663
+    }
+  ],
+  "sourceAndConfigs": [
+    {
+      "file": "user-management/src/main/java/in/nic/lgd/usermanagement/modules/master/controller/RoleLevelMasterController.java",
+      "hash": "0b6a5ca1ea4da4b9a215699be24d81aca18867855f0bb0aaafb7f66f5cea128b",
+      "size": 5571
+    },
+    {
+      "file": "user-management/src/main/java/in/nic/lgd/usermanagement/modules/master/controller/RoleTypeMasterController.java",
+      "hash": "b578439e77b2a9148d1e589155baf4c504749b64c0f7796851fdc34e63640278",
+      "size": 5482
+    },
+    {
+      "file": "user-management/src/main/java/in/nic/lgd/usermanagement/modules/privilege/controller/PrivilegeController.java",
+      "hash": "3f31b01612b74cca99a7aca65c79c1ac95254eb671afc4a469032b7a5ddb1c34",
+      "size": 6813
+    },
+    {
+      "file": "user-management/src/main/java/in/nic/lgd/usermanagement/modules/resource/controller/ResourceController.java",
+      "hash": "3224f824011b44c76d64ef64725b70c45c927910d83bbee2a520fc080fb4d06e",
+      "size": 6241
+    },
+    {
+      "file": "user-management/src/main/java/in/nic/lgd/usermanagement/user/security/JwtAuthenticationFilter.java",
+      "hash": "13dc804282b3be60918fd7c365b8220b6820fc29a8f5034849b2b6c2a9394834",
+      "size": 5816
+    },
+    {
+      "file": "user-management/src/main/java/in/nic/lgd/usermanagement/user/security/HierarchySecurityUtil.java",
+      "hash": "8af469b0347cc90f66968936cb597bcedbadf06c0ef6cb5b796574e518cdf61d",
+      "size": 3531
+    },
+    {
+      "file": "user-management/src/test/java/in/nic/lgd/usermanagement/integration/Rbac001SecurityNegativeTest.java",
+      "hash": "b62189368a77b05aaa7c78e20fad19ee07c200b7716a9e349624e8e62afce1b3",
+      "size": 8371
+    },
+    {
+      "file": "user-management/src/test/java/in/nic/lgd/usermanagement/integration/Rbac004EndpointSecurityIntegrationTest.java",
+      "hash": "ab98857b1d6052c35703c8fc3d4e8ea4fe68603708b505c839f5dae056f6d895",
+      "size": 40996
+    },
+    {
+      "file": "user-management/src/test/java/in/nic/lgd/usermanagement/integration/RbacSecurityIntegrationTest.java",
+      "hash": "480fbdcf1ce153140f8289a31506b64a536b783ef6eb3cc2d6b8db8109bb4a0b",
+      "size": 4878
+    },
+    {
+      "file": "user-management/src/main/resources/application.properties",
+      "hash": "d4a986be9e6d9f49a0a2e70e1906dfaa7dd84aeeb8902ccb8ffbd2a936db3da4",
+      "size": 2510
+    },
+    {
+      "file": "user-management/src/main/resources/application-prod.properties",
+      "hash": "fef837919b0dfb633f3c5adc833220489f21d62d5e71510c3aff554368102be2",
+      "size": 1154
+    },
+    {
+      "file": "auth-service/src/main/java/in/nic/lgd/auth/security/JwtUtil.java",
+      "hash": "661843f96d28deb7b5892c9e6b95c814d73b9e15ba7f1cd4239f774708c42bf2",
+      "size": 5281
+    },
+    {
+      "file": "auth-service/src/main/java/in/nic/lgd/auth/service/impl/AuthServiceImpl.java",
+      "hash": "fa5856e67a2a4ae6bcdbc8fad2b3b51cbc3035d777e8fc2679d83af4f8fe5bc0",
+      "size": 6999
+    },
+    {
+      "file": "auth-service/src/main/resources/application.properties",
+      "hash": "d8bb3b93203a2ab5e25a3b4789249046c46095d7f688c5a89e1c950d1e1ab435",
+      "size": 1850
+    },
+    {
+      "file": "auth-service/src/main/resources/application-prod.properties",
+      "hash": "60497ce465b44f0227a4f2a40f90a5eee0797a88bfe5d1575fad4783af350300",
+      "size": 1179
+    },
+    {
+      "file": "api-gateway/src/main/java/in/gov/lgd/gateway/filter/SecurityHeadersFilter.java",
+      "hash": "812cdd3add20f73cc3eb65cdf9966854b5b966dd7cb73f7607618b1ffbb5bdc7",
+      "size": 2143
+    },
+    {
+      "file": "api-gateway/src/main/java/in/gov/lgd/gateway/filter/IdentityHeaderSanitizationFilter.java",
+      "hash": "e8a9ea2dacac4229cbbdf3adeb7d73d99aae4c2c4e23b17eafdf663578d6c7fe",
+      "size": 2654
+    },
+    {
+      "file": "api-gateway/src/test/java/in/gov/lgd/gateway/filter/IdentityHeaderSanitizationFilterTest.java",
+      "hash": "4ebdc4aeafef72cd2ee318d9dff023fc75218d1407ad42f80799bb59f2454f53",
+      "size": 5167
+    },
+    {
+      "file": "api-gateway/src/main/resources/application.properties",
+      "hash": "65315d9e910ac021bb5ae3c60d4fe01a3dc98767100925df1a9ef039e9ffa661",
+      "size": 6936
+    },
+    {
+      "file": "api-gateway/src/main/resources/application-prod.properties",
+      "hash": "44edc726e15e0c36c31490c4e13a13b649ae6b6f75daa708afddf1b84273e27d",
+      "size": 2398
+    },
+    {
+      "file": "revenue/src/main/java/in/nic/lgd/revenue/controller/TestController.java",
+      "hash": "f64ce822bf85a0ed994b2cc124714c5b04dd9cec3a0ac9cff96e7ce50bf53a88",
+      "size": 1837
+    },
+    {
+      "file": "revenue/src/main/java/in/nic/lgd/revenue/user/security/JwtAuthenticationFilter.java",
+      "hash": "819443585219e47af530e38909e2bfcdde62ab89d7d0464af4497cdbdd8e83be",
+      "size": 4915
+    },
+    {
+      "file": "revenue/src/main/resources/application.properties",
+      "hash": "3407019bc2ecc5b6fb6c0a7a18dd9b197e7d5b07ec32d84b9d6db2a9fd3eea44",
+      "size": 1901
+    },
+    {
+      "file": "revenue/src/main/resources/application-prod.properties",
+      "hash": "099f187073109412d8f59a4dc1079a280e97e166313135bf5b9b853b2e4ae0b2",
+      "size": 1390
+    },
+    {
+      "file": "discovery/src/main/resources/application.properties",
+      "hash": "1b6fd5c6474d8522801fb377a1dc067d05818763e70c68d4403fe6e4e74ef8ec",
+      "size": 348
+    },
+    {
+      "file": "docker-compose.yml",
+      "hash": "27429a07023a432b4a39e01dc5f207dccb482f65ccb9219f8beefc3eb8085bdb",
+      "size": 7945
+    },
+    {
+      "file": ".env",
+      "hash": "955f8d664fa5eb6e9df4b58933a8b071106d05b37f5911243a164eb52752741f",
+      "size": 580
+    },
+    {
+      "file": ".env.example",
+      "hash": "b0bd8611647d2d1d5941fc01e045a13b4a1a179dd79f9f2c3d27ce83305c0c14",
+      "size": 793
+    }
+  ],
+  "surefireXmls": [
+    {
+      "file": "api-gateway/target/surefire-reports/TEST-in.gov.lgd.gateway.filter.AuthenticationFilterTest.xml",
+      "hash": "6f515b6edcbaebcdef3f2ce517131094614c437a75c8c9ed423d0678c7d2902f",
+      "size": 61474
+    },
+    {
+      "file": "api-gateway/target/surefire-reports/TEST-in.gov.lgd.gateway.filter.IdentityHeaderSanitizationFilterTest.xml",
+      "hash": "74da41a65c4cc00a4ac95c01f10f7da2096f5bb459be6c7b6e7f9985a34dcd0f",
+      "size": 51732
+    },
+    {
+      "file": "api-gateway/target/surefire-reports/TEST-in.gov.lgd.gateway.filter.RouteValidatorTest.xml",
+      "hash": "267a8877b700c1e4af24c6988f4b1c838fac4ddea5eadbc57009122c11f559cf",
+      "size": 52129
+    },
+    {
+      "file": "api-gateway/target/surefire-reports/TEST-in.gov.lgd.gateway.filter.SecurityHeadersFilterTest.xml",
+      "hash": "9adaf66dfa8f2379a1f85aa46d3cd7caf2b6f7360aab85122934d8e12a186ce4",
+      "size": 51108
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.controller.AuthPrimaryControllerTest.xml",
+      "hash": "2a0503207e1790df54c9ccd60e26aafc17c1c6958b22c828ef33f9bac9318b28",
+      "size": 45949
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.controller.AuthSecondaryControllerTest.xml",
+      "hash": "340e603853a7696d75e592538707a6c3d60a675ec2a51c19da8b740784581e48",
+      "size": 44847
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.security.JwtHardeningRegressionTest.xml",
+      "hash": "313c813144d687d5407614efbda0ac537690455f99af9c15702bfa0d2acbbe51",
+      "size": 146047
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.security.JwtUtilTest.xml",
+      "hash": "ed3669d240edb6c42720422e5b25be1767e990a8d1a6d39bcc059993b1c9220d",
+      "size": 45891
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.security.ProductionSecurityValidatorTest.xml",
+      "hash": "881d6c40348f880fbe8e7415be2dc3023ae765beaaac22be02c7e77fa115aaaa",
+      "size": 46078
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.security.SecurityConfigTest.xml",
+      "hash": "f7b399a26a603674ace5a21fd5c8edd7768e9ddcb65cbf44d0798c38acc52aa5",
+      "size": 143873
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.service.impl.AuthServiceImplTest.xml",
+      "hash": "f89faac08dd3e7197e06f95ea503e5a41d92e0dadd3bb29dbb45876abb581f32",
+      "size": 46311
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.service.impl.MenuServiceImplTest.xml",
+      "hash": "3a4268d1a15540521de8e8d990081d97dc0db3d33e4608f4c6713b0768e70780",
+      "size": 45489
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.service.impl.RouteServiceImplTest.xml",
+      "hash": "0ca2fc96b347e9f09671fe7d322f07f0305de3cc2110d370135630bb54a0fef6",
+      "size": 45496
+    },
+    {
+      "file": "auth-service/target/surefire-reports/TEST-in.nic.lgd.auth.service.impl.UserProfileServiceImplTest.xml",
+      "hash": "95e4395e2d0682e751b63263e89c00ea4edffac270b1fec6a9b8691bd2b923f5",
+      "size": 45398
+    },
+    {
+      "file": "discovery/target/surefire-reports/TEST-in.nic.servicediscovery.egra.service_discovery.EurekaSecurityTest.xml",
+      "hash": "658c2f9f93f62caceee3d5208e5a6cde5e2b66297f69eb8a6697b14cabd08ccb",
+      "size": 45550
+    },
+    {
+      "file": "revenue/target/surefire-reports/TEST-in.nic.lgd.revenue.security.DraftTenantSecurityTest.xml",
+      "hash": "40b4c8f05c42214cb9d2678cfb10b177e96f1af9c4f763a062474634216e85b5",
+      "size": 49626
+    },
+    {
+      "file": "revenue/target/surefire-reports/TEST-in.nic.lgd.revenue.security.EsignCallbackSecurityTest.xml",
+      "hash": "aac5fecccccc2eec938905ad2287ebeb6494f3af7d2a5ee994688cbc5a59dca3",
+      "size": 48484
+    },
+    {
+      "file": "revenue/target/surefire-reports/TEST-in.nic.lgd.revenue.security.EsignValidationSecurityTest.xml",
+      "hash": "19cab3fea95d72dad62e52a2c0529a8239ed9f4a9a7df9e76df8309d225c21a3",
+      "size": 45935
+    },
+    {
+      "file": "revenue/target/surefire-reports/TEST-in.nic.lgd.revenue.security.SubDistrictPrimaryControllerSecurityTest.xml",
+      "hash": "d547e471e4fb585b602c68234448a1cdefda6776c83304404cacae84f496f193",
+      "size": 51574
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.integration.LiveHttpSecurityIntegrationTest.xml",
+      "hash": "bb144b54da20ef7a8ddf5c2f4569220d4edcde59d18b6b97d6fab79b146d3711",
+      "size": 125321
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.integration.Rbac001SecurityNegativeTest.xml",
+      "hash": "993cbe62b8b9e1808eac65fc8f2a8a5f1e6c618f050e93a37a7fb8f2a3e0851c",
+      "size": 180595
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.integration.Rbac004EndpointSecurityIntegrationTest.xml",
+      "hash": "3cc0d5b11113191f277a5ddfd89a4ba958a85910ab7ec77133b027e985e02e9b",
+      "size": 796903
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.integration.RbacSecurityIntegrationTest.xml",
+      "hash": "fd989ad376b637ddc8d62b3758581ade6cbad371c0bce8ae57441b989fd76aa8",
+      "size": 161331
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.integration.SecurityIntegrationTest.xml",
+      "hash": "bc0f763f64daea8c035158c52a3d660c465349cec0c2e5c839395b80ab20037a",
+      "size": 58251
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.integration.UserManagementIntegrationTest.xml",
+      "hash": "b279af0113db8e5c1b2575457b5c8ba067b4cecfb4e4190423bc77c6c469cd25",
+      "size": 84887
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeControllerTest.xml",
+      "hash": "b3daf6091be7dc4f893ffa8b99c097e4e8c26b116bdd950bd2fb8e9486eb839c",
+      "size": 45300
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeResourceControllerTest.xml",
+      "hash": "7fc395989a8ef15131c9f833e6429bb91729e6989dd896d5cbe7950f46373d6a",
+      "size": 45549
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeResourceServiceImplTest.xml",
+      "hash": "268651666936a8dd0e04ec832baa09c9096b00a5f7a8c69244828dc967b85e95",
+      "size": 42920
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeServiceImplTest.xml",
+      "hash": "2e3c7dc7318ea60206b583b266ee3df4d9c00a10a0650eb5e03e7e4ba7e1aee9",
+      "size": 43063
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.privilege.validator.CreatePrivilegeValidatorTest.xml",
+      "hash": "9317662864bc0051e34e16812ff467402ef43ac748f3bb3cd93adca2fc819dc9",
+      "size": 44314
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.privilege.validator.PrivilegeValidatorTest.xml",
+      "hash": "ba410bffbeedbfcef5972f15d04e63522a66ef51b652fc912ca4f1fb66c14655",
+      "size": 43190
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.resource.controller.ResourceControllerTest.xml",
+      "hash": "784c381c4c8bddab5896aa566f3e17d63ece988657b733838681a046ccbe492d",
+      "size": 66054
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.resource.mapper.ResourceMapperTest.xml",
+      "hash": "0cfb070537b67512850436210230e5520976a9c8d8e7a6267b1d8e2b1acccc55",
+      "size": 42841
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.resource.service.impl.ResourceServiceImplTest.xml",
+      "hash": "f673b11353de439cf6d5da9b9b70d6933ffed018c579b89e91c1ed913de43c0f",
+      "size": 43546
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.resource.validator.CreateResourceValidatorTest.xml",
+      "hash": "fbee23ddcad05d805e8c841d23ad148ba89c13804674129e330a3f9cdaa9b739",
+      "size": 44896
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.resource.validator.UpdateResourceValidatorTest.xml",
+      "hash": "667b598ef203df6f5696d5157f460e124c5c6c59907a2f3abbf5f85e73dfac06",
+      "size": 45263
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.role.controller.RoleControllerTest.xml",
+      "hash": "71f670d13a95130e57c6972615903054dca8c0cfab16d1510a0cd7671dcef100",
+      "size": 45678
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.role.service.impl.RoleServiceImplTest.xml",
+      "hash": "33d530bef987a86baeee4e3cf2224a4880a7f9d17aae46980a136a8a2ba87dc3",
+      "size": 43783
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.role.validator.CreateRoleValidatorTest.xml",
+      "hash": "17cf34d0ffd5ecbc827c00172735d890dfa553d76701a16914ade9badba6d67c",
+      "size": 43160
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.role.validator.UpdateRoleValidatorTest.xml",
+      "hash": "d4b69cdaba2e490054903b0d6417c2551dafc1ba79adb22e75d4955bfc095ae3",
+      "size": 43159
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.controller.UserControllerTest.xml",
+      "hash": "36d3814ff293ac138bbe2bc27e40b319ea8f3098a32b5dad5d9c953377fcd029",
+      "size": 45261
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.controller.UserRoleMappingControllerTest.xml",
+      "hash": "b79b0d36685c1e6124212a439151b709851a99d3a15a2ba8958a9b6ad4af941d",
+      "size": 45559
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.repository.UserRepositoryTest.xml",
+      "hash": "3aa1ed77b4b1f2450bab8644110563fffae3824751a44eddd9899addf55e245e",
+      "size": 60695
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.repository.UserRoleMappingRepositoryTest.xml",
+      "hash": "770234def53dbe126f13ebc620256c03e3af18c0f11bea0a5c3ff22c4c8be688",
+      "size": 53510
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.service.impl.UserRoleMappingServiceImplTest.xml",
+      "hash": "ba72ee48279a850af1d1b024669457b8ca12b0428af015b2021b626df4563f9d",
+      "size": 44252
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.service.impl.UserServiceImplTest.xml",
+      "hash": "72496150694943bb162f91e5569f18886a53a9602a74c65a1a1c0d54bff95e63",
+      "size": 44461
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.validator.CreateUserValidatorTest.xml",
+      "hash": "10cd747f129f03c9e4299df75ee04d37d462b07c687041b7d1d0de70f453544d",
+      "size": 43531
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.modules.user.validator.UpdateUserValidatorTest.xml",
+      "hash": "6d57de09f9a5d2fd95a64034e669d5e546cd2a03ff1c91ebd2f8d58a56937d64",
+      "size": 43363
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.user.security.JwtAuthenticationFilterTest.xml",
+      "hash": "844d64278f48df7e8c23e710edb1b4804cd4cb4d7e386345634923484a9060c5",
+      "size": 50818
+    },
+    {
+      "file": "user-management/target/surefire-reports/TEST-in.nic.lgd.usermanagement.user.security.JwtUtilTest.xml",
+      "hash": "0e17480d4b3ad6b2079029249f9c741c2977cefece215bb8d64847d6ad94e7e0",
+      "size": 43760
+    }
+  ]
+}

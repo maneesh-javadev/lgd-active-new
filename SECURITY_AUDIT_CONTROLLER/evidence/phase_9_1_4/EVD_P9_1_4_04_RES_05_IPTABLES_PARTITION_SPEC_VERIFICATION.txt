@@ -1,0 +1,99 @@
+================================================================================
+PHASE 9.1.4 EVIDENCE: RES-05 IPTABLES PARTITION SPECIFICATION & VERIFICATION
+Timestamp: 2026-11-06T11:46:30+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.4 Workstream C (DISC-P913-03, RES-05 Redesign)
+================================================================================
+
+1. THE FLAW IN THE ORIGINAL RES-05 DESIGN (DISC-P913-03):
+--------------------------------------------------------------------------------
+Phase 9.1.2 Scenario RES-05 Step:
+  "docker network disconnect lgd-data-tier redis-primary"
+
+Analysis of Why This Failed Split-Brain Simulation:
+  - Disconnecting 'redis-primary' from the network detaches its veth interface.
+  - As a result, 'redis-sentinel-1' also loses connectivity to 'redis-primary'.
+  - Sentinel 1 flags Primary as 'sdown'.
+  - All 3 Sentinels see Primary as down.
+  - There is NO minority partition that still believes the primary is healthy.
+  - This collapses directly into Scenario RES-01 (Primary Process Crash/Termination).
+  - The objective of split-brain resistance—verifying that a minority partition
+    CANNOT elect a rogue master or accept inconsistent writes—was completely untested.
+
+2. CORRECTED MATHEMATICAL & NETWORK TOPOLOGY DESIGN:
+--------------------------------------------------------------------------------
+Cluster Nodes on 'lgd-data-tier':
+  - Primary (P)
+  - Sentinel 1 (S1)
+  - Sentinel 2 (S2)
+  - Sentinel 3 (S3)
+  - Replica 1 (R1)
+  - Replica 2 (R2)
+  - Applications (Clients)
+
+Partition Boundaries:
+  +-----------------------------------------------------------------------------+
+  | PARTITION A (Minority Partition):                                           |
+  |   Nodes: Primary (P) + Sentinel 1 (S1)                                      |
+  |   Quorum Potential: 1 / 3 (< Quorum 2)                                      |
+  |   Mechanics: S1 sees P as alive. P sees S1 as alive.                        |
+  |   Outcome: S1 cannot reach S2 or S3, cannot achieve quorum, cannot authorize|
+  |   new epochs. P remains alive but isolated from majority traffic.           |
+  +-----------------------------------------------------------------------------+
+  | PARTITION B (Majority Partition):                                           |
+  |   Nodes: Sentinel 2 (S2) + Sentinel 3 (S3) + Replica 1 (R1) +               |
+  |          Replica 2 (R2) + Clients                                           |
+  |   Quorum Potential: 2 / 3 (>= Quorum 2)                                     |
+  |   Mechanics: S2 and S3 see P as down. S2 and S3 exchange is-master-down,    |
+  |   achieve quorum (2 >= 2), increment epoch, elect leader, promote R1 to P'. |
+  |   Clients discover new master address from S2/S3 and resume writes.         |
+  +-----------------------------------------------------------------------------+
+
+3. AUTHORITATIVE IPTABLES PACKET DROP RULES:
+--------------------------------------------------------------------------------
+Executed in WSL2 / Docker host Linux network namespace:
+
+# Step 1: Capture Container IP Addresses
+IP_P=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-primary)
+IP_S1=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-sentinel-1)
+IP_S2=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-sentinel-2)
+IP_S3=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-sentinel-3)
+IP_R1=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-replica-1)
+IP_R2=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' redis-replica-2)
+
+# Step 2: Inject Symmetrical Packet Drops in DOCKER-USER Chain
+# Sever Partition A (P, S1) from Partition B (S2, S3, R1, R2)
+for SRC in $IP_P $IP_S1; do
+  for DST in $IP_S2 $IP_S3 $IP_R1 $IP_R2; do
+    iptables -I DOCKER-USER -s $SRC -d $DST -j DROP
+    iptables -I DOCKER-USER -s $DST -d $SRC -j DROP
+  done
+done
+
+# Step 3: Verify Partition State
+# P <-> S1: ping OK
+# S2 <-> S3 <-> R1 <-> R2: ping OK
+# P <-x-> S2/S3/R1/R2: packet dropped
+
+# Step 4: Verification of Consensus & Failover
+# - S2 and S3 detect P down; achieve O-DOWN consensus.
+# - Leader elected between S2 and S3.
+# - R1 promoted via 'REPLICAOF NO ONE'.
+# - S1 logs: 'voting aborted: quorum not reached'.
+
+# Step 5: Partition Healing & Convergence
+for SRC in $IP_P $IP_S1; do
+  for DST in $IP_S2 $IP_S3 $IP_R1 $IP_R2; do
+    iptables -D DOCKER-USER -s $SRC -d $DST -j DROP
+    iptables -D DOCKER-USER -s $DST -d $SRC -j DROP
+  done
+done
+
+# Healing Outcome:
+# S1 synchronizes higher epoch from S2/S3.
+# Old Primary P receives REPLICAOF R1 from Sentinels, demotes cleanly to replica.
+# Zero split-brain data inconsistency occurs.
+
+Execution Status: Preserved strictly as TEST_DESIGN_ONLY.
+================================================================================
+

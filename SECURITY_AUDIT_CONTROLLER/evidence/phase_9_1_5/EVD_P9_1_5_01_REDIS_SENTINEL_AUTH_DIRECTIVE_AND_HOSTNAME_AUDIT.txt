@@ -1,0 +1,120 @@
+================================================================================
+LGD 2.0 SECURITY AUDIT CONTROLLER — PHYSICAL EVIDENCE RECORD
+EVIDENCE ID: EVD_P9_1_5_01_REDIS_SENTINEL_AUTH_DIRECTIVE_AND_HOSTNAME_AUDIT
+================================================================================
+Timestamp: 2026-11-06T12:45:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.5 Workstream A (DISC-P914-01, RR-02, RR-05)
+Target Subsystem: Redis Sentinel & Data Node Multi-Tier Authentication
+Target Image: redis:alpine@sha256:21090af93f8324db2f0f0f4f38a7c60369d47d917e000c3423d89d2ae2883537
+================================================================================
+
+1. INSPECTION SOURCE & OBJECTIVE:
+--------------------------------------------------------------------------------
+Source Inspected:
+  - Phase 9.1.4 Stage B Blueprint (Step B2-01, sentinel.conf.template)
+  - Phase 9.1.4 Evidence EVD_P9_1_4_02_REDIS_SENTINEL_4WAY_AUTH_AND_DIGEST_VERIFICATION.txt
+  - Official Redis Sentinel Configuration Documentation & Grammar (Redis 6.2, 7.x, 8.x)
+  - Container Image Trivy Inspection: scratch/trivy_results/redis-alpine_trivy.json (Redis 8.10.3)
+Purpose:
+  Independently verify finding DISC-P914-01 regarding the erroneous directive
+  'sentinel requirepass' in the Phase 9.1.4 template, establish the exact valid
+  syntax across all five communication vectors, evaluate configuration rewrite
+  mechanisms, and audit Docker network hostname/IP discovery under TLS.
+
+2. FORENSIC SYNTAX ANALYSIS:
+--------------------------------------------------------------------------------
+Phase 9.1.4 Directive Specified:
+  sentinel requirepass ${REDIS_SENTINEL_PASSWORD}
+  sentinel sentinel-pass ${REDIS_SENTINEL_PASSWORD}
+
+Grammar & Parser Evaluation:
+  - In Redis Sentinel, 'sentinel' is a prefix keyword used strictly for directives
+    specific to the Sentinel sub-system (e.g., 'sentinel monitor', 'sentinel auth-pass',
+    'sentinel down-after-milliseconds', 'sentinel sentinel-pass').
+  - The Sentinel process is an instance of the Redis server engine running in Sentinel
+    mode. Standard server configuration directives that apply to the process listener
+    itself DO NOT take the 'sentinel ' prefix.
+  - Specifically, to configure client authentication on the Sentinel listener (:26379),
+    the valid directive is:
+        requirepass <password>
+  - If 'sentinel requirepass <password>' is passed to the Redis Sentinel parser,
+    Redis Sentinel terminates with a fatal configuration parse error:
+        "*** FATAL CONFIG FILE ERROR ***
+         Reading the configuration file, at line XX
+         >>> 'sentinel requirepass ...'
+         Unrecognized sentinel configuration statement."
+  - Conversely, peer-to-peer Sentinel authentication (introduced in Redis 5.0.1 and
+    standardized in Redis 6.2.0) DOES use the 'sentinel' namespace:
+        sentinel sentinel-pass <password>
+        sentinel sentinel-user <username>  [optional, defaults to 'default']
+  - Sentinel-to-Master/Replica authentication uses the monitored group name:
+        sentinel auth-pass <master-name> <password>
+        sentinel auth-user <master-name> <username>  [optional]
+
+3. COMPLETE 5-TIER AUTHENTICATION SPECIFICATION MATRIX:
+--------------------------------------------------------------------------------
+| Communication Vector        | Valid Directive Syntax              | Config Location    | Target Port | Version Introduced | Failure Consequence               |
+|:----------------------------|:------------------------------------|:-------------------|:------------|:-------------------|:----------------------------------|
+| Application -> Redis Data   | requirepass <password>              | redis.conf         | 6379 (TLS)  | Redis 1.0+         | NOAUTH Authentication required    |
+| Application -> Sentinel     | requirepass <password>              | sentinel.conf      | 26379 (TLS) | Redis 5.0.1+       | NOAUTH Authentication required    |
+| Sentinel -> Sentinel (Peer) | sentinel sentinel-pass <password>   | sentinel.conf      | 26379 (TLS) | Redis 5.0.1/6.2.0  | NOAUTH in SENTINEL is-master-down |
+| Sentinel -> Redis Master    | sentinel auth-pass lgdmaster <pwd>  | sentinel.conf      | 6379 (TLS)  | Redis 2.8.0+       | Master marked sdown; no failover  |
+| Replica -> Redis Primary    | masterauth <password>               | redis.conf         | 6379 (TLS)  | Redis 1.0+         | Replication sync refused (NOAUTH) |
+
+4. CONFIGURATION REWRITE & DYNAMIC STATE BEHAVIOR:
+--------------------------------------------------------------------------------
+- Sentinel dynamically executes 'CONFIG REWRITE' during runtime whenever:
+    1. A failover occurs and a new master is promoted.
+    2. Replicas are reconfigured via REPLICAOF.
+    3. Peer sentinels join or leave the quorum.
+    4. Administrative commands update runtime parameters.
+- Impact on Templating:
+    - If environment variables (${REDIS_PASSWORD}) are embedded directly in sentinel.conf,
+      Redis Sentinel cannot expand them and will treat the literal string '${REDIS_PASSWORD}'
+      as the password.
+    - An entrypoint wrapper (docker-entrypoint.sh) MUST perform envsubst into an ephemeral,
+      writable configuration file (/etc/redis/sentinel.conf).
+    - Mode MUST be 0600, owned by user redis (UID 999 or UID 1000).
+    - Because Sentinel rewrites sentinel.conf in place, the directory /etc/redis/ and
+      the file sentinel.conf MUST remain writable by the redis process throughout runtime.
+
+5. DOCKER NETWORKING, HOSTNAME RESOLUTION & TLS SAN AUDIT:
+--------------------------------------------------------------------------------
+Observed Topography:
+  - Network: lgd-data-tier (internal bridge)
+  - Aliases: redis-primary, redis-replica-1, redis-replica-2,
+             redis-sentinel-1, redis-sentinel-2, redis-sentinel-3
+The Hostname vs. IP Hazard:
+  - By default, Redis Sentinel discovers data node addresses via the IP address reported
+    in 'INFO replication' or Sentinel hello packets.
+  - Inside a Docker bridge network, Redis nodes report their internal bridge IP (e.g. 10.89.0.5).
+  - When Lettuce or Redisson queries Sentinel via 'SENTINEL get-master-addr-by-name lgdmaster',
+    Sentinel returns the IP address (e.g. 10.89.0.5).
+  - Hazard: If client connects over TLS with hostname verification enabled, the server TLS
+    certificate MUST contain SAN entries matching the address used by the client to connect.
+    If certificate SAN has only 'DNS:redis-primary' and client attempts TLS connection to
+    '10.89.0.5', the TLS handshake aborts with SSLPeerUnverifiedException!
+  - Redis 7.0+ / 8.10.3 Solution:
+    In sentinel.conf:
+        sentinel announce-hostnames yes
+        sentinel resolve-hostnames yes
+    In redis.conf:
+        replica-announce-ip redis-replica-1 (or host alias)
+    This forces Sentinel to publish the Docker DNS alias ('redis-primary', 'redis-replica-1')
+    instead of dynamic container IPs, ensuring 100% alignment with certificate Subject Alternative Names.
+
+6. LIMITATIONS:
+--------------------------------------------------------------------------------
+- This inspection is strictly read-only and design-analytical.
+- No live Redis cluster was started or mutated.
+- Physical verification of 'sentinel announce-hostnames yes' requires authorized Stage B runtime execution.
+
+7. RELATED FINDINGS:
+--------------------------------------------------------------------------------
+- DISC-P914-01: Corrected from 'sentinel requirepass' to 'requirepass' in sentinel.conf.
+- DISC-P913-01: Historical inter-sentinel authentication discovery (sentinel sentinel-pass).
+- RR-02: Redis failover resilience and JWT revocation blacklist durability.
+- RR-05: Infrastructure and transport encryption hardening.
+================================================================================
+

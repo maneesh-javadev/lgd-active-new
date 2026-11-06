@@ -1,0 +1,88 @@
+================================================================================
+PHASE 9.1.4 EVIDENCE: POSTGRESQL BOOLEAN SCRAM & HYPER-V EPHEMERAL IP AUDIT
+Timestamp: 2026-11-06T11:47:30+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.4 Workstream E (DISC-P913-06, RR-05, BLK-CANON-03)
+================================================================================
+
+1. STEP B1-05 CREDENTIAL EXTRACTION SAFETY VIOLATION & REMEDIATION (DISC-P913-06):
+--------------------------------------------------------------------------------
+Phase 9.1.2 Stage B Matrix Step B1-05 Instruction:
+  "Verification: Execute SELECT rolname, rolpassword FROM pg_authid; confirming 100% SCRAM-SHA-256$ prefixes."
+
+Security Audit Violation Analysis:
+  - Querying 'rolpassword' directly extracts actual SCRAM and MD5 hashes into
+    stdout, terminal console logs, session history, and audit evidence dumps.
+  - While SCRAM hashes contain salts and keys rather than plaintext passwords,
+    they represent sensitive credential material that must never be exported
+    into audit documentation or visible logs.
+  - This directly violated the audit safety constraint:
+    "Do not expose credentials, password hashes, private keys, tokens or sensitive
+    environment variables in reports."
+
+Authoritative Corrected Query (Phase 9.1.4 Standard):
+  SELECT rolname,
+         (rolpassword LIKE 'SCRAM-SHA-256$%') AS is_scram_sha_256,
+         (rolpassword LIKE 'md5%') AS is_md5
+  FROM pg_authid
+  WHERE rolname IN ('postgres', 'lgd_prod_user', 'lgd_repl_user', 'lgd_monitor');
+
+Verification Output Format (Safe Boolean Attestation):
+  rolname       | is_scram_sha_256 | is_md5
+  --------------+------------------+--------
+  postgres      | t                | f
+  lgd_prod_user | t                | f
+  lgd_repl_user | t                | f
+  lgd_monitor   | t                | f
+
+Verification Rule:
+  100% of queried roles must yield is_scram_sha_256 = true and is_md5 = false.
+  Zero password hash characters are transmitted or recorded in evidence.
+
+2. WSL2 / HYPER-V DYNAMIC INTERFACE HAZARD & ARCHITECTURAL SOLUTIONS:
+--------------------------------------------------------------------------------
+Observed Host Network Baseline:
+  - Loopback:               127.0.0.1/8
+  - vEthernet (WSL):        172.20.32.1/20
+  - Physical Ethernet LAN:  10.25.85.121/24
+
+Technical Risk:
+  - In Windows 11 / WSL2 environments, Hyper-V dynamically generates the virtual
+    switch subnet upon host boot or WSL restart.
+  - While 172.20.32.1 was observed in the current session, subsequent reboots
+    may reallocate the WSL adapter to an alternate subnet (e.g. 172.24.16.1).
+  - Hardcoding 'listen_addresses = 127.0.0.1, 172.20.32.1' in postgresql.conf
+    causes PostgreSQL to fail startup with WinSock error:
+      WSAEADDRNOTAVAIL (10049): The requested address is not valid in its context.
+
+Prohibited Workaround:
+  - Setting 'listen_addresses = *' as a blanket default is STRICTLY PROHIBITED.
+    It exposes PostgreSQL 5432 directly onto the corporate physical LAN (10.25.85.121).
+
+Approved Stage B Hardening Architectures:
+  Approach 1: Hyper-V Static Virtual Switch IP Reservation
+    Configure a persistent static IP for the WSL Hyper-V virtual switch in
+    Windows network settings.
+  Approach 2: WSL2 Mirrored Networking Mode
+    Enable 'networkingMode=mirrored' in %USERPROFILE%\.wslconfig.
+    Under mirrored mode, containers bind to the host loopback directly, allowing
+    PostgreSQL to safely listen on '127.0.0.1' only while serving containers.
+  Approach 3: Dynamic Pre-Startup Binding Script
+    A PowerShell wrapper script that detects the active IPv4 of 'vEthernet (WSL)',
+    writes the verified IP into postgresql.conf, and starts the service.
+
+3. OFFLINE CONFIGURATION HARDENING SEQUENCE CONFIRMATION:
+--------------------------------------------------------------------------------
+Confirmed Implementation Sequence:
+  Step 1: Verify Windows service 'postgresql-x64-14' is 'Stopped'.
+  Step 2: Generate pre-change SHA-256 backup of postgresql.conf and pg_hba.conf.
+  Step 3: Deploy server.crt, server.key (NTFS ACL restricted), ca.crt.
+  Step 4: Rewrite pg_hba.conf offline, expunging all 7 'trust' rules (lines 85-95).
+  Step 5: Obtain explicit Stage B operational authorization.
+  Step 6: Start Windows service 'postgresql-x64-14'.
+  Step 7: Connect locally via loopback and execute SCRAM role migration.
+  Step 8: Execute boolean SCRAM verification query (zero hash export).
+  Step 9: Probe unauthorized external connection rejection.
+  Step 10: Start 'revenue' container and verify HikariCP steady-state.
+================================================================================
+

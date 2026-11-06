@@ -10,6 +10,9 @@ node_modules/
 Thumbs.db
 .env
 *.env
+tokens.env
+scratch/*.env
+*.token
 *.p12
 *.jks
 *.key

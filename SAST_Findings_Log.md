@@ -101,10 +101,10 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Actual Code Evidence:**
   ```properties
   # api-gateway/src/main/resources/application.properties:151
-  jwt.secret=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  jwt.secret=[REDACTED_COMPROMISED_SECRET]
   
   # auth-service/src/main/resources/application.properties:52
-  jwt.secret=404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+  jwt.secret=[REDACTED_COMPROMISED_SECRET]
   ```
 - **Exploitability Explanation:** Because the secret is static and present in source control, any attacker with access to repository history, container images, or environment dumps can generate cryptographically valid JWT tokens offline with arbitrary `userId`, `roles` (`ROLE_SUPER_ADMIN`), and `privileges`, granting full administrative access to all backend APIs without authentication.
 - **Potential Business Impact:** Complete platform compromise, arbitrary directory data tampering, unauthorized gazette publication, and total identity spoofing.
@@ -350,7 +350,7 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Exploitability Explanation:** Any authenticated user can issue a request to `/private/v1/users/update` containing `{"userId": 1, "specificRoleId": <SUPER_ADMIN_ROLE_ID>}` to instantly elevate their own account or take over the Superadmin account without authorization checks.
 - **Potential Business Impact:** Full unauthorized administrative account takeover.
 - **Recommended Remediation:** Separate user profile updates from administrative role assignment. Prohibit `passwordHash`, `roleId`, and `userLevel` in `UpdateUserDto`.
-- **Traceability:** Phase 0: Conceptual gap | Phase 1: `THR-STRIDE-006`
+- **Traceability:** Phase 0: `*[Unassigned]*` | Phase 1: `THR-STRIDE-006`
 - **Verification Approach:** Send JSON with `specificRoleId` to `/private/v1/users/update` and verify DB record changes.
 - **False-Positive Assessment:** Confirmed vulnerability with direct code implementation evidence.
 
@@ -514,7 +514,7 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Exploitability Explanation:** If a downstream service exposes an endpoint or sub-resource containing `/public/` (or if path traversal `/audit/revenue/draft/..;/public/..` matches), the Gateway bypasses token validation entirely.
 - **Potential Business Impact:** Unauthenticated access to sensitive business endpoints.
 - **Recommended Remediation:** Replace greedy wildcard patterns with an explicit, exact whitelist of public URIs (e.g., `/audit/auth/public/v1/auth/login`).
-- **Traceability:** Phase 0: `VULN-015` | Phase 1: `THR-STRIDE-004`
+- **Traceability:** Phase 0: `*[Unassigned]*` | Phase 1: `THR-STRIDE-004`
 - **Verification Approach:** Test requests with `/public/` in intermediate path segments against secured routes.
 - **False-Positive Assessment:** Confirmed architectural route matching weakness.
 
@@ -547,7 +547,7 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Exploitability Explanation:** An attacker can inject `X-Forwarded-For: 127.0.0.1` or arbitrary government internal IPs in every HTTP request. Forensic investigation of the audit log will attribute malicious modifications to innocent or internal IP addresses.
 - **Potential Business Impact:** Falsification of statutory government audit trails; denial of repudiation.
 - **Recommended Remediation:** Configure a trusted proxy count/filter or resolve the client IP from the actual TCP socket connection (`getRemoteAddress()`).
-- **Traceability:** Phase 0: `VULN-008` | Phase 1: `THR-STRIDE-010`
+- **Traceability:** Phase 0: `*[Unassigned]*` | Phase 1: `*[Unassigned]*`
 - **Verification Approach:** Send request with forged `X-Forwarded-For` header and inspect database `client_address` column.
 - **False-Positive Assessment:** Confirmed vulnerability.
 
@@ -580,7 +580,7 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Exploitability Explanation:** When large files, draft reports, or large JSON responses are served downstream, the Gateway consumes heap memory proportional to the payload for every concurrent request, inducing `OutOfMemoryError` and JVM crashes.
 - **Potential Business Impact:** Server crash; complete outage of Gateway for all users.
 - **Recommended Remediation:** Cap buffer reading at 4KB or avoid buffering response bodies entirely in Gateway memory.
-- **Traceability:** Phase 0: `VULN-018` | Phase 1: `THR-STRIDE-015`
+- **Traceability:** Phase 0: `VULN-019` | Phase 1: `THR-STRIDE-015`
 - **Verification Approach:** Download a large file through the Gateway under high concurrency and observe JVM heap growth.
 - **False-Positive Assessment:** Confirmed resource management flaw.
 
@@ -644,7 +644,8 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Exploitability Explanation:** Sending empty or malformed JSON payloads (e.g., `{}`) reaches `AuthServiceImpl` without pre-validation, triggering unnecessary database calls and unhandled runtime exceptions.
 - **Potential Business Impact:** Waste of database connections; vulnerability to empty credential fuzzing.
 - **Recommended Remediation:** Add `@Valid` annotation to `@RequestBody LoginRequest loginRequest`.
-- **Traceability:** Phase 0: `VULN-010` | Phase 1: `THR-STRIDE-016`
+- **Traceability:** Phase 0: `*[Unassigned]*` | Phase 1: `*[Unassigned]*` | Phase 3: `EXP-017 / EV-017`
+- **Mapping Rationale & Superseded Assignment:** The preliminary mapping of SAST-017 to baseline `VULN-010` (Username Enumeration) and `THR-STRIDE-016` (Authentication Endpoint Brute-Force Flooding) was superseded upon independent audit review. SAST-017 specifically addresses missing `@Valid` bean validation on incoming DTO payloads (`CWE-20: Improper Input Validation`), permitting empty or malformed strings to reach backend services. It is technically distinct from credential timing/enumeration behavior (`CWE-204`) and volumetric brute-force flooding (`CWE-307`, mitigated by Redis token-bucket rate limiting). Baseline, STRIDE, and DREAD mappings are preserved strictly unassigned to prevent artificial cross-phase conflation. Dynamic retest evidence is retained under `EXP-017 / EV-017`.
 - **Verification Approach:** Send `{}` to `/public/v1/auth/login` and verify that Spring does not return 400 Bad Request prior to executing the service.
 - **False-Positive Assessment:** Confirmed vulnerability.
 
@@ -737,7 +738,7 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Exploitability Explanation:** Any network-adjacent attacker or container on the network can register a rogue service instance as `AUTH-SERVICE`, poisoning the Gateway's routing table to intercept user credentials.
 - **Potential Business Impact:** Man-in-the-middle credential harvesting, service impersonation, and total infrastructure compromise.
 - **Recommended Remediation:** Add `spring-boot-starter-security` to Eureka; enforce HTTP Basic authentication on all registry endpoints.
-- **Traceability:** Phase 0: `VULN-009` / `VULN-021` | Phase 1: `THR-STRIDE-002`
+- **Traceability:** Phase 0: `VULN-021` | Phase 1: `THR-STRIDE-002`
 - **Verification Approach:** Execute `curl -X POST http://localhost:8761/eureka/apps/ROGUE-SERVICE` and verify acceptance.
 - **False-Positive Assessment:** Confirmed vulnerability.
 
@@ -768,7 +769,7 @@ Get-Command semgrep, sonar-scanner, spotbugs, pmd, checkstyle -ErrorAction Silen
 - **Exploitability Explanation:** While the endpoints only return diagnostic status strings, dead/test code increases the attack surface and indicates a lack of build hygiene.
 - **Potential Business Impact:** Information leakage regarding module names and runtime status.
 - **Recommended Remediation:** Delete `TestController.java` or relocate it to `src/test/java`.
-- **Traceability:** New finding in Phase 2 SAST
+- **Traceability:** Phase 0: `*[Unassigned]*` | Phase 1: `*[Unassigned]*` | Phase 3: `EXP-021 / EV-008`
 - **Verification Approach:** Access `GET /private/v1/test/api1`.
 - **False-Positive Assessment:** Confirmed dead debug code.
 
@@ -825,25 +826,25 @@ The table below maps each Phase 2 SAST finding to the baseline Phase 0 Vulnerabi
 |:---|:---|:---:|:---:|:---:|:---:|:---:|
 | `SAST-001` | Hardcoded Static JWT HMAC Secret Key | **Critical** | CWE-798 | `VULN-001` | `THR-STRIDE-001` | `TB-01`, `TB-02` |
 | `SAST-002` | Hardcoded Database Password in Properties | **Critical** | CWE-798 | `VULN-017` | `THR-STRIDE-012` | `TB-04` |
-| `SAST-003` | Hardcoded eSign PKCS#12 Keystore Password | **Critical** | CWE-798 | `VULN-017` | `THR-STRIDE-003` | `TB-07` |
+| `SAST-003` | Hardcoded eSign PKCS#12 Keystore Password | **Critical** | CWE-798 | `VULN-003` | `THR-STRIDE-003` | `TB-07` |
 | `SAST-004` | Disabled XML Signature Secure Validation | **Critical** | CWE-347 | `VULN-003` | `THR-STRIDE-003` | `TB-07` |
 | `SAST-005` | Untrusted Certificate Public Key Acceptance | **Critical** | CWE-295 | `VULN-003` | `THR-STRIDE-003` | `TB-07` |
 | `SAST-006` | Conditional eSign Bypass Flag | **High** | CWE-347 | `VULN-003` | `THR-STRIDE-003` | `TB-07` |
 | `SAST-007` | Insecure PRNG for Transaction IDs | **Medium** | CWE-338 | `VULN-003` | `THR-STRIDE-003` | `TB-07` |
-| `SAST-008` | Mass Assignment in User Update DTO | **Critical** | CWE-915 | `VULN-004` | `THR-STRIDE-006` | `TB-03` |
+| `SAST-008` | Mass Assignment in User Update DTO | **Critical** | CWE-915 | *[Unassigned]* | `THR-STRIDE-006` | `TB-03` |
 | `SAST-009` | BOLA / IDOR on Draft View & Download | **High** | CWE-639 | `VULN-006` | `THR-STRIDE-005` | `TB-03` |
 | `SAST-010` | Unauthorized Draft Deletion via Missing Checks | **High** | CWE-284 | `VULN-006` | `THR-STRIDE-005` | `TB-03` |
 | `SAST-011` | Absence of Method-Level `@PreAuthorize` Security | **Critical** | CWE-862 | `VULN-005` | `THR-STRIDE-018` | `TB-03` |
 | `SAST-012` | Failure to Verify Redis Blacklist in Gateway | **High** | CWE-613 | `VULN-007` | `THR-STRIDE-007` | `TB-02`, `TB-05` |
-| `SAST-013` | Overly Broad Route Wildcard Exclusions | **High** | CWE-287 | `VULN-015` | `THR-STRIDE-004` | `TB-01` |
-| `SAST-014` | Client IP Spoofing via `X-Forwarded-For` | **Medium** | CWE-345 | `VULN-008` | `THR-STRIDE-010` | `TB-01` |
-| `SAST-015` | Unbounded Response Body Memory Buffering | **High** | CWE-400 | `VULN-018` | `THR-STRIDE-015` | `TB-01`, `TB-02` |
+| `SAST-013` | Overly Broad Route Wildcard Exclusions | **High** | CWE-287 | *[Unassigned]* | `THR-STRIDE-004` | `TB-01` |
+| `SAST-014` | Client IP Spoofing via `X-Forwarded-For` | **Medium** | CWE-345 | *[Unassigned]* | *[Unassigned]* | `TB-01` |
+| `SAST-015` | Unbounded Response Body Memory Buffering | **High** | CWE-400 | `VULN-019` | `THR-STRIDE-015` | `TB-01`, `TB-02` |
 | `SAST-016` | Missing CSP and HSTS Security Headers | **Medium** | CWE-693 | `VULN-016` | `THR-STRIDE-014` | `TB-01` |
-| `SAST-017` | Missing `@Valid` on Login Controller | **Medium** | CWE-20 | `VULN-010` | `THR-STRIDE-016` | `TB-01` |
+| `SAST-017` | Missing `@Valid` on Login Controller | **Medium** | CWE-20 | *[Unassigned]* | *[Unassigned]* | `TB-01` |
 | `SAST-018` | Unvalidated File Upload in eSign Initiate | **High** | CWE-434 | `VULN-018` | `THR-STRIDE-015` | `TB-01`, `TB-07` |
 | `SAST-019` | Swagger / OpenAPI Exposed in Production | **Medium** | CWE-200 | `VULN-013` | `THR-STRIDE-013` | `TB-01` |
-| `SAST-020` | Unauthenticated Eureka Discovery Service | **Critical** | CWE-306 | `VULN-009` | `THR-STRIDE-002` | `TB-06` |
-| `SAST-021` | Exposed Test Controller in Production Code | **Low** | CWE-489 | New | New | `TB-01` |
+| `SAST-020` | Unauthenticated Eureka Discovery Service | **Critical** | CWE-306 | `VULN-021` | `THR-STRIDE-002` | `TB-06` |
+| `SAST-021` | Exposed Test Controller in Production Code | **Low** | CWE-489 | *[Unassigned]* | *[Unassigned]* | `TB-01` |
 
 ---
 
@@ -857,7 +858,7 @@ During reconciliation between the Phase 0 baseline (`Vulnerability_Master_Regist
 | **BOLA / IDOR on Draft Records** | `VULN-006` | `VULN-003` | Phase 1 associated BOLA with `VULN-003`. In Phase 0, `VULN-006` specifically addresses State & District Tenant Boundary Bypass (BOLA / IDOR). | **`VULN-006`** |
 | **Role & Privilege Mass Assignment** | None (Conceptual gap) | `VULN-004` | Phase 1 assigned Mass Assignment to `VULN-004`. In Phase 0, `VULN-004` was Permissive CORS. Mass Assignment is a distinct finding (`SAST-008`). | **New Finding / `SAST-008`** |
 | **Missing Method-Level Security** | `VULN-005` | `VULN-012` | Phase 1 associated missing `@PreAuthorize` with `VULN-012` (which in Phase 0 was Frontend Dependencies). In Phase 0, `VULN-005` is Method-Level Authorization. | **`VULN-005`** |
-| **Direct Port Exposure vs Eureka** | `VULN-009` / `VULN-021` | `VULN-007` / `VULN-008` | Phase 0 combined container ports and Eureka under `VULN-009` and `VULN-021`, while Phase 1 split them into `VULN-007` (Ports) and `VULN-008` (Eureka). | **Retained as `SAST-020`** |
+| **Direct Port Exposure vs Eureka** | `VULN-009` / `VULN-021` | `VULN-007` / `VULN-008` | Phase 0 baseline separated broad container port exposure (`VULN-009`) from Eureka service discovery authentication (`VULN-021`). | **`VULN-009` (Compose Port Unmapping) / `VULN-021` (`SAST-020`)** |
 
 *Audit Direction: For Phase 2 and subsequent phases, the Phase 0 baseline assignments remain the primary historical reference. Phase 2 findings (`SAST-001` through `SAST-021`) provide unambiguous unique identifiers.*
 

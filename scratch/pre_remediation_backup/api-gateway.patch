@@ -1,0 +1,116 @@
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+index f4f5414..87759a8 100644
+--- a/src/main/resources/application.properties
++++ b/src/main/resources/application.properties
+@@ -75,35 +75,35 @@ springdoc.swagger-ui.urls[4].name=User Management Service
+ # ROUTES
+ ############################################
+ 
+-spring.cloud.gateway.routes[0].id=revenue
+-spring.cloud.gateway.routes[0].uri=lb://revenue
+-spring.cloud.gateway.routes[0].predicates[0]=Path=/audit/revenue/**
+-spring.cloud.gateway.routes[0].filters[0]=AuthenticationFilter
+-spring.cloud.gateway.routes[0].filters[1]=RewritePath=/audit/revenue/(?<segment>.*), /${segment}
++# spring.cloud.gateway.routes[0].id=revenue
++# spring.cloud.gateway.routes[0].uri=lb://revenue
++# spring.cloud.gateway.routes[0].predicates[0]=Path=/audit/revenue/**
++# spring.cloud.gateway.routes[0].filters[0]=AuthenticationFilter
++# spring.cloud.gateway.routes[0].filters[1]=RewritePath=/audit/revenue/(?<segment>.*), /${segment}
+ 
+-spring.cloud.gateway.routes[1].id=localbody
+-spring.cloud.gateway.routes[1].uri=lb://localbody
+-spring.cloud.gateway.routes[1].predicates[0]=Path=/audit/localbody/**
+-spring.cloud.gateway.routes[1].filters[0]=AuthenticationFilter
+-spring.cloud.gateway.routes[1].filters[1]=RewritePath=/audit/localbody/(?<segment>.*), /${segment}
++# spring.cloud.gateway.routes[1].id=localbody
++# spring.cloud.gateway.routes[1].uri=lb://localbody
++# spring.cloud.gateway.routes[1].predicates[0]=Path=/audit/localbody/**
++# spring.cloud.gateway.routes[1].filters[0]=AuthenticationFilter
++# spring.cloud.gateway.routes[1].filters[1]=RewritePath=/audit/localbody/(?<segment>.*), /${segment}
+ 
+-spring.cloud.gateway.routes[2].id=block
+-spring.cloud.gateway.routes[2].uri=lb://block
+-spring.cloud.gateway.routes[2].predicates[0]=Path=/audit/block/**
+-spring.cloud.gateway.routes[2].filters[0]=AuthenticationFilter
+-spring.cloud.gateway.routes[2].filters[1]=RewritePath=/audit/block/(?<segment>.*), /${segment}
++# spring.cloud.gateway.routes[2].id=block
++# spring.cloud.gateway.routes[2].uri=lb://block
++# spring.cloud.gateway.routes[2].predicates[0]=Path=/audit/block/**
++# spring.cloud.gateway.routes[2].filters[0]=AuthenticationFilter
++# spring.cloud.gateway.routes[2].filters[1]=RewritePath=/audit/block/(?<segment>.*), /${segment}
+ 
+-spring.cloud.gateway.routes[3].id=user-management
+-spring.cloud.gateway.routes[3].uri=lb://user-management
+-spring.cloud.gateway.routes[3].predicates[0]=Path=/audit/user-management/**
+-spring.cloud.gateway.routes[3].filters[0]=AuthenticationFilter
+-spring.cloud.gateway.routes[3].filters[1]=RewritePath=/audit/user-management/(?<segment>.*), /${segment}
++# spring.cloud.gateway.routes[3].id=user-management
++# spring.cloud.gateway.routes[3].uri=lb://user-management
++# spring.cloud.gateway.routes[3].predicates[0]=Path=/audit/user-management/**
++# spring.cloud.gateway.routes[3].filters[0]=AuthenticationFilter
++# spring.cloud.gateway.routes[3].filters[1]=RewritePath=/audit/user-management/(?<segment>.*), /${segment}
+ 
+-spring.cloud.gateway.routes[4].id=auth-service
+-spring.cloud.gateway.routes[4].uri=lb://auth-service
+-spring.cloud.gateway.routes[4].predicates[0]=Path=/audit/auth/**
+-spring.cloud.gateway.routes[4].filters[0]=AuthenticationFilter
+-spring.cloud.gateway.routes[4].filters[1]=RewritePath=/audit/auth/(?<segment>.*), /${segment}
++# spring.cloud.gateway.routes[4].id=auth-service
++# spring.cloud.gateway.routes[4].uri=lb://auth-service
++# spring.cloud.gateway.routes[4].predicates[0]=Path=/audit/auth/**
++# spring.cloud.gateway.routes[4].filters[0]=AuthenticationFilter
++# spring.cloud.gateway.routes[4].filters[1]=RewritePath=/audit/auth/(?<segment>.*), /${segment}
+ 
+ # Allow circular references
+ spring.main.allow-circular-references=true
+@@ -116,30 +116,30 @@ user.management.service.url=${USER_MANAGEMENT_SERVICE_URL:http://user-management
+ spring.cloud.gateway.default-filters[0]=AuthenticationFilter
+ logging.level.in.gov.lgd.gateway=INFO
+ 
+-# spring.cloud.gateway.routes[0].id=revenue
+-# spring.cloud.gateway.routes[0].uri=lb://REVENUE
+-# spring.cloud.gateway.routes[0].predicates[0]=Path=/revenue/**
+-# spring.cloud.gateway.routes[0].filters[0]=RewritePath=/revenue/(?<segment>.*), /${segment}
++spring.cloud.gateway.routes[0].id=revenue
++spring.cloud.gateway.routes[0].uri=lb://REVENUE
++spring.cloud.gateway.routes[0].predicates[0]=Path=/revenue/**
++spring.cloud.gateway.routes[0].filters[0]=RewritePath=/revenue/(?<segment>.*), /${segment}
+ 
+-# spring.cloud.gateway.routes[1].id=localbody
+-# spring.cloud.gateway.routes[1].uri=lb://LOCALBODY
+-# spring.cloud.gateway.routes[1].predicates[0]=Path=/localbody/**
+-# spring.cloud.gateway.routes[1].filters[0]=RewritePath=/localbody/(?<segment>.*), /${segment}
++spring.cloud.gateway.routes[1].id=localbody
++spring.cloud.gateway.routes[1].uri=lb://LOCALBODY
++spring.cloud.gateway.routes[1].predicates[0]=Path=/localbody/**
++spring.cloud.gateway.routes[1].filters[0]=RewritePath=/localbody/(?<segment>.*), /${segment}
+ 
+-# spring.cloud.gateway.routes[2].id=block
+-# spring.cloud.gateway.routes[2].uri=lb://BLOCK
+-# spring.cloud.gateway.routes[2].predicates[0]=Path=/block/**
+-# spring.cloud.gateway.routes[2].filters[0]=RewritePath=/block/(?<segment>.*), /${segment}
++spring.cloud.gateway.routes[2].id=block
++spring.cloud.gateway.routes[2].uri=lb://BLOCK
++spring.cloud.gateway.routes[2].predicates[0]=Path=/block/**
++spring.cloud.gateway.routes[2].filters[0]=RewritePath=/block/(?<segment>.*), /${segment}
+ 
+-# spring.cloud.gateway.routes[3].id=user-management
+-# spring.cloud.gateway.routes[3].uri=lb://USER-MANAGEMENT
+-# spring.cloud.gateway.routes[3].predicates[0]=Path=/user-management/**
+-# spring.cloud.gateway.routes[3].filters[0]=RewritePath=/user-management/(?<segment>.*), /${segment}
++spring.cloud.gateway.routes[3].id=user-management
++spring.cloud.gateway.routes[3].uri=lb://USER-MANAGEMENT
++spring.cloud.gateway.routes[3].predicates[0]=Path=/user-management/**
++spring.cloud.gateway.routes[3].filters[0]=RewritePath=/user-management/(?<segment>.*), /${segment}
+ 
+-# spring.cloud.gateway.routes[4].id=auth-service
+-# spring.cloud.gateway.routes[4].uri=lb://AUTH-SERVICE
+-# spring.cloud.gateway.routes[4].predicates[0]=Path=/auth/**
+-# spring.cloud.gateway.routes[4].filters[0]=RewritePath=/auth/(?<segment>.*), /${segment}
++spring.cloud.gateway.routes[4].id=auth-service
++spring.cloud.gateway.routes[4].uri=lb://AUTH-SERVICE
++spring.cloud.gateway.routes[4].predicates[0]=Path=/auth/**
++spring.cloud.gateway.routes[4].filters[0]=RewritePath=/auth/(?<segment>.*), /${segment}
+ 
+ server.error.whitelabel.enabled=false
+ spring.web.resources.add-mappings=false

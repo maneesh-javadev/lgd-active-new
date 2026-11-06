@@ -1,0 +1,407 @@
+{
+  "grandTotal": {
+    "tests": 289,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "modules": {
+    "api-gateway": {
+      "xmlFilesCount": 3,
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testSuites": [
+        {
+          "suite": "in.gov.lgd.gateway.filter.AuthenticationFilterTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "3.168"
+        },
+        {
+          "suite": "in.gov.lgd.gateway.filter.RouteValidatorTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.013"
+        },
+        {
+          "suite": "in.gov.lgd.gateway.filter.SecurityHeadersFilterTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.023"
+        }
+      ]
+    },
+    "discovery": {
+      "xmlFilesCount": 1,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testSuites": [
+        {
+          "suite": "in.nic.servicediscovery.egra.service_discovery.EurekaSecurityTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "9.284"
+        }
+      ]
+    },
+    "auth-service": {
+      "xmlFilesCount": 10,
+      "tests": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testSuites": [
+        {
+          "suite": "in.nic.lgd.auth.controller.AuthPrimaryControllerTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "4.658"
+        },
+        {
+          "suite": "in.nic.lgd.auth.controller.AuthSecondaryControllerTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.022"
+        },
+        {
+          "suite": "in.nic.lgd.auth.security.JwtHardeningRegressionTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "19.121"
+        },
+        {
+          "suite": "in.nic.lgd.auth.security.JwtUtilTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.031"
+        },
+        {
+          "suite": "in.nic.lgd.auth.security.ProductionSecurityValidatorTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.016"
+        },
+        {
+          "suite": "in.nic.lgd.auth.security.SecurityConfigTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "3.903"
+        },
+        {
+          "suite": "in.nic.lgd.auth.service.impl.AuthServiceImplTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.809"
+        },
+        {
+          "suite": "in.nic.lgd.auth.service.impl.MenuServiceImplTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.092"
+        },
+        {
+          "suite": "in.nic.lgd.auth.service.impl.RouteServiceImplTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.007"
+        },
+        {
+          "suite": "in.nic.lgd.auth.service.impl.UserProfileServiceImplTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.088"
+        }
+      ]
+    },
+    "revenue": {
+      "xmlFilesCount": 3,
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testSuites": [
+        {
+          "suite": "in.nic.lgd.revenue.security.DraftTenantSecurityTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "4.673"
+        },
+        {
+          "suite": "in.nic.lgd.revenue.security.EsignCallbackSecurityTest",
+          "tests": 13,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "1.24"
+        },
+        {
+          "suite": "in.nic.lgd.revenue.security.EsignValidationSecurityTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.134"
+        }
+      ]
+    },
+    "user-management": {
+      "xmlFilesCount": 27,
+      "tests": 211,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "testSuites": [
+        {
+          "suite": "in.nic.lgd.usermanagement.integration.SecurityIntegrationTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "18.861"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.integration.UserManagementIntegrationTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "5.771"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeControllerTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "3.196"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeResourceControllerTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "1.806"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeResourceServiceImplTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.708"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeServiceImplTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.176"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.privilege.validator.CreatePrivilegeValidatorTest",
+          "tests": 13,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.086"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.privilege.validator.PrivilegeValidatorTest",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.023"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.resource.controller.ResourceControllerTest",
+          "tests": 10,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "1.935"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.resource.mapper.ResourceMapperTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.03"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.resource.service.impl.ResourceServiceImplTest",
+          "tests": 9,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.088"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.resource.validator.CreateResourceValidatorTest",
+          "tests": 17,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.099"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.resource.validator.UpdateResourceValidatorTest",
+          "tests": 19,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.203"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.role.controller.RoleControllerTest",
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "2.012"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.role.service.impl.RoleServiceImplTest",
+          "tests": 11,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.717"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.role.validator.CreateRoleValidatorTest",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.027"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.role.validator.UpdateRoleValidatorTest",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.02"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.controller.UserControllerTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "1.868"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.controller.UserRoleMappingControllerTest",
+          "tests": 7,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "1.275"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.repository.UserRepositoryTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "2.717"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.repository.UserRoleMappingRepositoryTest",
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.222"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.service.impl.UserRoleMappingServiceImplTest",
+          "tests": 11,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.159"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.service.impl.UserServiceImplTest",
+          "tests": 11,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.909"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.validator.CreateUserValidatorTest",
+          "tests": 9,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.032"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.modules.user.validator.UpdateUserValidatorTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.027"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.user.security.JwtAuthenticationFilterTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.037"
+        },
+        {
+          "suite": "in.nic.lgd.usermanagement.user.security.JwtUtilTest",
+          "tests": 13,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "time": "0.31"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,107 @@
+================================================================================
+PHASE 9.1.4 EVIDENCE: REVENUE 40-ROUTE CENSUS & JWT SECURITY INTERCEPTION AUDIT
+Timestamp: 2026-11-06T11:47:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.4 Workstream D (DISC-P913-04, DISC-P913-05, BLK-CANON-02)
+================================================================================
+
+1. COMPLETE 40-ROUTE INVENTORY IN TESTCONTROLLER.JAVA:
+--------------------------------------------------------------------------------
+Source Inspected: revenue/src/main/java/in/nic/lgd/revenue/controller/TestController.java
+Class Annotations:
+  @RestController
+  @RequestMapping({ "/private/v1/test", "/test" })
+  @Profile({"dev", "test"})
+  @Slf4j
+  public class TestController { ... }
+
+The class defines TWO base paths and FIVE methods, each having FOUR aliases:
+  Base 1: /private/v1/test
+  Base 2: /test
+
+Method Mapping Matrix:
+  Method 1: {"/api1", "/message1", "/one", "/first"}
+  Method 2: {"/api2", "/message2", "/two", "/second"}
+  Method 3: {"/api3", "/message3", "/three", "/third"}
+  Method 4: {"/api4", "/message4", "/four", "/fourth"}
+  Method 5: {"/api5", "/message5", "/five", "/fifth"}
+
+Complete Census of 40 Discrete Mappings:
+  [01] /private/v1/test/api1        [21] /test/api1
+  [02] /private/v1/test/message1    [22] /test/message1
+  [03] /private/v1/test/one         [23] /test/one
+  [04] /private/v1/test/first       [24] /test/first
+  [05] /private/v1/test/api2        [25] /test/api2
+  [06] /private/v1/test/message2    [26] /test/message2
+  [07] /private/v1/test/two         [27] /test/two
+  [08] /private/v1/test/second      [28] /test/second
+  [09] /private/v1/test/api3        [29] /test/api3
+  [10] /private/v1/test/message3    [30] /test/message3
+  [11] /private/v1/test/three       [31] /test/three
+  [12] /private/v1/test/third       [32] /test/third
+  [13] /private/v1/test/api4        [33] /test/api4
+  [14] /private/v1/test/message4    [34] /test/message4
+  [15] /private/v1/test/four        [35] /test/four
+  [16] /private/v1/test/fourth      [36] /test/fourth
+  [17] /private/v1/test/api5        [37] /test/api5
+  [18] /private/v1/test/message5    [38] /test/message5
+  [19] /private/v1/test/five        [39] /test/five
+  [20] /private/v1/test/fifth       [40] /test/fifth
+
+Audit Findings:
+  - Phase 9.1.2 Factor 5 probed '/test/status' and '/test/echo' (fictitious paths).
+  - Phase 9.1.2 Factor 5 completely omitted all 20 paths under '/private/v1/test/**'.
+  - Authoritative probe suite must test actual mapped paths, specifically
+    '/private/v1/test/api1' through 'api5' and '/test/api1' through 'api5'.
+
+2. SPRING SECURITY FILTER CHAIN INTERCEPTION MECHANICS:
+--------------------------------------------------------------------------------
+Source Inspected: revenue/src/main/java/in/nic/lgd/revenue/user/security/SecurityConfig.java
+Lines 36-39:
+  .authorizeHttpRequests(auth -> auth
+      .requestMatchers("/public/v1/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+      .anyRequest().authenticated()
+  )
+Lines 27-31:
+  .authenticationEntryPoint((request, response, authException) -> {
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+      response.setContentType("application/json");
+      response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"Authentication token is missing or invalid\"}");
+  })
+
+Critical Technical Discovery:
+  - In Spring Security, the security filter chain executes BEFORE the DispatcherServlet
+    determines if a matching handler mapping exists!
+  - Because neither '/test/**' nor '/private/v1/test/**' is in the permitAll list,
+    any UN涵AUTHENTICATED HTTP request sent to these endpoints is intercepted by
+    JwtAuthenticationFilter and immediately returns HTTP 401 Unauthorized!
+  - It NEVER reaches the DispatcherServlet!
+  - Expecting an unauthenticated probe to return HTTP 404 is technically impossible.
+  - An unauthenticated probe returning 401 confirms security filter enforcement,
+    but DOES NOT prove that the controller bean was excluded by @Profile.
+  - To prove that the controller bean was NOT instantiated (returning 404),
+    the probe MUST include a valid authenticated JWT Bearer token:
+      Authorization: Bearer <VALID_JWT_TOKEN>
+    When the valid token passes JwtAuthenticationFilter, DispatcherServlet evaluates
+    handler mappings. Because @Profile({"dev", "test"}) prevented bean creation under 'prod',
+    DispatcherServlet returns HTTP 404 Not Found!
+
+3. RECONCILIATION OF ACTUATOR ABSENCE IN REVENUE (DISC-P913-04):
+--------------------------------------------------------------------------------
+Source Inspected: revenue/pom.xml
+Verification:
+  - 'spring-boot-starter-actuator' is NOT declared in revenue/pom.xml.
+  - Factor 4 rule in Phase 9.1.2 ("If Actuator returns 404, the census is VOID")
+    would make BLK-CANON-02 permanently uncloseable.
+  - Reconciled Rubric:
+      Option 1: Add 'spring-boot-starter-actuator' to revenue/pom.xml prior to Stage B.
+      Option 2: Attest bean exclusion via automated ApplicationContext reflection
+      test (e.g., Assertions.assertThrows(NoSuchBeanDefinitionException.class,
+      () -> context.getBean(TestController.class))).
+
+Conclusion:
+Blocker BLK-CANON-02 remains strictly RUNTIME_VERIFICATION_PENDING until the
+revenue container achieves steady-state runtime and the authenticated probe suite
+is executed.
+================================================================================
+

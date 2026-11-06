@@ -1,0 +1,5 @@
+2f3ab07 feat: upgrade tomcat and spring-security versions in auth-service pom.xml
+1aa920e feat: implement authentication service, production security validation, and controllers in auth-service
+079b1e9 feat: add spring security, feign client, and application configuration to auth-service
+2bba18b feat: add security configuration, application properties, and security tests for auth-service
+28c9989 feat(auth): enable eureka client, expose port 18090 and configure feign client url

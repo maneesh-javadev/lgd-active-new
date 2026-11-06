@@ -1,0 +1,187 @@
+{
+  "BLK_01_EXP_016_TLS_HSTS_VERIFICATION_REPORT.md": {
+    "size": 12121,
+    "lines": 224,
+    "hash": "bec6a9b9e8dd763f4231507eb183002599f10a9077d465db432fe78ebd3bb990"
+  },
+  "BLK_02_EXP_021_REVENUE_TESTCONTROLLER_CENSUS.md": {
+    "size": 16595,
+    "lines": 237,
+    "hash": "88818c3309d5989f166742b8d0a3e672216f0f3eb6e47819966f1a9dc2e48d19"
+  },
+  "BLK_03_POSTGRESQL14_REVENUE_STEADY_STATE_REPORT.md": {
+    "size": 11813,
+    "lines": 250,
+    "hash": "868faa1efd210bd0095448949056c089f54fa70e992c467482134a59534dc83b"
+  },
+  "GATE_B_GATE_C_CROSS_DOCUMENT_CONSISTENCY_REPORT.md": {
+    "size": 9948,
+    "lines": 98,
+    "hash": "e902fd3ae9dcb004636410df6d02413baa98c1d6d7f625fa2b085201e0b33627"
+  },
+  "GATE_B_GATE_C_FINAL_CLOSURE_REPORT.md": {
+    "size": 15135,
+    "lines": 154,
+    "hash": "df061d3d0ca19679a639a311695dcbf0070f4e965c4b0ded9d408de600918f89"
+  },
+  "GATE_B_GATE_C_SHA256_MANIFEST.md": {
+    "size": 5895,
+    "lines": 91,
+    "hash": "1f7a5ec2da1ce507258db5ea151252d9935349c234b46c8d17207109f398d63e"
+  },
+  "GATE_B_TECHNICAL_EVIDENCE_REGISTER.md": {
+    "size": 15171,
+    "lines": 146,
+    "hash": "c68fd8ae8dd54bec3461b3439d285ca911eb61797592e7470a400f4107eaf122"
+  },
+  "GATE_B_TECHNICAL_VERIFICATION_CLOSURE_REPORT.md": {
+    "size": 9609,
+    "lines": 130,
+    "hash": "a9e748cc8bfe0a02e8c09269092422c302f1e61fa0a03d0edc1abedfc395bee5"
+  },
+  "GATE_C_DAA_CISO_APPROVAL_REQUEST.md": {
+    "size": 12444,
+    "lines": 168,
+    "hash": "1b9c1d5cbfd17a2216c99710a9bc14936c0f72be45a456844b9850c4a4c41bd2"
+  },
+  "GATE_C_RESIDUAL_RISK_REASSESSMENT.md": {
+    "size": 23145,
+    "lines": 169,
+    "hash": "c1f5a5e9bcd311c3eec880500e3ef61632c4efec7eaf9abf2bc8f3eba196ec6a"
+  },
+  "GATE_C_RISK_ACCEPTANCE_APPROVAL_MATRIX.md": {
+    "size": 8330,
+    "lines": 96,
+    "hash": "fc907aaf1c951cf4d19b615c79e4de18e3aa70a8d19a8b1e52e3f3566ee0e7e1"
+  },
+  "GATE_C_RR_01_TO_RR_11_DECISION_REGISTER.md": {
+    "size": 30683,
+    "lines": 448,
+    "hash": "5b59cab0bc20cce9bea2ca2f1cfdfadbfd26b4245a2dba4bffa759e5d0d6979c"
+  },
+  "PHASE0_4_FINAL_GATE_B_TECHNICAL_ASSESSMENT.md": {
+    "size": 17783,
+    "lines": 149,
+    "hash": "2d054caf7b42a15f50a42b2b9b5b287f999e08938097b3c6d70f827a9eb4e2cf"
+  },
+  "PHASE0_4_FINAL_GATE_C_RISK_ACCEPTANCE_STATUS.md": {
+    "size": 17416,
+    "lines": 194,
+    "hash": "b67bae86689190251d6e75d6aab0d5179688803d22a3606ea988a46e7c14e7a3"
+  },
+  "PHASE_6_AUTHORIZATION_ENDPOINT_MATRIX.md": {
+    "size": 18762,
+    "lines": 100,
+    "hash": "2dfae1284162427cbf7aaea9d1051945bf19efd24df84b8d442c2eef89b3eb83"
+  },
+  "PHASE_6_BLOCKER_IDENTITY_AND_STATUS_RECONCILIATION.md": {
+    "size": 10818,
+    "lines": 110,
+    "hash": "a098c1c1a92e81ef91bc6d10d1f6017a72ece2cc5455b4392f03703919990282"
+  },
+  "PHASE_6_DELIVERABLE_SHA256_MANIFEST.md": {
+    "size": 3742,
+    "lines": 50,
+    "hash": "b48f828c843fb2e7bf54031d5f1149557e4f5cf20efbb14a903ad779b50d0ad2"
+  },
+  "PHASE_6_EVIDENCE_REGISTER.md": {
+    "size": 24766,
+    "lines": 441,
+    "hash": "9fbc7ab0785c742e2cae7a9436dba5da2cbb4891959e1571ae0e7cf27005e08e"
+  },
+  "PHASE_6_FINAL_EVIDENCE_INTEGRITY_REPORT.md": {
+    "size": 17717,
+    "lines": 180,
+    "hash": "124aa2ffb1eea107fed0c9f253ed25b7f8e10869f115625eac008315493b1c36"
+  },
+  "PHASE_6_FINAL_FINDING_DISPOSITION_MATRIX.md": {
+    "size": 22611,
+    "lines": 107,
+    "hash": "b467c68d9ac56b5b38d298e09111eb49a3c59ae9d0af54b3885d76916fd4f88a"
+  },
+  "PHASE_6_FINAL_INDEPENDENT_ACCEPTANCE_REPORT.md": {
+    "size": 33939,
+    "lines": 271,
+    "hash": "6c075cadabe521eb35bbf81c3cee7ab34eb80b6edd873c0be994f8acfd9955de"
+  },
+  "PHASE_6_FINAL_SHA256_MANIFEST.md": {
+    "size": 30350,
+    "lines": 162,
+    "hash": "812460f1a47b00acd56c881f5ed5eb7c1194fcf3027d9b9240d1d44285223257"
+  },
+  "PHASE_6_FINAL_SUREFIRE_CENSUS.md": {
+    "size": 25429,
+    "lines": 172,
+    "hash": "3b6f74e277782ad691bcc134cab8108b8d91c16404b1b79adda14f2b8ad1b26e"
+  },
+  "PHASE_6_GATE_A_B_C_FINAL_DISPOSITION.md": {
+    "size": 11397,
+    "lines": 141,
+    "hash": "f2b525fc3dc9183e1ad03d605a1906c4d743c8ce72ebf9eec6a007fd7bf9044f"
+  },
+  "PHASE_6_GATE_B_REGRESSION_AND_RETEST_REPORT.md": {
+    "size": 11002,
+    "lines": 182,
+    "hash": "26e562f1bed643f766fc55b1d54a5350a02bc89090e312f60e09df9cc1b5a9af"
+  },
+  "PHASE_6_GATE_B_SHA256_MANIFEST.md": {
+    "size": 6650,
+    "lines": 53,
+    "hash": "4408a621ecf3f30da00b579a4cb1c09f697ac7c05b0055de10a1c95aff771032"
+  },
+  "PHASE_6_GATE_B_TECHNICAL_EVIDENCE_REGISTER.md": {
+    "size": 9081,
+    "lines": 98,
+    "hash": "356a838973337200c9d9b70e90d4517e6c3f5ba80fa72979af13c726629a7a80"
+  },
+  "PHASE_6_GATE_B_TECHNICAL_VERIFICATION_CLOSURE_REPORT.md": {
+    "size": 19578,
+    "lines": 208,
+    "hash": "61a753a87009c4858023ca56c3721ec667c1120418b52c9b84d21ef67570d15b"
+  },
+  "PHASE_6_MULTITENANCY_TEST_REGISTER.md": {
+    "size": 13923,
+    "lines": 76,
+    "hash": "587e41927071ca007e3c3926367f7b063b7dc465baa13d0534afdc7b785b1fad"
+  },
+  "PHASE_6_RBAC_FINDINGS_REGISTER.md": {
+    "size": 31106,
+    "lines": 381,
+    "hash": "cc4c0ad2b571b8227ba255f1df2e27c803e08c542e9d5cac3e036a468c8cc77a"
+  },
+  "RBAC_004_FINAL_CONTROLLER_AUTHORITY_MATRIX.md": {
+    "size": 13831,
+    "lines": 70,
+    "hash": "7c6816280cefe04c32419ed83729d2b9cc945d3e8d19b9e1c02797caafde22a1"
+  },
+  "RBAC_004_FINAL_EVIDENCE_REGISTER.md": {
+    "size": 19423,
+    "lines": 99,
+    "hash": "ded75ddacb4826dfda2e4accead03398d82fc5168a527ffbead88b64c57d7c95"
+  },
+  "RBAC_004_GOVERNANCE_DISPOSITION.md": {
+    "size": 5850,
+    "lines": 75,
+    "hash": "e0f0ebbe6c38ea9b29e9b4bd448ea2a149a275211afe9a7c39032a9c98631678"
+  },
+  "RBAC_004_NEGATIVE_POSITIVE_TEST_EVIDENCE.md": {
+    "size": 17356,
+    "lines": 168,
+    "hash": "5c089b5f5eda9e1095a49ea8c81bf54f2a27b4e698987361cfd8f4ed4e0f9b43"
+  },
+  "RBAC_004_REMEDIATION_AND_RETEST.md": {
+    "size": 12010,
+    "lines": 145,
+    "hash": "4fcdcee70db6fce2e210176ea1bab54deaf130f5cfd6327b68b684bafaa68a09"
+  },
+  "RBAC_004_SHA256_MANIFEST.md": {
+    "size": 8245,
+    "lines": 78,
+    "hash": "9edacb249ebd7176645c02d87c5fde205d2ea900a4c570dddbf23ebe1c27fd7d"
+  },
+  "RBAC_004_SUREFIRE_RECONCILIATION.md": {
+    "size": 13937,
+    "lines": 183,
+    "hash": "6cd66b7266db7f7d7777e43b566a4e942c4ef6a0a8091f5f66aa019e137a3b4b"
+  }
+}

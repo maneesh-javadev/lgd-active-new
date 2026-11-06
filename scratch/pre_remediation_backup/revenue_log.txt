@@ -1,0 +1,5 @@
+6697a77 chore: upgrade Spring Boot, Tomcat, and Spring Security versions in revenue pom.xml
+082ab51 feat: add e-Sign integration module, security tests, and Swagger configuration
+a0fb81b refactor: update base image in Dockerfile from alpine to standard JDK 21
+1e0573e feat: add TestController with multiple test endpoints for revenue service health checks
+3cf47f7 feat(revenue): add dockerfile, integrate eureka and user feign client

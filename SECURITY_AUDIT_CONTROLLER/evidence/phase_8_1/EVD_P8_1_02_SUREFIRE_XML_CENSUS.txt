@@ -1,0 +1,106 @@
+================================================================================
+PHASE 8.1 INDEPENDENT SUREFIRE XML TEST EVIDENCE CENSUS
+Timestamp: 2026-11-06T09:45:54+05:30
+Evaluator: Principal Application Security Auditor & Independent Assessment Lead
+================================================================================
+
+================================================================================
+SERVICE MODULE: auth-service
+Surefire Directory: auth-service/target/surefire-reports (Found 11 XML report files)
+--------------------------------------------------------------------------------
+  1. in.nic.lgd.auth.controller.AuthPrimaryControllerTest                   | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:   1.777s
+  2. in.nic.lgd.auth.controller.AuthSecondaryControllerTest                 | Tests:   1 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.009s
+  3. in.nic.lgd.auth.controller.JwksControllerTest                          | Tests:   1 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.575s
+  4. in.nic.lgd.auth.security.JwtHardeningRegressionTest                    | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:  13.152s
+  5. in.nic.lgd.auth.security.JwtUtilTest                                   | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:     0.4s
+  6. in.nic.lgd.auth.security.ProductionSecurityValidatorTest               | Tests:   5 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.005s
+  7. in.nic.lgd.auth.security.SecurityConfigTest                            | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:   2.725s
+  8. in.nic.lgd.auth.service.impl.AuthServiceImplTest                       | Tests:   7 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.507s
+  9. in.nic.lgd.auth.service.impl.MenuServiceImplTest                       | Tests:   3 | Fail:  0 | Err:  0 | Skip:  0 | Time:    0.07s
+ 10. in.nic.lgd.auth.service.impl.RouteServiceImplTest                      | Tests:   3 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.002s
+ 11. in.nic.lgd.auth.service.impl.UserProfileServiceImplTest                | Tests:   2 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.066s
+--------------------------------------------------------------------------------
+Module Subtotal: Suites=11, Tests=46, Failures=0, Errors=0, Skipped=0
+
+================================================================================
+SERVICE MODULE: api-gateway
+Surefire Directory: api-gateway/target/surefire-reports (Found 5 XML report files)
+--------------------------------------------------------------------------------
+  1. in.gov.lgd.gateway.filter.AuthenticationFilterTest                     | Tests:   8 | Fail:  0 | Err:  0 | Skip:  0 | Time:   1.879s
+  2. in.gov.lgd.gateway.filter.IdentityHeaderSanitizationFilterTest         | Tests:   3 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.017s
+  3. in.gov.lgd.gateway.filter.RouteValidatorTest                           | Tests:   5 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.006s
+  4. in.gov.lgd.gateway.filter.SecurityHeadersFilterTest                    | Tests:   1 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.006s
+  5. in.gov.lgd.gateway.util.JwtUtilSecurityTest                            | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.984s
+--------------------------------------------------------------------------------
+Module Subtotal: Suites=5, Tests=23, Failures=0, Errors=0, Skipped=0
+
+================================================================================
+SERVICE MODULE: user-management
+Surefire Directory: user-management/target/surefire-reports (Found 31 XML report files)
+--------------------------------------------------------------------------------
+  1. in.nic.lgd.usermanagement.integration.LiveHttpSecurityIntegrationTest  | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:  10.236s
+  2. in.nic.lgd.usermanagement.integration.Rbac001SecurityNegativeTest      | Tests:  10 | Fail:  0 | Err:  0 | Skip:  0 | Time:    2.89s
+  3. in.nic.lgd.usermanagement.integration.Rbac004EndpointSecurityIntegrationTest | Tests:  58 | Fail:  0 | Err:  0 | Skip:  0 | Time:   1.051s
+  4. in.nic.lgd.usermanagement.integration.RbacSecurityIntegrationTest      | Tests:  10 | Fail:  0 | Err:  0 | Skip:  0 | Time:    0.06s
+  5. in.nic.lgd.usermanagement.integration.SecurityIntegrationTest          | Tests:   2 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.021s
+  6. in.nic.lgd.usermanagement.integration.UserManagementIntegrationTest    | Tests:   2 | Fail:  0 | Err:  0 | Skip:  0 | Time:   1.074s
+  7. in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeControllerTest | Tests:   2 | Fail:  0 | Err:  0 | Skip:  0 | Time:    1.53s
+  8. in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeResourceControllerTest | Tests:   3 | Fail:  0 | Err:  0 | Skip:  0 | Time:    0.63s
+  9. in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeResourceServiceImplTest | Tests:   5 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.391s
+ 10. in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeServiceImplTest | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.126s
+ 11. in.nic.lgd.usermanagement.modules.privilege.validator.CreatePrivilegeValidatorTest | Tests:  13 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.044s
+ 12. in.nic.lgd.usermanagement.modules.privilege.validator.PrivilegeValidatorTest | Tests:   7 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.015s
+ 13. in.nic.lgd.usermanagement.modules.resource.controller.ResourceControllerTest | Tests:  10 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.744s
+ 14. in.nic.lgd.usermanagement.modules.resource.mapper.ResourceMapperTest   | Tests:   5 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.005s
+ 15. in.nic.lgd.usermanagement.modules.resource.service.impl.ResourceServiceImplTest | Tests:   9 | Fail:  0 | Err:  0 | Skip:  0 | Time:    0.02s
+ 16. in.nic.lgd.usermanagement.modules.resource.validator.CreateResourceValidatorTest | Tests:  17 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.024s
+ 17. in.nic.lgd.usermanagement.modules.resource.validator.UpdateResourceValidatorTest | Tests:  19 | Fail:  0 | Err:  0 | Skip:  0 | Time:    0.03s
+ 18. in.nic.lgd.usermanagement.modules.role.controller.RoleControllerTest   | Tests:   5 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.696s
+ 19. in.nic.lgd.usermanagement.modules.role.service.impl.RoleServiceImplTest | Tests:  11 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.597s
+ 20. in.nic.lgd.usermanagement.modules.role.validator.CreateRoleValidatorTest | Tests:   7 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.012s
+ 21. in.nic.lgd.usermanagement.modules.role.validator.UpdateRoleValidatorTest | Tests:   7 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.017s
+ 22. in.nic.lgd.usermanagement.modules.user.controller.UserControllerTest   | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:    0.68s
+ 23. in.nic.lgd.usermanagement.modules.user.controller.UserRoleMappingControllerTest | Tests:   7 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.371s
+ 24. in.nic.lgd.usermanagement.modules.user.repository.UserRepositoryTest   | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:   1.014s
+ 25. in.nic.lgd.usermanagement.modules.user.repository.UserRoleMappingRepositoryTest | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.088s
+ 26. in.nic.lgd.usermanagement.modules.user.service.impl.UserRoleMappingServiceImplTest | Tests:  13 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.175s
+ 27. in.nic.lgd.usermanagement.modules.user.service.impl.UserServiceImplTest | Tests:  15 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.412s
+ 28. in.nic.lgd.usermanagement.modules.user.validator.CreateUserValidatorTest | Tests:   9 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.021s
+ 29. in.nic.lgd.usermanagement.modules.user.validator.UpdateUserValidatorTest | Tests:   8 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.013s
+ 30. in.nic.lgd.usermanagement.user.security.JwtAuthenticationFilterTest    | Tests:   4 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.017s
+ 31. in.nic.lgd.usermanagement.user.security.JwtUtilTest                    | Tests:  16 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.714s
+--------------------------------------------------------------------------------
+Module Subtotal: Suites=31, Tests=304, Failures=0, Errors=0, Skipped=0
+
+================================================================================
+SERVICE MODULE: revenue
+Surefire Directory: revenue/target/surefire-reports (Found 6 XML report files)
+--------------------------------------------------------------------------------
+  1. in.nic.lgd.revenue.security.DraftTenantSecurityTest                    | Tests:   9 | Fail:  0 | Err:  0 | Skip:  0 | Time:   1.423s
+  2. in.nic.lgd.revenue.security.EsignCallbackSecurityTest                  | Tests:  13 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.678s
+  3. in.nic.lgd.revenue.security.EsignValidationSecurityTest                | Tests:   4 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.086s
+  4. in.nic.lgd.revenue.security.JwtUtilSecurityTest                        | Tests:   4 | Fail:  0 | Err:  0 | Skip:  0 | Time:    0.95s
+  5. in.nic.lgd.revenue.security.SubDistrictPrimaryControllerSecurityTest   | Tests:   7 | Fail:  0 | Err:  0 | Skip:  0 | Time:   1.115s
+  6. in.nic.lgd.revenue.security.XmlSignatureSecurityTest                   | Tests:   6 | Fail:  0 | Err:  0 | Skip:  0 | Time:   0.015s
+--------------------------------------------------------------------------------
+Module Subtotal: Suites=6, Tests=43, Failures=0, Errors=0, Skipped=0
+
+================================================================================
+SERVICE MODULE: discovery
+Surefire Directory: discovery/target/surefire-reports (Found 1 XML report files)
+--------------------------------------------------------------------------------
+  1. in.nic.servicediscovery.egra.service_discovery.EurekaSecurityTest      | Tests:   2 | Fail:  0 | Err:  0 | Skip:  0 | Time:   4.908s
+--------------------------------------------------------------------------------
+Module Subtotal: Suites=1, Tests=2, Failures=0, Errors=0, Skipped=0
+
+================================================================================
+CONSOLIDATED PLATFORM REGRESSION SUMMARY:
+  Total Test Suites Audited: 54
+  Total Individual Tests:    418
+  Total Tests Passed:        418
+  Total Failures:            0
+  Total Errors:              0
+  Total Skipped:             0
+  Platform Pass Rate:        100.0% (418/418 PASS)
+  Forensic Integrity Status: VERIFIED FROM RAW XML TEST ARTIFACTS
+================================================================================

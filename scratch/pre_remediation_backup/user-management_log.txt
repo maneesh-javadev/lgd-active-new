@@ -1,0 +1,5 @@
+a0017c5 fix: update tomcat and spring-security versions to patch CVE vulnerabilities in user-management pom.xml
+3e761fb feat: add user management module implementation, mappers, controllers, and tests
+b774349 feat: add custom INET JDBC type support, security integration tests, and application configurations
+90a5a7a feat: add privilege controller, user entities, repositories, and services for user management module
+f7f0ba0 feat: add privilege and role management modules with validators, services, controllers, and tests

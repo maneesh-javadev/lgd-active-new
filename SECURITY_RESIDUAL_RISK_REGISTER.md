@@ -112,19 +112,19 @@ In accordance with NIST SP 800-30 Rev. 1 (*Guide for Conducting Risk Assessments
 
 ### RR-05: Unencrypted Internal Database & Cache Network Transit
 - **Inherent Risk:** Medium (Sniffing or tampering with database queries and cache payloads).
-- **Existing Control:** Containers communicate via Docker network bridge; internal database and Redis ports are not published to external network interfaces. Host OS firewall restricts access.
-- **Remaining Exposure:** PostgreSQL and Redis run on the container host network (accessed via `host.docker.internal`). Traffic between container virtual interfaces and host services traverses unencrypted plaintext TCP sockets (TCP 5432 and TCP 6379). Any process with root/packet capture privileges on the Docker host OS can inspect raw SQL queries, citizen records, and Redis token blacklists.
+- **Existing Control:** Internal backend microservice ports (8761, 18090, 18089, 18062) are unmapped from the host, strictly isolated on Docker network `lgd-network`. Host OS firewall and network boundaries restrict unauthorized external access to host ports 5432 and 6379.
+- **Remaining Exposure:** PostgreSQL 14 runs natively on the Host OS (`0.0.0.0:5432` / `[::]:5432`, Windows PID 16496), and containerized microservices connect across the bridge gateway via `host.docker.internal:5432`. Redis runs in a Docker container (`redis:alpine`, `03b849547c5f`) with port 6379 published to host interface `0.0.0.0:6379`. Neither PostgreSQL nor Redis traffic is encrypted; database transactions (JDBC over TCP) and Redis cache operations (RESP over TCP) traverse unencrypted plaintext TCP sockets without TLS/SSL encryption (`sslmode=require` not configured; Redis TLS disabled). Any process with network sniffing or host administrative privileges can inspect raw SQL queries, citizen records, and token revocation blacklists in transit.
 - **Compensating Control:**
-  - Restrict host OS shell access strictly to authorized administrators using hardened SSH key pairs with MFA.
-  - Bind PostgreSQL and Redis strictly to loopback (`127.0.0.1`) or the internal Docker bridge gateway IP (`172.17.0.1`), blocking `0.0.0.0` bindings.
-  - Host OS audit logging (Auditd) monitoring packet capture utilities (`tcpdump`, `wireshark`).
+  - Restrict host OS administrative access strictly to authorized administrators using hardened SSH/RDP credentials with MFA.
+  - Windows host firewall and network security group policies blocking untrusted external access to ports 5432 and 6379.
+  - Container-to-host bridge routing isolated from public internet routing tables.
 - **Risk Owner:** DevSecOps Lead & Database Administrator
 - **Approving Authority Role:** Security Operations Board / CISO
 - **Actual Approval Status:** **`PENDING_FORMAL_ACCEPTANCE`**
 - **Approval Date & Reference:** Pending Formal Sign-off (No executed DAA authorization memo on file)
-- **Acceptance Scope:** Docker compose staging environment internal container-to-host bridge transit
+- **Acceptance Scope:** Local and staging container-to-host network transit (PostgreSQL on host, Redis container published to host)
 - **Expiry / Review Date:** Phase 9 Gate Review (Infrastructure, Container & Network Hardening)
-- **Planned Remediation Phase:** Phase 9 (Infrastructure, Container & Network Hardening) — Enforce TLS transport encryption (`sslmode=require` / `sslmode=verify-full`) and mTLS for Redis connections.
+- **Planned Remediation Phase:** Phase 9 (Infrastructure, Container & Network Hardening) — Enforce TLS transport encryption (`sslmode=require` / `sslmode=verify-full`) on JDBC connections and Redis TLS / Stunnel encryption.
 
 ---
 
@@ -160,7 +160,7 @@ In accordance with NIST SP 800-30 Rev. 1 (*Guide for Conducting Risk Assessments
 - **Approval Date & Reference:** Pending Formal Sign-off (No executed DAA authorization memo on file)
 - **Acceptance Scope:** Perimeter API Gateway ingress interface
 - **Expiry / Review Date:** Phase 9 & Phase 10 Gate Review
-- **Planned Remediation Phase:** Phase 9 (Infrastructure, Container & Network Hardening) & Phase 10 (Vulnerability Remediation Implementation & Defensive Diffs)
+- **Planned Remediation Phase:** Phase 9 (Infrastructure, Container & Network Hardening) & Phase 10 (Remediation Implementation & Defensive Diffs)
 
 ---
 
@@ -177,8 +177,8 @@ In accordance with NIST SP 800-30 Rev. 1 (*Guide for Conducting Risk Assessments
 - **Actual Approval Status:** **`PENDING_FORMAL_ACCEPTANCE`**
 - **Approval Date & Reference:** Pending Formal Sign-off (No executed DAA authorization memo on file)
 - **Acceptance Scope:** Client-side spreadsheet export components (`NodalInfoCards.tsx`, `DepartmentAvailabilityModal.tsx`)
-- **Expiry / Review Date:** Phase 10 Gate Review (Vulnerability Remediation Implementation & Defensive Diffs)
-- **Planned Remediation Phase:** Phase 10 (Vulnerability Remediation Implementation & Defensive Diffs) / Frontend Maintenance Sprint — Transition export utility to `exceljs` library.
+- **Expiry / Review Date:** Phase 10 Gate Review (Remediation Implementation & Defensive Diffs)
+- **Planned Remediation Phase:** Phase 10 (Remediation Implementation & Defensive Diffs) / Frontend Maintenance Sprint — Transition export utility to `exceljs` library.
 
 ---
 
@@ -194,8 +194,8 @@ In accordance with NIST SP 800-30 Rev. 1 (*Guide for Conducting Risk Assessments
 - **Actual Approval Status:** **`PENDING_FORMAL_ACCEPTANCE`**
 - **Approval Date & Reference:** Pending Formal Sign-off (No executed DAA authorization memo on file)
 - **Acceptance Scope:** `lgd_react` district management forms
-- **Expiry / Review Date:** Phase 10 Gate Review (Vulnerability Remediation Implementation & Defensive Diffs)
-- **Planned Remediation Phase:** Phase 10 (Vulnerability Remediation Implementation & Defensive Diffs) / Frontend Modernization Sprint
+- **Expiry / Review Date:** Phase 10 Gate Review (Remediation Implementation & Defensive Diffs)
+- **Planned Remediation Phase:** Phase 10 (Remediation Implementation & Defensive Diffs) / Frontend Modernization Sprint
 
 ---
 
@@ -231,7 +231,7 @@ In accordance with NIST SP 800-30 Rev. 1 (*Guide for Conducting Risk Assessments
 - **Approval Date & Reference:** Pending Formal Sign-off (No executed DAA authorization memo on file)
 - **Acceptance Scope:** Core microservices baseline (`auth-service`, `revenue`, `user-management`)
 - **Expiry / Review Date:** 90 Days from baseline (January 28, 2027) or Phase 10 Gate Review
-- **Planned Remediation Phase:** Phase 10 (Vulnerability Remediation Implementation & Defensive Diffs) & Phase 13 (DevSecOps CI/CD Integration & Continuous Compliance) — Plan multi-module framework upgrade to Spring Boot 3.4.x LTS baseline across all services.
+- **Planned Remediation Phase:** Phase 10 (Remediation Implementation & Defensive Diffs) & Phase 13 (DevSecOps CI/CD Integration & Roadmap Sign-Off) — Plan multi-module framework upgrade to Spring Boot 3.4.x LTS baseline across all services.
 
 ---
 

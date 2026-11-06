@@ -1,0 +1,77 @@
+================================================================================
+PHASE 9.1.3 EVIDENCE: POSTGRESQL LISTENER BOUNDARIES & SCRAM AUDIT SAFETY
+Timestamp: 2026-11-06T11:27:00+05:30
+Evaluator: Antigravity Independent Security Audit Team
+Governance Scope: Phase 9.1.3 Workstream A Verification (RR-05, BLK-CANON-03)
+================================================================================
+
+1. WINDOWS / WSL2 / HYPER-V EPHEMERAL INTERFACE AUDIT:
+--------------------------------------------------------------------------------
+Observed Network Configuration:
+  - 127.0.0.1:     Loopback Pseudo-Interface 1 (Persistent)
+  - 172.20.32.1:   vEthernet (WSL (Hyper-V firewall)) (Current Session IP)
+  - 10.25.85.121:  Corporate LAN Ethernet Adapter (Physical Network)
+  - 10.89.0.1:     Virtual bridge inside WSL2 Linux namespace (Non-Windows adapter)
+
+CRITICAL ARCHITECTURAL FINDING:
+  - The IP address '172.20.32.1' is assigned by the Windows Hyper-V virtual switch to
+    the WSL2 host adapter dynamically upon Windows boot or WSL subsystem restart.
+  - While '172.20.32.1' is the observed interface in the current session, it is NOT
+    guaranteed to be persistent across host reboots or WSL service recreations.
+  - If Windows reboots and Hyper-V reallocates the WSL adapter to a different subnet
+    (e.g., 172.24.16.1 or 172.18.32.1):
+      1. PostgreSQL configured with 'listen_addresses = 127.0.0.1, 172.20.32.1' will
+         fail to start with fatal WinSock error:
+         WSAEADDRNOTAVAIL 10049 ("The requested address is not valid in its context").
+      2. If it falls back to 127.0.0.1 only, Docker containers connecting via
+         'host.docker.internal:5432' will receive Connection Refused.
+
+PROHIBITED WORKAROUND WARNING:
+  - Setting 'listen_addresses = *' is PROHIBITED as a default workaround because it
+    exposes port 5432 across the physical corporate LAN adapter (10.25.85.121).
+  - Robust Enterprise Solutions for Stage B:
+      A. Configure persistent IP reservation for the WSL virtual adapter via
+         Hyper-V Virtual Switch Manager.
+      B. Configure WSL2 Mirrored Networking ('networkingMode=mirrored' in .wslconfig),
+         allowing containers to connect directly to 127.0.0.1 without bridge NAT.
+      C. Use a dynamic Windows service startup script that inspects the current
+         vEthernet (WSL) adapter IP and dynamically populates postgresql.conf prior
+         to service start.
+
+2. B1-05 CREDENTIAL EXTRACTION SAFETY VIOLATION (DISC-P913-06):
+--------------------------------------------------------------------------------
+Phase 9.1.2 Stage B Matrix Step B1-05 Verification Instruction:
+  "Verification: Execute SELECT rolname, rolpassword FROM pg_authid; confirming 100% SCRAM-SHA-256$ prefixes."
+
+CRITICAL SAFETY VIOLATION IDENTIFIED:
+  - Executing 'SELECT rolpassword FROM pg_authid' directly extracts and logs actual
+    password hash material into the query console, terminal logs, and evidence dumps.
+  - This directly violates Section 3 of the Phase 9.1.3 Directive:
+    "Never query or export pg_authid.rolpassword values. Never place password hashes in audit evidence."
+
+MANDATORY SAFETY CORRECTION:
+  - The verification query MUST be formulated to test the hash algorithm prefix
+    WITHOUT projecting, exporting, or printing the hash string:
+      SELECT rolname,
+             (rolpassword LIKE 'SCRAM-SHA-256$%') AS is_scram_sha_256,
+             (rolpassword LIKE 'md5%') AS is_md5
+      FROM pg_authid
+      WHERE rolname IN ('postgres', 'lgd_prod_user', 'lgd_repl_user', 'lgd_monitor');
+  - Verification is confirmed when 'is_scram_sha_256 = true' and 'is_md5 = false'
+    for all roles, with ZERO hash characters exposed in audit evidence.
+
+3. OFFLINE HARDENING SEQUENCE CONFIRMATION:
+--------------------------------------------------------------------------------
+Validated Sequence:
+  1. Service 'postgresql-x64-14' remains Stopped.
+  2. Backup files with SHA-256 hash attestation.
+  3. Deploy server.crt, server.key (with NTFS ACLs), ca.crt.
+  4. Write hardened postgresql.conf and pg_hba.conf (purging all 'trust' rules).
+  5. Obtain Stage B operational authorization.
+  6. Start Windows service.
+  7. Connect locally via loopback and execute SCRAM role migration.
+  8. Verify SCRAM status without hash extraction.
+  9. Execute negative unauthorized connection rejection test.
+  10. Launch 'revenue' container and verify HikariCP steady-state.
+================================================================================
+

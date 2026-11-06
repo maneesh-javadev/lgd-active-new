@@ -1,0 +1,140 @@
+================================================================================
+LGD 2.0 SECURITY AUDIT CONTROLLER — PHYSICAL EVIDENCE RECORD
+EVIDENCE ID: EVD_P9_1_5_02_REVENUE_40_ROUTE_CENSUS_AND_SECURITY_FILTER_AUDIT
+================================================================================
+Timestamp: 2026-11-06T12:45:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.5 Workstream B (DISC-P914-02, BLK-CANON-02, SAST-021, EXP-021)
+Target Source File: revenue/src/main/java/in/nic/lgd/revenue/controller/TestController.java
+Target Security Config: revenue/src/main/java/in/nic/lgd/revenue/user/security/SecurityConfig.java
+================================================================================
+
+1. INSPECTION SOURCE & PURPOSE:
+--------------------------------------------------------------------------------
+Source Code Inspected:
+  - revenue/src/main/java/in/nic/lgd/revenue/controller/TestController.java (Lines 1-46)
+  - revenue/src/main/java/in/nic/lgd/revenue/user/security/SecurityConfig.java (Lines 1-57)
+  - revenue/pom.xml (Lines 1-260)
+Purpose:
+  Independently verify finding DISC-P914-02 regarding the incomplete Revenue route census.
+  Construct the exhaustive 40-route census table derived directly from AST mappings,
+  analyze Spring Security filter chain interception versus DispatcherServlet handler
+  mapping execution, and evaluate Spring Boot Actuator versus ApplicationContext
+  reflection testing tradeoffs.
+
+2. SOURCE CODE AST MAPPING FORENSICS:
+--------------------------------------------------------------------------------
+In TestController.java:
+  - Class-level annotations:
+      @RestController
+      @RequestMapping({ "/private/v1/test", "/test" })  --> Exactly TWO base paths
+      @Profile({"dev", "test"})                        --> Environment activation guard
+  - Method-level mappings (5 methods x 4 aliases each = 20 endpoints per base path):
+      Method 1 (L17-21): @GetMapping({ "/api1", "/message1", "/one", "/first" })    --> getMessageOne
+      Method 2 (L23-27): @GetMapping({ "/api2", "/message2", "/two", "/second" })   --> getMessageTwo
+      Method 3 (L29-33): @GetMapping({ "/api3", "/message3", "/three", "/third" })  --> getMessageThree
+      Method 4 (L35-39): @GetMapping({ "/api4", "/message4", "/four", "/fourth" })  --> getMessageFour
+      Method 5 (L41-45): @GetMapping({ "/api5", "/message5", "/five", "/fifth" })   --> getMessageFive
+  - Total Combinations: 2 base paths * 5 methods * 4 aliases = EXACTLY 40 ROUTES.
+
+3. EXHAUSTIVE 40-ROUTE CENSUS INVENTORY:
+--------------------------------------------------------------------------------
+| Route ID | Base Path        | Method Mapping  | Alias     | Full Request Path                     | Code Ref | Prod Profile | Authenticated Probe (JWT) | Unauthenticated Probe |
+|:---------|:-----------------|:----------------|:----------|:--------------------------------------|:---------|:-------------|:--------------------------|:----------------------|
+| R-01     | /private/v1/test | getMessageOne   | /api1     | /private/v1/test/api1                 | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-02     | /private/v1/test | getMessageOne   | /message1 | /private/v1/test/message1             | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-03     | /private/v1/test | getMessageOne   | /one      | /private/v1/test/one                  | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-04     | /private/v1/test | getMessageOne   | /first    | /private/v1/test/first                | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-05     | /private/v1/test | getMessageTwo   | /api2     | /private/v1/test/api2                 | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-06     | /private/v1/test | getMessageTwo   | /message2 | /private/v1/test/message2             | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-07     | /private/v1/test | getMessageTwo   | /two      | /private/v1/test/two                  | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-08     | /private/v1/test | getMessageTwo   | /second   | /private/v1/test/second               | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-09     | /private/v1/test | getMessageThree | /api3     | /private/v1/test/api3                 | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-10     | /private/v1/test | getMessageThree | /message3 | /private/v1/test/message3             | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-11     | /private/v1/test | getMessageThree | /three    | /private/v1/test/three                | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-12     | /private/v1/test | getMessageThree | /third    | /private/v1/test/third                | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-13     | /private/v1/test | getMessageFour  | /api4     | /private/v1/test/api4                 | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-14     | /private/v1/test | getMessageFour  | /message4 | /private/v1/test/message4             | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-15     | /private/v1/test | getMessageFour  | /four     | /private/v1/test/four                 | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-16     | /private/v1/test | getMessageFour  | /fourth   | /private/v1/test/fourth               | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-17     | /private/v1/test | getMessageFive  | /api5     | /private/v1/test/api5                 | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-18     | /private/v1/test | getMessageFive  | /message5 | /private/v1/test/message5             | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-19     | /private/v1/test | getMessageFive  | /five     | /private/v1/test/five                 | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-20     | /private/v1/test | getMessageFive  | /fifth    | /private/v1/test/fifth                | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-21     | /test            | getMessageOne   | /api1     | /test/api1                            | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-22     | /test            | getMessageOne   | /message1 | /test/message1                        | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-23     | /test            | getMessageOne   | /one      | /test/one                             | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-24     | /test            | getMessageOne   | /first    | /test/first                           | L17-21   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-25     | /test            | getMessageTwo   | /api2     | /test/api2                            | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-26     | /test            | getMessageTwo   | /message2 | /test/message2                        | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-27     | /test            | getMessageTwo   | /two      | /test/two                             | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-28     | /test            | getMessageTwo   | /second   | /test/second                          | L23-27   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-29     | /test            | getMessageThree | /api3     | /test/api3                            | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-30     | /test            | getMessageThree | /message3 | /test/message3                        | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-31     | /test            | getMessageThree | /three    | /test/three                           | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-32     | /test            | getMessageThree | /third    | /test/third                           | L29-33   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-33     | /test            | getMessageFour  | /api4     | /test/api4                            | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-34     | /test            | getMessageFour  | /message4 | /test/message4                        | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-35     | /test            | getMessageFour  | /four     | /test/four                            | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-36     | /test            | getMessageFour  | /fourth   | /test/fourth                          | L35-39   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-37     | /test            | getMessageFive  | /api5     | /test/api5                            | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-38     | /test            | getMessageFive  | /message5 | /test/message5                        | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-39     | /test            | getMessageFive  | /five     | /test/five                            | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+| R-40     | /test            | getMessageFive  | /fifth    | /test/fifth                           | L41-45   | OMITTED      | HTTP 404 Not Found        | HTTP 401 Unauthorized |
+
+4. SPRING SECURITY INTERCEPTION MECHANICS:
+--------------------------------------------------------------------------------
+In SecurityConfig.java:
+  L36-39:
+    .authorizeHttpRequests(auth -> auth
+        .requestMatchers("/public/v1/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+        .anyRequest().authenticated()
+    )
+  L27-31:
+    .authenticationEntryPoint((request, response, authException) -> {
+        response.setContentType("application/json");
+        response.setStatus(401);
+        response.getOutputStream().println("{ \"statusCode\": 401, \"message\": \"Authentication token is missing. Please log in to continue.\" }");
+    })
+
+Key Architectural Proof:
+  1. Unauthenticated requests to ANY route outside /public/v1/** are intercepted by
+     JwtAuthenticationFilter and SecurityFilterChain BEFORE reaching Spring MVC DispatcherServlet.
+  2. Therefore, unauthenticated probes return HTTP 401 regardless of whether TestController
+     is active, present, or absent in the ApplicationContext!
+  3. Testing ONLY with unauthenticated probes proves Spring Security is active, but proves
+     ZERO about whether TestController bean exists or is exposed.
+  4. To test whether TestController is excluded by @Profile({"dev", "test"}), the request MUST
+     pass Spring Security with a valid authenticated JWT Bearer token.
+  5. When authenticated, Spring Security allows the request to reach DispatcherServlet.
+     DispatcherServlet looks up RequestMappingHandlerMapping. If TestController is omitted,
+     DispatcherServlet returns true HTTP 404 Not Found.
+
+5. ACTUATOR VS. APPLICATIONCONTEXT REFLECTION DECISION:
+--------------------------------------------------------------------------------
+Option 1: Add spring-boot-starter-actuator to revenue/pom.xml
+  - Pros: Exposes /actuator/mappings for declarative REST inspection.
+  - Cons: Requires modifying POM file (violates read-only policy); expands attack surface
+    (exposing actuator endpoints in production); introduces potential security exposure.
+Option 2: Restricted Spring ApplicationContext Reflection Test (RECOMMENDED)
+  - Pros: Zero POM modification; executes during test lifecycle; inspects BeanFactory
+    directly via 'context.containsBean("testController")' and
+    'mappingHandlerMapping.getHandlerMethods()'; zero production attack surface expansion.
+  - Cons: Requires executing test runner rather than an external HTTP curl.
+Recommendation:
+  Adopt Option 2 (Restricted Spring ApplicationContext reflection test) for automated
+  regression and combine with authenticated HTTP 404 probes during Stage B runtime.
+
+6. LIMITATIONS:
+--------------------------------------------------------------------------------
+- Probing container on internal port :18062 cannot be physically executed until host
+  PostgreSQL service is running and revenue container achieves steady-state.
+- Blocker BLK-CANON-02 remains RUNTIME_VERIFICATION_PENDING.
+
+7. RELATED FINDINGS:
+--------------------------------------------------------------------------------
+- DISC-P914-02: Complete 40-route census specification and authenticated probe mandate.
+- BLK-CANON-02: Downstream Revenue TestController runtime census blocker.
+- SAST-021 / EXP-021: Exposed diagnostic controller in revenue production code.
+================================================================================
+

@@ -1,0 +1,419 @@
+2026-11-02T09:28:37Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-11-02T09:31:19Z	WARN	[yarn] Protocol error	err="unknown protocol: 'https', line: react-data-grid@https://github.com/pgadmin-org/react-data-grid.git#8ddaa7bed99c8329e39b8ff37ba156f7fc8e85d4\":"
+2026-11-02T09:31:21Z	INFO	Suppressing dependencies for development and testing. To display them, try the '--include-dev-deps' flag.
+2026-11-02T09:31:21Z	INFO	Number of language-specific files	num=1
+2026-11-02T09:31:21Z	INFO	[yarn] Detecting vulnerabilities...
+
+Report Summary
+
+┌─────────────────────────┬──────┬─────────────────┐
+│         Target          │ Type │ Vulnerabilities │
+├─────────────────────────┼──────┼─────────────────┤
+│ pgAdmin 4/web/yarn.lock │ yarn │       101       │
+└─────────────────────────┴──────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+pgAdmin 4/web/yarn.lock (yarn)
+==============================
+Total: 101 (UNKNOWN: 0, LOW: 7, MEDIUM: 51, HIGH: 43, CRITICAL: 0)
+
+┌──────────────────┬─────────────────────┬──────────┬────────┬───────────────────┬──────────────────────────────┬──────────────────────────────────────────────────────────────┐
+│     Library      │    Vulnerability    │ Severity │ Status │ Installed Version │        Fixed Version         │                            Title                             │
+├──────────────────┼─────────────────────┼──────────┼────────┼───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ ajv              │ CVE-2025-69873      │ MEDIUM   │ fixed  │ 8.17.1            │ 8.18.0, 6.14.0               │ ajv: ReDoS via $data reference                               │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2025-69873                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ axios            │ CVE-2026-101898     │ HIGH     │        │ 1.13.2            │ 1.20.0                       │ axios: axios: Security control bypass via unapplied HTTP/2   │
+│                  │                     │          │        │                   │                              │ proxy and DNS settings...                                    │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101898                  │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101901     │          │        │                   │                              │ axios: Axios: Denial of Service via unhandled error in       │
+│                  │                     │          │        │                   │                              │ HTTP/2 session initialization...                             │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101901                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-25639      │          │        │                   │ 1.13.5, 0.30.3               │ axios: Axios affected by Denial of Service via __proto__ Key │
+│                  │                     │          │        │                   │                              │ in mergeConfig...                                            │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-25639                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42033      │          │        │                   │ 1.15.1, 0.31.1               │ axios: Axios: HTTP Transport Hijacking via Prototype         │
+│                  │                     │          │        │                   │                              │ Pollution                                                    │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42033                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42035      │          │        │                   │                              │ axios: Axios: Arbitrary HTTP header injection via prototype  │
+│                  │                     │          │        │                   │                              │ pollution                                                    │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42035                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42043      │          │        │                   │                              │ axios: Axios: NO_PROXY bypass via crafted URL                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42043                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42264      │          │        │                   │ 1.15.2                       │ axios: Axios: Prototype pollution allows information         │
+│                  │                     │          │        │                   │                              │ disclosure and request manipulation                          │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42264                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-44486      │          │        │                   │ 1.16.0, 0.32.0               │ axios: Axios: Information disclosure of proxy credentials    │
+│                  │                     │          │        │                   │                              │ via HTTP redirects                                           │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-44486                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-44487      │          │        │                   │                              │ axios: Axios: Information disclosure of proxy credentials    │
+│                  │                     │          │        │                   │                              │ via redirect flows                                           │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-44487                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-44488      │          │        │                   │ 1.16.0                       │ axios: Axios: Denial of Service due to unenforced request    │
+│                  │                     │          │        │                   │                              │ and response size...                                         │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-44488                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-44494      │          │        │                   │                              │ axios: Axios: Man-in-the-Middle (MITM) attack via Prototype  │
+│                  │                     │          │        │                   │                              │ Pollution                                                    │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-44494                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-44495      │          │        │                   │ 1.15.2, 0.31.1               │ axios: Axios: Information disclosure due to prototype        │
+│                  │                     │          │        │                   │                              │ pollution vulnerability                                      │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-44495                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-44496      │          │        │                   │ 1.16.0, 0.32.0               │ axios: Axios: Client-side Denial of Service via unescaped    │
+│                  │                     │          │        │                   │                              │ regex metacharacters in XSRF...                              │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-44496                   │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2025-62718      │ MEDIUM   │        │                   │ 1.15.0, 0.31.0               │ axios: Axios: Server-Side Request Forgery and proxy bypass   │
+│                  │                     │          │        │                   │                              │ due to improper hostname...                                  │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2025-62718                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101900     │          │        │                   │ 1.20.0                       │ axios: Axios: Outbound HTTP header injection via prototype   │
+│                  │                     │          │        │                   │                              │ pollution in fetch adapter...                                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101900                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101902     │          │        │                   │ 0.34.0, 1.20.0               │ axios: axios: Unintended HTTP method override via prototype  │
+│                  │                     │          │        │                   │                              │ pollution gadget                                             │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101902                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101904     │          │        │                   │ 1.20.0                       │ axios: Axios: HTTP header injection via inherited prototype  │
+│                  │                     │          │        │                   │                              │ properties                                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101904                  │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101908     │          │        │                   │                              │ axios: Axios: Outbound HTTP request manipulation via fetch   │
+│                  │                     │          │        │                   │                              │ adapter prototype pollution                                  │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101908                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-40175      │          │        │                   │ 1.15.0, 0.31.0               │ axios: Axios: Remote Code Execution via Prototype Pollution  │
+│                  │                     │          │        │                   │                              │ escalation                                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-40175                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42034      │          │        │                   │ 1.15.1, 0.31.1               │ axios: Axios: Denial of Service via oversized streamed       │
+│                  │                     │          │        │                   │                              │ uploads bypassing body limits...                             │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42034                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42036      │          │        │                   │                              │ axios: Axios: Denial of Service via unbounded stream         │
+│                  │                     │          │        │                   │                              │ consumption when 'responseType: 'stream''...                 │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42036                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42037      │          │        │                   │ 1.15.1                       │ axios: Node.js: Axios: Information disclosure via CRLF       │
+│                  │                     │          │        │                   │                              │ injection in multipart Content-Type header...                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42037                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42038      │          │        │                   │ 1.15.1, 0.31.1               │ axios: Axios: Information disclosure due to `no_proxy`       │
+│                  │                     │          │        │                   │                              │ bypass                                                       │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42038                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42039      │          │        │                   │                              │ axios: Node.js: Axios: Denial of Service via unbounded       │
+│                  │                     │          │        │                   │                              │ recursion in toFormData with...                              │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42039                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42041      │          │        │                   │                              │ axios: Axios: Authentication bypass due to prototype         │
+│                  │                     │          │        │                   │                              │ pollution of HTTP error handling...                          │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42041                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42042      │          │        │                   │                              │ axios: Axios: XSRF token bypass leading to information       │
+│                  │                     │          │        │                   │                              │ disclosure                                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42042                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42044      │          │        │                   │ 1.15.2                       │ axios: Axios: Invisible JSON Response Tampering via          │
+│                  │                     │          │        │                   │                              │ Prototype Pollution Gadget                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42044                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-44490      │          │        │                   │ 1.16.0, 0.32.0               │ axios: Axios: Information disclosure and denial of service   │
+│                  │                     │          │        │                   │                              │ due to prototype pollution...                                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-44490                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-67312      │          │        │                   │ 0.33.0, 1.18.0               │ axios: axios: Denial of Service via uncontrolled recursion   │
+│                  │                     │          │        │                   │                              │ in form data processing...                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67312                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-67313      │          │        │                   │                              │ axios versions 0.28.0 and later contain uncontrolled         │
+│                  │                     │          │        │                   │                              │ recursion in form ...                                        │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67313                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-67316      │          │        │                   │ 1.18.0, 0.33.0               │ axios: axios: Prototype Pollution allows unauthorized data   │
+│                  │                     │          │        │                   │                              │ transmission and network redirection                         │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67316                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-67317      │          │        │                   │ 1.18.0                       │ axios: axios: Denial of Service via maxBodyLength bypass     │
+│                  │                     │          │        │                   │                              │ with ReadableStream                                          │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67317                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-67318      │          │        │                   │                              │ axios: axios: Denial of Service due to maxBodyLength bypass  │
+│                  │                     │          │        │                   │                              │ in HTTP/2 requests...                                        │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67318                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-67319      │          │        │                   │ 0.33.0, 1.18.0               │ axios: axios: Information disclosure and data manipulation   │
+│                  │                     │          │        │                   │                              │ via prototype pollution                                      │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67319                   │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42040      │ LOW      │        │                   │ 1.15.1, 0.31.1               │ axios: Axios: Incorrect null byte handling can lead to data  │
+│                  │                     │          │        │                   │                              │ integrity issues...                                          │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42040                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ devalue          │ CVE-2026-22774      │ HIGH     │        │ 5.5.0             │ 5.6.2                        │ devalue: devalue: Denial of Service due to excessive         │
+│                  │                     │          │        │                   │                              │ resource consumption from untrusted...                       │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-22774                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-22775      │          │        │                   │                              │ devalue: devalue: Denial of Service due to improper input    │
+│                  │                     │          │        │                   │                              │ validation                                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-22775                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-92708      │          │        │                   │ 5.9.3                        │ devalue: devalue: Cross-request process memory disclosure    │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-92708                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-mcm9-63f2-9j32 │          │        │                   │                              │ devalue: Repeated primitive strings cause quadratic          │
+│                  │                     │          │        │                   │                              │ expansion in uneval                                          │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-mcm9-63f2-9j32            │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-r9w8-h9r3-54w4 │          │        │                   │                              │ devalue: Custom ArrayBuffer revivers can bypass typed-array  │
+│                  │                     │          │        │                   │                              │ allocation validation                                        │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-r9w8-h9r3-54w4            │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-30226      │ MEDIUM   │        │                   │ 5.6.4                        │ devalue: Devalue: Denial of Service or type confusion via    │
+│                  │                     │          │        │                   │                              │ prototype pollution                                          │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-30226                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-81176      │          │        │                   │ 5.9.2                        │ devalue: Devalue: Denial of Service via malformed input      │
+│                  │                     │          │        │                   │                              │ parsing                                                      │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-81176                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-4q55-j62x-fr9h │          │        │                   │ 5.9.3                        │ devalue: Malformed null-prototype object keys bypass         │
+│                  │                     │          │        │                   │                              │ __proto__ rejection via property-key coercion                │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-4q55-j62x-fr9h            │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-hx4r-w6wj-j8fg │          │        │                   │                              │ devalue: Residual sparse-array CPU amplification in uneval   │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-hx4r-w6wj-j8fg            │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-33hq-fvwr-56pm │ LOW      │        │                   │ 5.6.3                        │ devalue affected by CPU and memory amplification from sparse │
+│                  │                     │          │        │                   │                              │ arrays                                                       │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-33hq-fvwr-56pm            │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-8qm3-746x-r74r │          │        │                   │                              │ devalue `uneval`ed code can create objects with polluted     │
+│                  │                     │          │        │                   │                              │ prototypes when `eval`ed                                     │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-8qm3-746x-r74r            │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-mwv9-gp5h-frr4 │          │        │                   │ 5.6.4                        │ Sveltejs devalue's `devalue.parse` and `devalue.unflatten`   │
+│                  │                     │          │        │                   │                              │ emit objects with `__proto__` own properties                 │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-mwv9-gp5h-frr4            │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-wf3x-273g-mvxv │          │        │                   │ 5.9.3                        │ devalue: Sparse arrays emitted by uneval cause eager         │
+│                  │                     │          │        │                   │                              │ allocation when evaluated                                    │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-wf3x-273g-mvxv            │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ fast-uri         │ CVE-2026-13676      │ HIGH     │        │ 3.1.0             │ 4.0.1, 3.1.3, 2.4.2          │ fast-uri: fast-uri: Security policy bypass due to improper   │
+│                  │                     │          │        │                   │                              │ Unicode hostname canonicalization                            │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-13676                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-16221      │          │        │                   │ 2.4.3, 3.1.4, 4.1.1          │ fast-uri: Fast-uri: Security policy bypass due to URL        │
+│                  │                     │          │        │                   │                              │ parsing inconsistency                                        │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-16221                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-18446      │          │        │                   │ 2.4.4, 3.1.5, 4.1.2          │ fast-uri: fast-uri: Host confusion vulnerability via         │
+│                  │                     │          │        │                   │                              │ backslash in URI authority                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-18446                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-6321       │          │        │                   │ 3.1.1, 2.4.1                 │ fast-uri: fast-uri: Path traversal vulnerability allows      │
+│                  │                     │          │        │                   │                              │ bypass of security policies                                  │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-6321                    │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-6322       │          │        │                   │ 3.1.2, 2.4.1                 │ fast-uri: fast-uri: URI authority bypass due to improper     │
+│                  │                     │          │        │                   │                              │ delimiter handling                                           │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-6322                    │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-75975      │          │        │                   │ 2.4.5, 3.1.6, 4.1.3          │ fast-uri: fast-uri: Server-side request forgery via          │
+│                  │                     │          │        │                   │                              │ malformed IPv6 normalization                                 │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-75975                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-76172      │          │        │                   │                              │ fast-uri: fast-uri: URI parsing flaw enables server-side     │
+│                  │                     │          │        │                   │                              │ request forgery and redirects                                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-76172                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-84292      │          │        │                   │ 2.4.6, 3.1.7, 4.1.4          │ fast-uri: fast-uri: Authority Injection via Unvalidated Port │
+│                  │                     │          │        │                   │                              │ Serialization                                                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-84292                   │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-110306     │ MEDIUM   │        │                   │ 2.4.8, 3.1.9, 4.2.3          │ fast-uri: fast-uri: Cross-Site Scripting via improper URI    │
+│                  │                     │          │        │                   │                              │ scheme decoding                                              │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-110306                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-86472      │          │        │                   │ 2.4.7, 3.1.8, 4.1.5          │ fast-uri: fast-uri: Security bypass due to inconsistent host │
+│                  │                     │          │        │                   │                              │ case normalization                                           │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-86472                   │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-110095     │ LOW      │        │                   │ 2.4.8, 3.1.9, 4.2.3          │ fast-uri: fast-uri: Path traversal via improper relative URI │
+│                  │                     │          │        │                   │                              │ normalization                                                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-110095                  │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-110725     │          │        │                   │                              │ fast-uri: fast-uri: Cross-site scripting via unescaped colon │
+│                  │                     │          │        │                   │                              │ in relative URI paths                                        │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-110725                  │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ follow-redirects │ GHSA-r4q5-vmmm-2653 │ MEDIUM   │        │ 1.15.11           │ 1.16.0                       │ follow-redirects leaks Custom Authentication Headers to      │
+│                  │                     │          │        │                   │                              │ Cross-Domain Redirect Targets                                │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-r4q5-vmmm-2653            │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ form-data        │ CVE-2026-12143      │ HIGH     │        │ 4.0.5             │ 2.5.6, 3.0.5, 4.0.6          │ form-data: form-data: Form field override via CRLF injection │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-12143                   │
+├──────────────────┼─────────────────────┤          │        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ ip-address       │ CVE-2026-69192      │          │        │ 10.1.0            │ 10.3.1                       │ ip-address: ip-address: Inconsistent IP address parsing      │
+│                  │                     │          │        │                   │                              │ leads to Server-Side Request Forgery (SSRF)...               │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-69192                   │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101911     │ MEDIUM   │        │                   │ 10.7.1                       │ ip-address: ip-address: Denial of Service via unbounded IPv6 │
+│                  │                     │          │        │                   │                              │ address parsing                                              │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101911                  │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101912     │          │        │                   │                              │ ip-address: ip-address: Access control bypass via            │
+│                  │                     │          │        │                   │                              │ cross-family subnet comparison                               │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101912                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-101913     │          │        │                   │ 10.5.1                       │ ip-address: ip-address: Security bypass via incomplete IPv6  │
+│                  │                     │          │        │                   │                              │ link-local address validation                                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-101913                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-111997     │          │        │                   │ 10.7.4                       │ ip-address: ip-address: Denial of Service via excessive      │
+│                  │                     │          │        │                   │                              │ percent characters in IPv6 address...                        │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-111997                  │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42338      │          │        │                   │ 10.1.1                       │ ip-address: ip-address: Cross-site scripting via improper    │
+│                  │                     │          │        │                   │                              │ HTML escaping of untrusted input                             │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42338                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ lodash           │ CVE-2026-4800       │ HIGH     │        │ 4.17.21           │ 4.18.0                       │ lodash: lodash: Arbitrary code execution via untrusted input │
+│                  │                     │          │        │                   │                              │ in template imports                                          │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-4800                    │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2025-13465      │ MEDIUM   │        │                   │ 4.17.23                      │ lodash: prototype pollution in _.unset and _.omit functions  │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2025-13465                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-2950       │          │        │                   │ 4.18.0                       │ lodash: Lodash: Prototype pollution allows deletion of       │
+│                  │                     │          │        │                   │                              │ built-in prototype properties via array...                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-2950                    │
+├──────────────────┼─────────────────────┼──────────┤        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│ lodash-es        │ CVE-2026-4800       │ HIGH     │        │                   │                              │ lodash: lodash: Arbitrary code execution via untrusted input │
+│                  │                     │          │        │                   │                              │ in template imports                                          │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-4800                    │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2025-13465      │ MEDIUM   │        │                   │ 4.17.23                      │ lodash: prototype pollution in _.unset and _.omit functions  │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2025-13465                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-2950       │          │        │                   │ 4.18.0                       │ lodash: Lodash: Prototype pollution allows deletion of       │
+│                  │                     │          │        │                   │                              │ built-in prototype properties via array...                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-2950                    │
+├──────────────────┼─────────────────────┤          │        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ moment           │ CVE-2026-17495      │          │        │ 2.30.1            │ 2.31.0                       │ moment: Moment: Path Traversal via crafted non-string input  │
+│                  │                     │          │        │                   │                              │ to locale function                                           │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-17495                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ nanoid           │ CVE-2026-67213      │ HIGH     │        │ 3.3.11            │ 3.3.18, 5.1.6                │ nanoid: nanoid: Denial of Service via infinite loop in       │
+│                  │                     │          │        │                   │                              │ random ID generation...                                      │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67213                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-67214      │          │        │                   │ 3.3.16, 5.1.16               │ nanoid: nanoid: Denial of Service via negative size input in │
+│                  │                     │          │        │                   │                              │ non-secure module...                                         │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-67214                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-73086      │          │        │                   │ 3.3.12, 5.1.11               │ nanoid: nanoid: Predictable ID generation due to integer     │
+│                  │                     │          │        │                   │                              │ overflow                                                     │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-73086                   │
+├──────────────────┼─────────────────────┤          │        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ picomatch        │ CVE-2026-33671      │          │        │ 2.3.1             │ 4.0.4, 3.0.2, 2.3.2          │ picomatch: Picomatch: Regular Expression Denial of Service   │
+│                  │                     │          │        │                   │                              │ via crafted extglob patterns                                 │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-33671                   │
+│                  ├─────────────────────┼──────────┤        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-33672      │ MEDIUM   │        │                   │                              │ picomatch: Picomatch: Data integrity compromised via method  │
+│                  │                     │          │        │                   │                              │ injection with crafted POSIX bracket...                      │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-33672                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ postcss          │ CVE-2026-45623      │ HIGH     │        │ 8.5.6             │ 8.5.12                       │ postcss: PostCSS: Information disclosure and denial of       │
+│                  │                     │          │        │                   │                              │ service via crafted CSS input...                             │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-45623                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-73646      │          │        │                   │ 8.5.18                       │ postcss: PostCSS: Information disclosure via path traversal  │
+│                  │                     │          │        │                   │                              │ in source map auto-loading                                   │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-73646                   │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-41305      │ MEDIUM   │        │                   │ 8.5.10                       │ postcss: PostCSS: Cross-Site Scripting (XSS) via improper    │
+│                  │                     │          │        │                   │                              │ escaping of style closing tags...                            │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-41305                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-69153      │          │        │                   │ 8.5.23                       │ postcss: PostCSS: Information disclosure via crafted         │
+│                  │                     │          │        │                   │                              │ sourceMappingURL                                             │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-69153                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ sharp            │ GHSA-f88m-g3jw-g9cj │ HIGH     │        │ 0.34.5            │ 0.35.0                       │ sharp inherited vulnerabilities in libvips: CVE-2026-33327,  │
+│                  │                     │          │        │                   │                              │ CVE-2026-33328, CVE-2026-35590, CVE-2026-35591               │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-f88m-g3jw-g9cj            │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-rgj7-g3m4-5g8c │          │        │                   │ 0.35.4                       │ sharp: Vulnerabilities in libheif: GHSA-g89c-p67h-r497 and   │
+│                  │                     │          │        │                   │                              │ GHSA-2jg2-4ch7-h545                                          │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-rgj7-g3m4-5g8c            │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ GHSA-wq5f-xc86-pv6w │          │        │                   │ 0.35.5                       │ sharp : Vulnerability in librsvg dependency CVE-2026-96889   │
+│                  │                     │          │        │                   │                              │ https://github.com/advisories/GHSA-wq5f-xc86-pv6w            │
+├──────────────────┼─────────────────────┤          │        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ socket.io-parser │ CVE-2026-33151      │          │        │ 4.2.4             │ 3.3.5, 3.4.4, 4.2.6          │ socket.io: Socket.IO: Denial of Service due to excessive     │
+│                  │                     │          │        │                   │                              │ buffering of specially crafted...                            │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-33151                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-69185      │          │        │                   │ 4.2.7, 3.4.5, 3.3.6          │ socket.io-parser: Socket.IO: Denial of Service via memory    │
+│                  │                     │          │        │                   │                              │ exhaustion from crafted packets                              │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-69185                   │
+├──────────────────┼─────────────────────┤          │        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ source-map-js    │ CVE-2026-93749      │          │        │ 1.2.1             │ 1.2.2                        │ source-map-js: source-map-js: Denial of Service via          │
+│                  │                     │          │        │                   │                              │ malformed indexed source maps                                │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-93749                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ svelte           │ CVE-2026-27119      │ MEDIUM   │        │ 5.45.2            │ 5.51.5                       │ svelte: Svelte affected by XSS in SSR `<option>` element     │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-27119                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-27121      │          │        │                   │                              │ svelte: Svelte affected by cross-site scripting via spread   │
+│                  │                     │          │        │                   │                              │ attributes in Svelte SSR...                                  │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-27121                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-27122      │          │        │                   │                              │ svelte: Svelte SSR does not validate dynamic element tag     │
+│                  │                     │          │        │                   │                              │ names in `<svelte:element>`...                               │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-27122                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-27125      │          │        │                   │                              │ svelte: Svelte SSR attribute spreading includes inherited    │
+│                  │                     │          │        │                   │                              │ properties from prototype chain                              │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-27125                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-27901      │          │        │                   │ 5.53.5                       │ svelte: Svelte: Cross-Site Scripting and HTML injection via  │
+│                  │                     │          │        │                   │                              │ improper escaping of bind:innerText...                       │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-27901                   │
+│                  ├─────────────────────┤          │        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42573      │          │        │                   │ 5.55.7                       │ svelte: Svelte: Cross-Site Scripting via DOM Clobbering      │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42573                   │
+│                  ├─────────────────────┤          │        │                   │                              ├──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-42599      │          │        │                   │                              │ svelte: Svelte: Cross-Site Scripting via untrusted data in   │
+│                  │                     │          │        │                   │                              │ spread attributes                                            │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-42599                   │
+├──────────────────┼─────────────────────┼──────────┤        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ ws               │ CVE-2026-48779      │ HIGH     │        │ 8.17.1            │ 5.2.5, 6.2.4, 7.5.11, 8.21.0 │ ws: ws: Denial of Service via memory exhaustion from small   │
+│                  │                     │          │        │                   │                              │ WebSocket fragments...                                       │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-48779                   │
+│                  ├─────────────────────┼──────────┤        │                   ├──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                  │ CVE-2026-45736      │ MEDIUM   │        │                   │ 8.20.1                       │ ws: ws: Uninitialized memory disclosure via                  │
+│                  │                     │          │        │                   │                              │ `websocket.close()` with `TypedArray`                        │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-45736                   │
+├──────────────────┼─────────────────────┤          │        ├───────────────────┼──────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ yaml             │ CVE-2026-33532      │          │        │ 1.10.2            │ 2.8.3, 1.10.3                │ yaml: yaml: Denial of Service via deeply nested YAML         │
+│                  │                     │          │        │                   │                              │ document parsing                                             │
+│                  │                     │          │        │                   │                              │ https://avd.aquasec.com/nvd/cve-2026-33532                   │
+└──────────────────┴─────────────────────┴──────────┴────────┴───────────────────┴──────────────────────────────┴──────────────────────────────────────────────────────────────┘

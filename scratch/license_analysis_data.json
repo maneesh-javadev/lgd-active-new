@@ -1,15 +1,32 @@
 {
-  "totalInstances": 1252,
-  "uniqueComponents": 825,
-  "totalLicenseAttributions": 1341,
+  "metadata": {
+    "bomSerialNumber": "urn:uuid:000ec80b-40ed-4ff1-9c2c-158ff7881799",
+    "generationTimestamp": "2026-11-02T06:13:56.869Z",
+    "schemaVersion": "CycloneDX 1.5",
+    "sbomSha256": "99ba796566d50a5d171e55ffbc7da9946be0b1bbaf2b5be566af6a623a79993b"
+  },
+  "metrics": {
+    "totalComponentInstances": 1348,
+    "uniqueThirdPartyComponents": 916,
+    "declaredLicenseAttributions": 1432,
+    "undeclaredLicenseInstances": 5,
+    "multiLicenseInstances": 44,
+    "dependencyGraphNodes": 924
+  },
+  "copyleftClassification": {
+    "permissiveCount": 897,
+    "weakCopyleftCount": 44,
+    "strongCopyleftCount": 14,
+    "customOrUndeclaredCount": 31
+  },
   "licenseDistribution": [
     {
       "spdx": "Apache-2.0",
-      "count": 651
+      "count": 653
     },
     {
-      "spdx": "Bouncy Castle Licence",
-      "count": 5
+      "spdx": "MIT",
+      "count": 482
     },
     {
       "spdx": "BSD-3-Clause",
@@ -30,14 +47,6 @@
     {
       "spdx": "GPL-2.0-with-classpath-exception",
       "count": 24
-    },
-    {
-      "spdx": "MIT",
-      "count": 397
-    },
-    {
-      "spdx": "No License Declared",
-      "count": 5
     },
     {
       "spdx": "BSD licence",
@@ -77,7 +86,7 @@
     },
     {
       "spdx": "ISC",
-      "count": 36
+      "count": 39
     },
     {
       "spdx": "Apache License, 2.0",
@@ -112,6 +121,10 @@
       "count": 1
     },
     {
+      "spdx": "BlueOak-1.0.0",
+      "count": 1
+    },
+    {
       "spdx": "MIT OR SEE LICENSE IN FEEL-FREE.md",
       "count": 1
     },
@@ -133,13 +146,234 @@
     },
     {
       "spdx": "MPL-2.0",
+      "count": 12
+    }
+  ],
+  "multiLicenseComponents": [
+    {
+      "key": "jakarta.ws.rs:jakarta.ws.rs-api@3.1.0",
+      "module": "api-gateway",
+      "count": 2
+    },
+    {
+      "key": "jakarta.annotation:jakarta.annotation-api@2.1.1",
+      "module": "api-gateway",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-classic@1.5.11",
+      "module": "api-gateway",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-core@1.5.11",
+      "module": "api-gateway",
+      "count": 2
+    },
+    {
+      "key": "jakarta.persistence:jakarta.persistence-api@3.1.0",
+      "module": "api-gateway",
+      "count": 2
+    },
+    {
+      "key": "jakarta.transaction:jakarta.transaction-api@2.0.1",
+      "module": "api-gateway",
+      "count": 2
+    },
+    {
+      "key": "org.hdrhistogram:HdrHistogram@2.2.2",
+      "module": "api-gateway",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-classic@1.4.14",
+      "module": "auth-service",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-core@1.4.14",
+      "module": "auth-service",
+      "count": 2
+    },
+    {
+      "key": "jakarta.annotation:jakarta.annotation-api@2.1.1",
+      "module": "auth-service",
+      "count": 2
+    },
+    {
+      "key": "org.hdrhistogram:HdrHistogram@2.1.12",
+      "module": "auth-service",
+      "count": 2
+    },
+    {
+      "key": "jakarta.persistence:jakarta.persistence-api@3.1.0",
+      "module": "auth-service",
+      "count": 2
+    },
+    {
+      "key": "jakarta.transaction:jakarta.transaction-api@2.0.1",
+      "module": "auth-service",
+      "count": 2
+    },
+    {
+      "key": "jakarta.ws.rs:jakarta.ws.rs-api@3.1.0",
+      "module": "auth-service",
+      "count": 2
+    },
+    {
+      "key": "org.hdrhistogram:HdrHistogram@2.2.2",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "org.glassfish.jersey.connectors:jersey-apache-connector@3.1.10",
+      "module": "discovery",
+      "count": 10
+    },
+    {
+      "key": "org.glassfish.jersey.containers:jersey-container-servlet@3.1.10",
+      "module": "discovery",
+      "count": 10
+    },
+    {
+      "key": "org.glassfish.jersey.containers:jersey-container-servlet-core@3.1.10",
+      "module": "discovery",
+      "count": 10
+    },
+    {
+      "key": "org.glassfish.jersey.core:jersey-common@3.1.10",
+      "module": "discovery",
+      "count": 4
+    },
+    {
+      "key": "org.glassfish.hk2:osgi-resource-locator@1.0.3",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "jakarta.ws.rs:jakarta.ws.rs-api@3.1.0",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "org.glassfish.jersey.core:jersey-server@3.1.10",
+      "module": "discovery",
+      "count": 4
+    },
+    {
+      "key": "org.glassfish.jersey.core:jersey-client@3.1.10",
+      "module": "discovery",
+      "count": 10
+    },
+    {
+      "key": "org.glassfish.jersey.inject:jersey-hk2@3.1.10",
+      "module": "discovery",
+      "count": 10
+    },
+    {
+      "key": "org.glassfish.hk2:hk2-locator@3.0.6",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "org.glassfish.hk2:hk2-utils@3.0.6",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "org.javassist:javassist@3.30.2-GA",
+      "module": "discovery",
+      "count": 3
+    },
+    {
+      "key": "org.glassfish.hk2:spring-bridge@3.1.1",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "org.glassfish.hk2:hk2-api@3.1.1",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-classic@1.5.18",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-core@1.5.18",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "jakarta.annotation:jakarta.annotation-api@2.1.1",
+      "module": "discovery",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-classic@1.4.14",
+      "module": "revenue",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-core@1.4.14",
+      "module": "revenue",
+      "count": 2
+    },
+    {
+      "key": "jakarta.annotation:jakarta.annotation-api@2.1.1",
+      "module": "revenue",
+      "count": 2
+    },
+    {
+      "key": "jakarta.persistence:jakarta.persistence-api@3.1.0",
+      "module": "revenue",
+      "count": 2
+    },
+    {
+      "key": "jakarta.transaction:jakarta.transaction-api@2.0.1",
+      "module": "revenue",
+      "count": 2
+    },
+    {
+      "key": "jakarta.ws.rs:jakarta.ws.rs-api@3.1.0",
+      "module": "revenue",
+      "count": 2
+    },
+    {
+      "key": "jakarta.ws.rs:jakarta.ws.rs-api@3.1.0",
+      "module": "user-management",
+      "count": 2
+    },
+    {
+      "key": "jakarta.annotation:jakarta.annotation-api@2.1.1",
+      "module": "user-management",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-classic@1.4.14",
+      "module": "user-management",
+      "count": 2
+    },
+    {
+      "key": "ch.qos.logback:logback-core@1.4.14",
+      "module": "user-management",
+      "count": 2
+    },
+    {
+      "key": "jakarta.persistence:jakarta.persistence-api@3.1.0",
+      "module": "user-management",
+      "count": 2
+    },
+    {
+      "key": "jakarta.transaction:jakarta.transaction-api@2.0.1",
+      "module": "user-management",
       "count": 2
     }
   ],
-  "multiLicenseCount": 44,
   "noLicenseComponents": [
     {
-      "key": "org.antlr:antlr-runtime:3.4",
+      "key": "org.antlr:antlr-runtime@3.4",
       "module": "api-gateway",
       "purl": "pkg:maven/org.antlr/antlr-runtime@3.4?type=jar"
     }

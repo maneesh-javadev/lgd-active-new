@@ -1,0 +1,85 @@
+================================================================================
+PHASE 9.1.3 EVIDENCE: LETTUCE TRUSTSTORE, POOLING & SPRING BOOT COMPATIBILITY AUDIT
+Timestamp: 2026-11-06T11:25:30+05:30
+Evaluator: Antigravity Independent Security Audit Team
+Governance Scope: Phase 9.1.3 Workstream C Verification (RR-02, RR-05, SAST-002)
+================================================================================
+
+1. RESOLVED DEPENDENCY MATRIX & RUNTIME BASELINE:
+--------------------------------------------------------------------------------
+Source Files Inspected:
+  - api-gateway/pom.xml (Spring Boot 3.3.5, Java 21)
+  - auth-service/pom.xml (Spring Boot 3.2.12, Java 21)
+  - discovery/pom.xml (Spring Boot 3.4.4, Java 21)
+  - revenue/pom.xml (Spring Boot 3.2.12, Java 21)
+  - user-management/pom.xml (Spring Boot 3.2.12, Java 21)
+  - SECURITY_AUDIT_CONTROLLER/evidence/phase_9_1_2/EVD_P9_1_2_05_LETTUCE_API_VERIFICATION.txt
+
+Verified Dependency Versions:
+  - api-gateway:      Spring Data Redis 3.3.5  | io.lettuce:lettuce-core:6.3.2.RELEASE
+  - auth-service:     Spring Data Redis 3.2.12 | io.lettuce:lettuce-core:6.3.2.RELEASE
+  - revenue:          Spring Data Redis 3.2.12 | io.lettuce:lettuce-core:6.3.1.RELEASE / 6.3.2.RELEASE
+  - user-management:  Spring Data Redis 3.2.12 | io.lettuce:lettuce-core:6.3.2.RELEASE
+  - discovery:        No Redis dependencies present
+
+2. CONNECTION POOLING (COMMONS-POOL2) CENSUS:
+--------------------------------------------------------------------------------
+Audit Finding:
+  - 'org.apache.commons:commons-pool2' is COMPLETELY ABSENT from all POM files.
+  - Spring Boot auto-configuration class 'LettuceConnectionConfiguration' evaluates:
+      ClassUtils.isPresent("org.apache.commons.pool2.impl.GenericObjectPool", classLoader)
+  - Because commons-pool2 is missing, any configuration under 'spring.data.redis.lettuce.pool.*'
+    (max-active, max-idle, min-idle, max-wait) is SILENTLY IGNORED.
+  - Runtime Consequence:
+      Lettuce operates exclusively via multiplexed, single shared TCP connections.
+      While this is standard and optimal for reactive 'api-gateway', blocking services
+      ('revenue', 'user-management', 'auth-service') under high concurrent transactional loads
+      cannot establish pooled connections without adding 'commons-pool2'.
+
+3. LETTUCE CUSTOM CA TRUSTSTORE DESIGN GAP (DISC-P913-02):
+--------------------------------------------------------------------------------
+Phase 9.1.2 Proposed Java Customizer:
+  builder.useSsl()
+         .and()
+         .commandTimeout(Duration.ofSeconds(3))
+         .shutdownTimeout(Duration.ofMillis(100));
+
+CRITICAL SECURITY & COMPILATION DEFECT ANALYSIS:
+  - In Netty / Lettuce, calling 'builder.useSsl()' activates TLS using default Java
+    TrustManagerFactory which resolves '$JAVA_HOME/lib/security/cacerts'.
+  - In PostgreSQL, the JDBC driver takes 'sslrootcert=/etc/ssl/certs/lgd-internal-ca.crt'
+    directly in the URL.
+  - IN REDIS / LETTUCE, THERE IS NO URL PARAMETER FOR CA ROOT CERTIFICATES.
+  - Because the Redis Sentinel cluster uses internal certificates signed by the private
+    LGD Internal CA, and this private CA is NOT in the default Temurin JRE 'cacerts',
+    Lettuce throws a fatal runtime exception during TLS handshake:
+      javax.net.ssl.SSLHandshakeException: PKIX path building failed:
+      sun.security.provider.certpath.SunCertPathBuilderException:
+      unable to find valid certification path to requested target
+  - The Stage B blueprint OMITTED instructions on how Lettuce will validate the private CA!
+
+REQUIRED BLUEPRINT CORRECTION:
+  Option A (Recommended for Containers):
+    Import 'lgd-internal-ca.crt' into the container JVM truststore during Docker build:
+    RUN keytool -importcert -noprompt -keystore "$JAVA_HOME/lib/security/cacerts" \
+        -storepass changeit -alias lgd-internal-ca -file /etc/ssl/certs/lgd-internal-ca.crt
+  Option B (Spring Boot 3.1+ SSL Bundles):
+    Define 'spring.ssl.bundle.pem.redis.truststore.certificate=/etc/ssl/certs/lgd-internal-ca.crt'
+    and configure 'spring.data.redis.ssl.bundle=redis'.
+
+4. SPRING BOOT BEAN CONFLICT & RETIRED BEAN CENSUS:
+--------------------------------------------------------------------------------
+Existing Source Code:
+  - revenue/src/main/java/in/nic/lgd/revenue/config/RedisConfig.java (lines 40-48)
+  - user-management/src/main/java/in/nic/lgd/usermanagement/config/RedisConfig.java (lines 38-46)
+  Both declare:
+    @Bean
+    public LettuceClientConfiguration lettuceClientConfiguration() { ... autoReconnect(false) ... }
+
+Finding:
+  When introducing the proposed 'LettuceClientConfigurationBuilderCustomizer' bean,
+  the existing '@Bean public LettuceClientConfiguration lettuceClientConfiguration()'
+  MUST be explicitly purged/deleted from both 'RedisConfig.java' files.
+  Retaining both creates configuration confusion and risks overriding customizer settings.
+================================================================================
+

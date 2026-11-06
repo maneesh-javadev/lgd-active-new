@@ -1,0 +1,24 @@
+================================================================================
+LGD 2.0 FINAL REMEDIATION - HARDENED CONTAINER IMAGES (NON-ROOT UID 10001)
+Timestamp: 2026-11-06T14:41:44+05:30
+================================================================================
+
+localhost/lgd-active-new-api-gateway                latest           da1b4742344b  2 minutes ago  548 MB
+localhost/lgd-active-new-user-management            latest           3e0ab864d686  3 minutes ago  551 MB
+localhost/lgd-active-new-revenue                    latest           ad87b5958c35  3 minutes ago  558 MB
+localhost/lgd-active-new-auth-service               latest           31eda114caa8  3 minutes ago  549 MB
+localhost/test-discovery                            latest           c9479ea45eee  4 minutes ago  488 MB
+docker.io/library/lgd-active-new-api-gateway        latest           89821c4e0824  4 days ago     582 MB
+docker.io/library/lgd-active-new-revenue            latest           c6b33928e650  4 days ago     587 MB
+docker.io/library/lgd-active-new-user-management    latest           547ea580e254  4 days ago     583 MB
+docker.io/library/lgd-active-new-auth-service       latest           3ae4de5e4d72  4 days ago     582 MB
+docker.io/library/lgd-active-new-service-discovery  latest           1b301d175f4a  4 days ago     427 MB
+docker.io/library/redis                             alpine           9722accf3e8e  10 days ago    120 MB
+
+
+CONTAINER NON-ROOT VERIFICATION (UID/GID):
+localhost/test-discovery:latest => uid=10001(lgduser) gid=10001(lgdgroup) groups=10001(lgdgroup)
+localhost/lgd-active-new-auth-service:latest => uid=10001(lgduser) gid=10001(lgdgroup) groups=10001(lgdgroup)
+localhost/lgd-active-new-revenue:latest => uid=10001(lgduser) gid=10001(lgdgroup) groups=10001(lgdgroup)
+localhost/lgd-active-new-user-management:latest => uid=10001(lgduser) gid=10001(lgdgroup) groups=10001(lgdgroup)
+localhost/lgd-active-new-api-gateway:latest => uid=10001(lgduser) gid=10001(lgdgroup) groups=10001(lgdgroup)

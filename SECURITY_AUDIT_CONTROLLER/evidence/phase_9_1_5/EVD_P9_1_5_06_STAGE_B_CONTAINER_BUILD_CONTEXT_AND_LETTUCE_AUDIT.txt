@@ -1,0 +1,120 @@
+================================================================================
+LGD 2.0 SECURITY AUDIT CONTROLLER — PHYSICAL EVIDENCE RECORD
+EVIDENCE ID: EVD_P9_1_5_06_STAGE_B_CONTAINER_BUILD_CONTEXT_AND_LETTUCE_AUDIT
+================================================================================
+Timestamp: 2026-11-06T12:45:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.5 Workstream F (DISC-P914-06, RR-02, RR-06, SCA-012, BLK-CANON-01)
+Target Components: Docker Compose Build Contexts, Lettuce 6.3.2.RELEASE, Nginx Ingress, Redis AOF
+================================================================================
+
+1. INSPECTION SOURCE & PURPOSE:
+--------------------------------------------------------------------------------
+Source Inspected:
+  - docker-compose.yml (Lines 20-180: service definitions and build contexts)
+  - Microservice POMs (Spring Boot 3.2.12/3.3.5/3.4.4, Lettuce 6.3.2.RELEASE via Maven tree)
+  - Phase 9.1.4 Stage B Blueprint (Steps B4-01, B4-02, B5-01, B5-02)
+Purpose:
+  Independently verify finding DISC-P914-06 regarding additional Stage B design defects:
+  Docker build context mismatches preventing CA certificate import, Lettuce customizer
+  runtime compatibility, perimeter port 8092 rollback hazards, and Redis asynchronous
+  failover data-loss window disclosures.
+
+2. DOCKER BUILD CONTEXT DEFECT & RESOLUTION:
+--------------------------------------------------------------------------------
+The Defect:
+  - In docker-compose.yml, services define:
+      auth-service:    context: ./auth-service,   dockerfile: Dockerfile
+      revenue:         context: ./revenue,        dockerfile: Dockerfile
+      user-management: context: ./user-management, dockerfile: Dockerfile
+  - In Stage B Step B4-01, Dockerfile specification contains:
+      COPY certs/lgd-internal-ca.crt /usr/local/share/ca-certificates/lgd-internal-ca.crt
+  - Hazard:
+      When 'docker compose build' executes for 'revenue', the Docker daemon receives
+      the build context scoped strictly to './revenue'.
+      The path 'certs/lgd-internal-ca.crt' is located at the root of the project.
+      The build aborts immediately with:
+      "COPY failed: file not found in build context: certs/lgd-internal-ca.crt"
+
+Authoritative Resolution:
+  Update docker-compose.yml to anchor build contexts to repository root:
+    services:
+      auth-service:
+        build:
+          context: .
+          dockerfile: ./auth-service/Dockerfile
+      revenue:
+        build:
+          context: .
+          dockerfile: ./revenue/Dockerfile
+      user-management:
+        build:
+          context: .
+          dockerfile: ./user-management/Dockerfile
+      api-gateway:
+        build:
+          context: .
+          dockerfile: ./api-gateway/Dockerfile
+  This ensures 'certs/lgd-internal-ca.crt' is within the build context for all images.
+
+3. SPRING DATA REDIS & LETTUCE 6.3.2.RELEASE COMPATIBILITY:
+--------------------------------------------------------------------------------
+Dependencies Confirmed:
+  - Spring Boot 3.2.12 (revenue, user-management, auth-service)
+  - io.lettuce:lettuce-core:6.3.2.RELEASE (managed dependency)
+Customizer Verification:
+  - 'LettuceClientConfigurationBuilderCustomizer' is fully supported in Spring Boot 3.2.x.
+  - Purging the obsolete '@Bean LettuceClientConfiguration' in revenue/config/RedisConfig.java
+    and user-management/config/RedisConfig.java is mandatory because that bean hardcoded
+    'autoReconnect(false)' and bypassed 'spring.data.redis.ssl.enabled=true'.
+  - Replacing with the Customizer allows Spring Boot's 'LettuceConnectionConfiguration'
+    to instantiate SSL connections while applying the custom autoReconnect(true),
+    SocketOptions (connectTimeout=3s, keepAlive=true), and timeoutOptions.
+  - Offline Maven dependency analysis confirms zero missing classes or conflicts.
+
+4. NGINX PERIMETER HARDENING & PROHIBITION OF PORT 8092 FALLBACK:
+--------------------------------------------------------------------------------
+Perimeter Mandate:
+  - Step B5-01 atomically unmaps '8092:8092' from api-gateway in docker-compose.yml.
+  - Ingress is mediated exclusively by Nginx on host ports 80 (HTTP) and 443 (HTTPS).
+  - Nginx redirects HTTP to HTTPS with 301, provides HSTS headers, and drops unrecognized
+    Host headers with HTTP 444.
+Strict Policy on Rollback:
+  - In the event of an Nginx startup or certificate failure during Stage B deployment,
+    PORT 8092 MUST NEVER BE PUBLICLY RE-EXPOSED ON 0.0.0.0:8092 AS A FALLBACK!
+  - Public exposure of cleartext port 8092 violates BLK-CANON-01 and RFC 6797.
+  - Safe Rollback: If diagnostic access is required during rollback, port 8092 may be
+    bound STRICTLY to loopback ('127.0.0.1:8092:8092') for administrative debugging only.
+
+5. REDIS ASYNCHRONOUS REPLICATION FAILOVER & DATA-LOSS DISCLOSURE:
+--------------------------------------------------------------------------------
+Architectural Disclosure:
+  - Redis replication is ASYNCHRONOUS by design.
+  - Primary acknowledges writes to clients before replicas acknowledge replication.
+  - With 'appendfsync everysec', writes within the last 1000ms may remain in the OS
+    page cache and not yet flushed to disk.
+  - Write-Loss Window:
+      In an ungraceful crash of the Redis primary (SIGKILL / power loss), writes executed
+      within the last 0.5s–1.0s before the crash that were not yet acknowledged by replicas
+      WILL BE LOST during Sentinel failover.
+  - Impact on JWT Revocation Blacklist:
+      If a JWT token is revoked immediately before a primary crash, the blacklist entry
+      could be lost in the failover window, allowing a revoked token to be accepted during
+      its remaining lifespan (up to 15 minutes).
+  - Governance Mandate:
+      The Stage B blueprint MUST NOT represent Redis failover as "guaranteed zero data loss".
+      The asynchronous failover window is documented as an accepted technical risk under RR-02.
+
+6. LIMITATIONS:
+--------------------------------------------------------------------------------
+- Compilation and build execution cannot be triggered without mutations.
+- Staging verification of failover write window is scheduled for authorized Stage B runtime.
+
+7. RELATED FINDINGS:
+--------------------------------------------------------------------------------
+- DISC-P914-06: Additional Stage B design defects identified and resolved in blueprint.
+- BLK-CANON-01: Perimeter ingress TLS/HSTS transport security.
+- RR-02: Redis failover resilience and JWT revocation durability.
+- RR-06: Microservice container isolation and privilege minimization.
+================================================================================
+

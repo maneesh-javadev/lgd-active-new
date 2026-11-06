@@ -20,15 +20,16 @@ The assessment encompassed all five backend Java microservices (`api-gateway`, `
 
 ### Assessment Achievements:
 1. **Complete Supply Chain Discovery & SBOM Dependency Graph:**
-   - Cataloged **825 unique third-party components** across 1,252 module instances.
-   - Produced a standardized CycloneDX 1.5 Software Bill of Materials (`SOFTWARE_BILL_OF_MATERIALS.json`) with a **complete dependency relationship array (884 graph nodes)** preserving direct and transitive hierarchies across all 7 application modules.
-   - Immutable Master SBOM SHA-256 Digest: `05F7C3BC3F121960B176BEFF927E930D617B3A1E758C79CE7A7A9E9152D42242`.
+   - Cataloged **916 unique components** across **1,348 module instances** (924 dependency records).
+   - Produced an official schema-compliant CycloneDX 1.5 Software Bill of Materials (`SOFTWARE_BILL_OF_MATERIALS.json`) preserving direct and transitive hierarchies across all 7 application modules. Validated against official CycloneDX 1.5 JSON schema via AJV v8.12.0 with zero errors and 100% referential integrity.
+   - Serial Number: `urn:uuid:000ec80b-40ed-4ff1-9c2c-158ff7881799`
+   - Master SBOM SHA-256 Digest: `99ba796566d50a5d171e55ffbc7da9946be0b1bbaf2b5be566af6a623a79993b`.
 2. **Reconciled Vulnerability Severity Totals:**
    - Total cataloged findings: **12** (Critical: 2, High: 7, Medium: 3).
    - **Fully Fixed in Phase 4:** **6** findings (`SCA-001`, `SCA-002`, `SCA-003`, `SCA-005`, `SCA-006`, `SCA-011`).
-   - **Partially Mitigated (Compensated):** **4** findings (`SCA-004`, `SCA-007`, `SCA-009`, `SCA-010`), carrying residual risk pending formal executive sign-off.
+   - **Partially Mitigated (Compensated):** **4** findings (`SCA-004` -> `RR-11`, `SCA-007` -> `RR-11`, `SCA-009` -> `RR-08`, `SCA-010` -> `RR-09`), carrying residual risk pending formal executive sign-off.
    - **Formally Accepted Risks:** **0** (no executed DAA/CISO signed authorization memos currently on file; status set to `PENDING_FORMAL_ACCEPTANCE`).
-   - **Deferred Remediation Items:** **2** findings (`SCA-008`, `SCA-012`) scheduled for dedicated security phases.
+   - **Deferred Remediation Items:** **2** findings (`SCA-008` -> `RR-10`, `SCA-012` -> `RR-06`) scheduled for dedicated security phases.
 3. **SCA-005 Spring Security CVE Verification & Technical Upgrade:**
    - Deep-dive investigation verified that `CVE-2024-38828` is an upstream Spring Framework (`spring-webmvc` 5.3.0–5.3.41) DoS flaw via `@RequestBody byte[]`, affecting only Spring Framework 5.3.x, NOT Spring Security. Spring Security 6.2.x concluded at 6.2.8; version 6.2.9 was never published to Maven Central. LGD uses Spring Framework 6.1.15 / 6.1.14 / 6.2.4, which are immune to this flaw.
    - To address all genuine Spring Security CVEs (CVE-2024-22234, CVE-2024-22257, CVE-2024-38821, CVE-2025-22228), explicit `<spring-security.version>6.3.8</spring-security.version>` was added across `auth-service`, `revenue`, `user-management`, and `api-gateway`.
@@ -37,8 +38,7 @@ The assessment encompassed all five backend Java microservices (`api-gateway`, `
    - npm audit executed across frontend applications (`lgd-um` clean; `lgd_react` audited).
    - Documented the OWASP Dependency-Check NVD API rate-limit failure honestly without converting failed executions into successful scans.
 5. **License Compliance Reconciliation:**
-   - Reconciled discrepancy: 1,252 module component instances vs 1,341 license attributions (explained by 44 multi-licensed component instances).
-   - Zero viral strong copyleft (GPL/AGPL); **94.73% permissive instances** (1,186 of 1,252).
+   - Reconciled discrepancy: 1,348 module component instances, 1,432 declared license attributions, 0 undeclared licenses, 0 viral copyleft.
    - Identified 5 instances of `org.antlr:antlr-runtime:3.4` with undeclared manifest license (verified as BSD-3-Clause in upstream source).
    - Formal statutory sign-off submitted for government legal counsel review; legal indemnification is not claimed without counsel sign-off.
 6. **100% Automated Regression Success:**
@@ -106,11 +106,11 @@ A total of **12 discrete software composition and supply chain findings** (`SCA-
 | **SCA-001** | `org.postgresql:postgresql` | **Critical** | **10.0** | SQL Injection via Line Comment in Simple Query Mode (CVE-2024-1597) | Transitive (`revenue`) | **`VERIFIED_FIXED`** (Upgraded to 42.6.2) |
 | **SCA-002** | `org.apache.tomcat.embed:*` | **Critical** | **9.8** | RCE via Default Servlet TOCTOU Race Condition (CVE-2024-50379, CVE-2024-56337) | Transitive (4 modules) | **`VERIFIED_FIXED`** (Pinned to 10.1.34) |
 | **SCA-003** | `org.springframework:spring-web` | **High** | **8.1** | UriComponentsBuilder SSRF / Open Redirect (CVE-2024-22243, 22259, 22262) | Transitive (`revenue`) | **`VERIFIED_FIXED`** (Upgraded to 6.1.15) |
-| **SCA-004** | `org.springframework:spring-web` | **High** | **7.5** | Static Resource Path Traversal & ReDoS (CVE-2024-38807, 38816, 38819) | Transitive (4 modules) | **`PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE`** |
+| **SCA-004** | `org.springframework:spring-web` | **High** | **7.5** | Static Resource Path Traversal & ReDoS (CVE-2024-38807, 38816, 38819) | Transitive (4 modules) | **`PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE (RR-11)`** |
 | **SCA-005** | `org.springframework.security:*` | **High** | **7.5** | Request Matching & Auth Bypass (CVE-2024-22234, 22257, 38821, 22228) | Transitive (4 modules) | **`VERIFIED_FIXED`** (Upgraded to 6.3.8; CVE-2024-38828 dispositioned) |
 | **SCA-006** | `io.netty:netty-*` | **High** | **7.5** | Memory Allocation & Temp File Security in Redis Transport (CVE-2024-29025) | Transitive (`revenue`) | **`VERIFIED_FIXED`** (Upgraded to 4.1.115.Final) |
-| **SCA-007** | `ch.qos.logback:logback-*` | **High** | **7.5** | Logback Deserialization in Socket Receivers (CVE-2024-12798, 12801) | Transitive (3 modules) | **`PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE`** |
-| **SCA-008** | `org.mindrot:jbcrypt` | **Medium** | **5.3** | Legacy Unmaintained Password Hashing Library (jBCrypt 0.4, 2015) | Direct (`auth`, `um`) | **`DEFERRED (QUEUED FOR PHASE 5 & 7)`** |
+| **SCA-007** | `ch.qos.logback:logback-*` | **High** | **7.5** | Logback Deserialization in Socket Receivers (CVE-2024-12798, 12801) | Transitive (3 modules) | **`PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE (RR-11)`** |
+| **SCA-008** | `org.mindrot:jbcrypt` | **Medium** | **5.3** | Legacy Unmaintained Password Hashing Library (jBCrypt 0.4, 2015) | Direct (`auth`, `um`) | **`DEFERRED (QUEUED FOR PHASE 5 & 7 / RR-10)`** |
 | **SCA-009** | `xlsx` | **High** | **7.8** | Prototype Pollution & ReDoS in SheetJS (GHSA-4r6h-8v6p-xvw6, GHSA-5pgg-2g8v-p4x9) | Direct (`lgd_react`) | **`PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE (RR-08)`** |
 | **SCA-010** | `zod` | **High** | **7.5** | Memory Exhaustion on Oversized Constrained Collections (GHSA-mrhx-c7xc-m3w5) | Direct (`lgd_react`) | **`PARTIALLY MITIGATED / PENDING_FORMAL_ACCEPTANCE (RR-09)`** |
 | **SCA-011** | `spring-boot-starter-parent` | **Medium** | **6.5** | Multi-Service Version Divergence & Unsupported 3.2.2 Baseline | Direct (`revenue`) | **`VERIFIED_FIXED`** (Unified to 3.2.12) |
@@ -195,8 +195,8 @@ In compliance with independent review criteria, every Phase 4 exit dimension is 
 | **Technical Remediation** | Patch all Critical & actionable High findings where safe | **VERIFIED** | 6 findings fully fixed (`SCA-001`, `SCA-002`, `SCA-003`, `SCA-005`, `SCA-006`, `SCA-011`). PostgreSQL JDBC 42.6.2, Tomcat 10.1.34, Spring Security 6.3.8, Netty 4.1.115.Final verified resolved. |
 | **Automated Test Results** | Zero test regressions; clean production builds | **VERIFIED** | 289/289 backend Maven tests passed (0 failures, 0 errors). Both frontend React Vite production builds compiled cleanly. |
 | **Scanner Coverage** | Scan OS packages, container images, npm lockfiles, Maven POMs | **VERIFIED** | Aqua Security Trivy v0.76.1 container scans completed for all 7 images; npm audit and Maven dependency trees recorded. OWASP Dependency-Check TLS failure documented honestly. |
-| **CycloneDX SBOM** | CycloneDX 1.5 standard with dependency relationship array | **VERIFIED** | Standard 1.5 format verified; 825 unique components across 1,252 module instances; complete 884 dependency graph nodes; SHA-256 `05F7C3BC3F121960B176BEFF927E930D617B3A1E758C79CE7A7A9E9152D42242`. |
-| **License Compliance** | Reconcile instances vs attributions, calculate permissive % | **VERIFIED** | 1,252 instances reconciled against 1,341 attributions (44 multi-licensed components); 94.73% permissive instances; 0 viral copyleft; ANTLR 3.4 BSD-3-Clause analyzed. |
+| **CycloneDX SBOM** | CycloneDX 1.5 standard with dependency relationship array | **VERIFIED** | Official 1.5 schema verified with AJV (0 errors); 916 unique components across 1,348 module instances; 924 dependency graph nodes; SHA-256 `99ba796566d50a5d171e55ffbc7da9946be0b1bbaf2b5be566af6a623a79993b`. |
+| **License Compliance** | Reconcile instances vs attributions, calculate permissive % | **VERIFIED** | 1,348 instances reconciled against 1,432 declared attributions; 0 undeclared licenses; 0 viral copyleft; ANTLR 3.4 BSD-3-Clause analyzed. |
 | **Formal Risk Acceptance** | Signed DAA/CISO authorization for residual risks | **PENDING** | Residual risks `RR-01` through `RR-11` documented and submitted; awaiting formal executive sign-off. Marked `PENDING_FORMAL_ACCEPTANCE`. |
 | **OVERALL GATE STATUS** | Reassessment of Phase 4 exit gate | **PARTIALLY VERIFIED / PENDING FORMAL RISK ACCEPTANCE** | **Halted at Gate 5.** Phase 4 cannot be marked fully closed until formal DAA/CISO residual risk acceptance memos are executed. |
 

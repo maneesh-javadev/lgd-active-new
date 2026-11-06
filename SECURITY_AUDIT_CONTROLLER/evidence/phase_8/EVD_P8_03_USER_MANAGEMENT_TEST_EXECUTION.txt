@@ -1,0 +1,42 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD_P8_03_USER_MANAGEMENT_TEST_EXECUTION
+Service Module: user-management
+Execution Timestamp: 2026-11-06T09:05:00+05:30
+Surefire XML Reports Directory: user-management/target/surefire-reports
+Summary: Suites=31, Total=304, Passed=304, Failed=0, Errors=0, Skipped=0 (100.0% Pass Rate)
+================================================================================
+ITEMIZED TEST SUITES:
+   1. in.nic.lgd.usermanagement.integration.LiveHttpSecurityIntegrationTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 10.236s
+   2. in.nic.lgd.usermanagement.integration.Rbac001SecurityNegativeTest | Tests: 10 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 2.890s
+   3. in.nic.lgd.usermanagement.integration.Rbac004EndpointSecurityIntegrationTest | Tests: 58 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.051s
+   4. in.nic.lgd.usermanagement.integration.RbacSecurityIntegrationTest | Tests: 10 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.060s
+   5. in.nic.lgd.usermanagement.integration.SecurityIntegrationTest | Tests: 2 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.021s
+   6. in.nic.lgd.usermanagement.integration.UserManagementIntegrationTest | Tests: 2 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.074s
+   7. in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeControllerTest | Tests: 2 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.530s
+   8. in.nic.lgd.usermanagement.modules.privilege.controller.PrivilegeResourceControllerTest | Tests: 3 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.630s
+   9. in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeResourceServiceImplTest | Tests: 5 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.391s
+  10. in.nic.lgd.usermanagement.modules.privilege.service.impl.PrivilegeServiceImplTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.126s
+  11. in.nic.lgd.usermanagement.modules.privilege.validator.CreatePrivilegeValidatorTest | Tests: 13 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.044s
+  12. in.nic.lgd.usermanagement.modules.privilege.validator.PrivilegeValidatorTest | Tests: 7 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.015s
+  13. in.nic.lgd.usermanagement.modules.resource.controller.ResourceControllerTest | Tests: 10 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.744s
+  14. in.nic.lgd.usermanagement.modules.resource.mapper.ResourceMapperTest | Tests: 5 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.005s
+  15. in.nic.lgd.usermanagement.modules.resource.service.impl.ResourceServiceImplTest | Tests: 9 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.020s
+  16. in.nic.lgd.usermanagement.modules.resource.validator.CreateResourceValidatorTest | Tests: 17 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.024s
+  17. in.nic.lgd.usermanagement.modules.resource.validator.UpdateResourceValidatorTest | Tests: 19 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.030s
+  18. in.nic.lgd.usermanagement.modules.role.controller.RoleControllerTest | Tests: 5 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.696s
+  19. in.nic.lgd.usermanagement.modules.role.service.impl.RoleServiceImplTest | Tests: 11 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.597s
+  20. in.nic.lgd.usermanagement.modules.role.validator.CreateRoleValidatorTest | Tests: 7 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.012s
+  21. in.nic.lgd.usermanagement.modules.role.validator.UpdateRoleValidatorTest | Tests: 7 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.017s
+  22. in.nic.lgd.usermanagement.modules.user.controller.UserControllerTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.680s
+  23. in.nic.lgd.usermanagement.modules.user.controller.UserRoleMappingControllerTest | Tests: 7 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.371s
+  24. in.nic.lgd.usermanagement.modules.user.repository.UserRepositoryTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.014s
+  25. in.nic.lgd.usermanagement.modules.user.repository.UserRoleMappingRepositoryTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.088s
+  26. in.nic.lgd.usermanagement.modules.user.service.impl.UserRoleMappingServiceImplTest | Tests: 13 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.175s
+  27. in.nic.lgd.usermanagement.modules.user.service.impl.UserServiceImplTest | Tests: 15 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.412s
+  28. in.nic.lgd.usermanagement.modules.user.validator.CreateUserValidatorTest | Tests: 9 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.021s
+  29. in.nic.lgd.usermanagement.modules.user.validator.UpdateUserValidatorTest | Tests: 8 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.013s
+  30. in.nic.lgd.usermanagement.user.security.JwtAuthenticationFilterTest | Tests: 4 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.017s
+  31. in.nic.lgd.usermanagement.user.security.JwtUtilTest | Tests: 16 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.714s
+================================================================================
+VERIFIED FORENSIC DETERMINATION: 100% PASS
+================================================================================

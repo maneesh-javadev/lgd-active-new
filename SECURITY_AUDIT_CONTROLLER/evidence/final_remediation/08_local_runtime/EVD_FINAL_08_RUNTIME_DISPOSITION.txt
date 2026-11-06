@@ -1,0 +1,46 @@
+====================================================================================================
+EVIDENCE ARTIFACT: EVD_FINAL_08_RUNTIME_DISPOSITION
+PROGRAM: LGD 2.0 (Local Government Directory 2.0)
+CONTROLLER BASELINE: Version 2.0.0 (Final Security Remediation & Staging Readiness)
+TIMESTAMP: 2026-11-06T14:49:00+05:30
+====================================================================================================
+
+1. LOCAL RUNTIME VERIFICATION DISPOSITION
+----------------------------------------------------------------------------------------------------
+Current Execution Environment: Windows 11 Enterprise (x64)
+Container Driver: Podman 6.0.2 / Docker CLI wrapper
+Host PostgreSQL 14 Service: postgresql-x64-14 (STATUS: STOPPED)
+
+2. COMPONENT RUNTIME TEST STATUS
+----------------------------------------------------------------------------------------------------
+Component 1: Build & Packaging (All 5 Services)
+  - STATUS: 100% COMPLETE & VERIFIED
+  - Evidence: 5 Production JARs compiled with 423/423 tests passing.
+
+Component 2: Container Images & Non-Root Execution
+  - STATUS: 100% COMPLETE & VERIFIED
+  - Evidence: All 5 images built and run with `id` returning UID 10001 (lgduser).
+
+Component 3: Perimeter Ingress TLS & Gateway Routing (Nginx)
+  - STATUS: CONFIGURATION VERIFIED & HARDENED
+  - Docker Compose: docker-compose.prod.yml configured with nginx TLS reverse proxy terminating port 443.
+  - Port 8092 unmapped from public host interface.
+  - Physical live probe: BLOCKED_BY_ENV pending live cluster deployment (BLK-CANON-01).
+
+Component 4: Revenue Service Downstream Route Census
+  - STATUS: UNIT TEST CENSUS 100% VERIFIED (5/5 PASS)
+  - In-code @Profile({"dev", "test"}) exclusion verified.
+  - Live HTTP network probe against :18062: BLOCKED_BY_ENV pending PostgreSQL service startup (BLK-CANON-02).
+
+Component 5: PostgreSQL Database Service & SCRAM Authentication
+  - STATUS: STRICTLY PRESERVED & HELD (BLK-CANON-03)
+  - Local Windows service postgresql-x64-14 is stopped.
+  - Prompt strictly prohibits autonomous starting of native production DB service.
+  - Requires authorized DBA operational maintenance window.
+
+3. OVERALL RUNTIME VERDICT
+----------------------------------------------------------------------------------------------------
+Runtime Artifacts: READY_FOR_LOCAL_VALIDATION.
+Runtime Progression: Gated by BLK-CANON-01, BLK-CANON-02, and BLK-CANON-03.
+====================================================================================================
+

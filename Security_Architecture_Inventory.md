@@ -27,8 +27,8 @@ The architecture is implemented as a distributed Spring Boot / Spring Cloud micr
 | **revenue** | Java 21, Spring Boot, Spring Data JPA | 18062 | Land Revenue Entities, Draft Workflows, e-Hastakshar | `revenue/` |
 | **lgd-um** | React, Vite, Tailwind CSS | 5173 / Client | Frontend User Management Administration Portal | `lgd-um/` |
 | **lgd_react** | React 19, TypeScript, Vite, Redux | 4200 / Client | Nodal Officer Dashboard & Administrative Console | `lgd_react/` |
-| **PostgreSQL** | PostgreSQL 14+ (`lgd_new`) | 5432 | Primary Relational Persistence Store | Database host |
-| **Redis** | Redis 6/7 Standalone | 6379 | Distributed Token Revocation Blacklist & Caching | In-memory store |
+| **PostgreSQL** | PostgreSQL 14 (Host Native) | 5432 | Primary Relational Persistence Store; runs on host OS (`0.0.0.0:5432`), accessed via `host.docker.internal:5432`; unencrypted TCP | Host OS (`postgres.exe`) |
+| **Redis** | Redis 7 (Alpine Container) | 6379 | Distributed Token Revocation Blacklist & Caching; container published to host `0.0.0.0:6379`; unencrypted TCP | Docker Container (`03b849547c5f`) |
 
 ### 2.1 Scope & Verification of Optional Modules
 - **Kafka / Event Streaming:** **ABSENT**. Inspected repository; no Kafka dependencies, configuration properties, producers, consumers, or container services are present.
@@ -51,15 +51,15 @@ graph TD
     end
 
     subgraph ServiceMesh ["Internal Microservices Virtual Network (lgd-network)"]
-        Eureka["discovery (Eureka - Port 8761)"]
-        AuthSvc["auth-service (Port 18090)"]
-        UserMgmt["user-management (Port 18089)"]
-        RevenueSvc["revenue (Port 18062)"]
+        Eureka["discovery (Eureka - Port 8761 - Unmapped to host)"]
+        AuthSvc["auth-service (Port 18090 - Unmapped to host)"]
+        UserMgmt["user-management (Port 18089 - Unmapped to host)"]
+        RevenueSvc["revenue (Port 18062 - Unmapped to host)"]
     end
 
     subgraph DataPersistence ["Persistence & Caching Infrastructure"]
-        PostgresDB[("PostgreSQL Database<br/>(lgd_new:5432)")]
-        RedisCache[("Redis Standalone<br/>(Host:6379)")]
+        PostgresDB[("PostgreSQL Database<br/>(Host Native: 5432 via host.docker.internal)<br/>Unencrypted Plaintext TCP")]
+        RedisCache[("Redis Container<br/>(Published: 0.0.0.0:6379)<br/>Unencrypted Plaintext TCP")]
     end
 
     BrowserUI -->|HTTPS:8092| Gateway
@@ -96,7 +96,7 @@ graph TD
 - **Communication Protocol:** Internal container bridge network (`lgd-network`) using Eureka service discovery lookup.
 - **Security Assessment:**
   - Downstream microservices (`auth-service`, `user-management`, `revenue`) execute independent secondary security filters (`JwtAuthenticationFilter`).
-  - *Identified Gap:* Internal container ports (8761, 18090, 18089, 18062) were mapped to host interfaces in `docker-compose.yml`, allowing potential edge bypass if host interfaces are unsegmented.
+  - *Hardening Resolution:* Internal container ports (8761, 18090, 18089, 18062) are unmapped from the host interface in production compose, strictly isolating internal RPC and Eureka traffic to `lgd-network`.
 
 ### Trust Boundary 3: Internal Microservice-to-Microservice (East-West)
 - **Protocol:** Spring Cloud OpenFeign over HTTP.
@@ -106,9 +106,11 @@ graph TD
 
 ### Trust Boundary 4: Microservices to Data Persistence
 - **PostgreSQL Connection:** HikariCP JDBC over TCP (Port 5432).
-  - *Identified Gap:* Connection string and credentials (`postgres@206`) committed in plaintext across multiple `application.properties` files.
+  - *Topology Resolution:* PostgreSQL runs natively on the host OS (`0.0.0.0:5432` / `[::]:5432`, PID 16496). Containerized backend microservices connect via bridge gateway `host.docker.internal:5432`.
+  - *Identified Gap:* Connection uses **unencrypted plaintext TCP** (no `sslmode=require`). Tracked under `RR-05`.
 - **Redis Connection:** Lettuce / Jedis over TCP (Port 6379).
-  - *Identified Gap:* Redis connection configured without password authentication (`requirepass` not enforced).
+  - *Topology Resolution:* Redis runs in a container (`redis:alpine`) with port 6379 published to host `0.0.0.0:6379` via compose `ports: - "6379:6379"`.
+  - *Identified Gap:* Redis cache queries and JTI blacklisting traverse **unencrypted plaintext TCP** without TLS encryption. Tracked under `RR-05`.
 
 ### Trust Boundary 5: Revenue Service to External ESP (CDAC e-Hastakshar)
 - **Outbound:** Multipart form POST transmitting SHA-256 pre-hashed PDF byte ranges and signed XML requests to `${esign.esp.url}`.

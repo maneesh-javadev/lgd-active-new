@@ -1,0 +1,45 @@
+================================================================================
+PHASE 9.1.2 FORENSIC EVIDENCE: POSTGRESQL 14 SERVICE & CONFIG AUDIT
+Timestamp: 2026-11-06T10:49:00+05:30
+Evaluator: Principal Infrastructure Security Architect & PostgreSQL Security Specialist
+================================================================================
+
+1. WINDOWS SERVICE STATUS:
+--------------------------------------------------------------------------------
+Command: Get-Service -Name postgresql-x64-14
+
+Status   Name               DisplayName
+------   ----               -----------
+Stopped  postgresql-x64-14  postgresql-x64-14 - PostgreSQL Server.
+
+2. CONFIGURATION PATHS & HASHES:
+--------------------------------------------------------------------------------
+Host Installation Base: E:\Program Files\PostgreSQL\14\
+Host Data Directory:    E:\Program Files\PostgreSQL\14\data\
+
+Files:
+- postgresql.conf:      E:\Program Files\PostgreSQL\14\data\postgresql.conf
+- pg_hba.conf:          E:\Program Files\PostgreSQL\14\data\pg_hba.conf
+- postgresql.auto.conf: E:\Program Files\PostgreSQL\14\data\postgresql.auto.conf
+- pg_ident.conf:        E:\Program Files\PostgreSQL\14\data\pg_ident.conf
+
+3. CRITICAL ACTIVE HBA RULES (LINES 84-95):
+--------------------------------------------------------------------------------
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+local   all             all                                     trust
+host    all             all             127.0.0.1/32             trust
+host    all             all             ::1/128                   trust
+local   replication     all                                      trust
+host    replication     all             127.0.0.1/32             trust
+host    replication     all             ::1/128                  trust
+host    all             all             0.0.0.0/0             	 trust
+
+--------------------------------------------------------------------------------
+FORENSIC FINDING ON FIRST-MATCH MECHANICS:
+- Line 95 matches all IPv4 addresses (0.0.0.0/0) for all databases and all users.
+- Method 'trust' completely bypasses password authentication.
+- Any network client on any host network interface can connect as superuser 'postgres'.
+- Starting the PostgreSQL service prior to purging line 95 opens an instant unauthenticated superuser backdoor.
+- Service startup MUST be blocked until offline hardening is applied.
+================================================================================
+

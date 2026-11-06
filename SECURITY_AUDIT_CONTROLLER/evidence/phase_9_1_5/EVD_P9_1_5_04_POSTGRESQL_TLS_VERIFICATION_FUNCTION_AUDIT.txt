@@ -1,0 +1,100 @@
+================================================================================
+LGD 2.0 SECURITY AUDIT CONTROLLER — PHYSICAL EVIDENCE RECORD
+EVIDENCE ID: EVD_P9_1_5_04_POSTGRESQL_TLS_VERIFICATION_FUNCTION_AUDIT
+================================================================================
+Timestamp: 2026-11-06T12:45:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.5 Workstream D (DISC-P914-04, BLK-CANON-03, RR-05, SAST-002)
+Target Subsystem: PostgreSQL 14 TLS Verification Engine & Catalog
+Target Function: ssl_is_used() vs pg_stat_ssl
+================================================================================
+
+1. INSPECTION SOURCE & PURPOSE:
+--------------------------------------------------------------------------------
+Source Inspected:
+  - Phase 9.1.4 Stage B Blueprint (Step B6-02, 9-Check Matrix, Item 6)
+  - PostgreSQL 14 Official Documentation (Chapter 54 System Catalogs: pg_stat_ssl; Chapter 44: sslinfo)
+  - HikariCP / PostgreSQL JDBC Driver SSL Specification (org.postgresql.ssl)
+Purpose:
+  Independently verify finding DISC-P914-04 regarding the erroneous reliance on
+  'SELECT ssl_is_used();' in the Stage B verification matrix. Contrast with the
+  built-in 'pg_stat_ssl' view, analyze session scoping and permissions, and define
+  the comprehensive 7-point client-side TLS verification protocol.
+
+2. FUNCTION AVAILABILITY & EXTENSION DEPENDENCY ANALYSIS:
+--------------------------------------------------------------------------------
+Analysis of ssl_is_used():
+  - The function 'ssl_is_used()' is NOT a core PostgreSQL built-in function.
+  - It is provided exclusively by the 'sslinfo' contrib extension.
+  - To invoke 'ssl_is_used()', a database superuser MUST first execute:
+        CREATE EXTENSION sslinfo;
+  - If executed on a default PostgreSQL 14 instance where 'sslinfo' is not installed:
+        "ERROR: function ssl_is_used() does not exist
+         LINE 1: SELECT ssl_is_used();
+                        ^
+         HINT: No function matches the given name and argument types. You might need to add explicit type casts."
+  - Furthermore, installing extensions into application databases introduces unnecessary
+    superuser intervention and violates minimal installation baselines.
+
+Analysis of pg_stat_ssl Built-in View:
+  - Introduced in PostgreSQL 9.5 and standard across all PostgreSQL 14.x installations.
+  - Requires ZERO external extensions, packages, or superuser catalog alterations.
+  - Dynamically reports SSL attributes for every active backend process.
+  - Session-specific verification query:
+        SELECT ssl, version, cipher, bits, compression, client_dn
+        FROM pg_stat_ssl
+        WHERE pid = pg_backend_pid();
+  - Return Values:
+      * ssl: boolean ('true' if current connection is SSL/TLS encrypted, 'false' otherwise)
+      * version: text (e.g. 'TLSv1.3')
+      * cipher: text (e.g. 'TLS_AES_256_GCM_SHA384')
+      * bits: integer (e.g. 256)
+      * client_dn: text (Distinguished Name if client certificate used)
+  - Permissions: Any connected role has permission to read pg_stat_ssl for their own pid.
+
+3. THE SERVER-SIDE 'SSL=TRUE' FALLACY:
+--------------------------------------------------------------------------------
+Critical Architectural Ruling:
+  - A server query returning 'ssl = true' proves ONLY that the connection is encrypted.
+  - It proves NOTHING about whether the client verified the server's certificate!
+  - If a client connects with 'sslmode=require', the client encrypts traffic but accepts
+    ANY certificate presented by the server (including self-signed or invalid hostname).
+    An adversary performing Man-in-the-Middle (MITM) will easily intercept the connection,
+    and pg_stat_ssl will still report 'ssl = true'!
+
+4. AUTHORITATIVE 7-FACTOR TLS ACCEPTANCE DESIGN:
+--------------------------------------------------------------------------------
+The definitive verification rubric requires BOTH server-side and client-side proof:
+  1. Server TLS Active: 'ssl = on' verified in postgresql.conf and confirmed via pg_stat_ssl.
+  2. Client Verification Mode: Client connection string enforces 'sslmode=verify-full'.
+  3. Trusted CA Chain: Client specifies 'sslrootcert=ca.crt' chained to LGD Internal Root CA.
+  4. Certificate SAN: Server certificate contains valid Subject Alternative Names
+     (DNS:host.docker.internal, DNS:localhost, IP:127.0.0.1).
+  5. Hostname Matching: Client strictly validates SAN against connection hostname;
+     mismatches result in immediate connection termination.
+  6. Untrusted Certificate Rejection: Test probe with rogue/untrusted certificate
+     is rejected with SSLHandshakeException / SunCertPathBuilderException.
+  7. Expired Certificate Rejection: Test probe with expired certificate is rejected immediately.
+
+5. BLUEPRINT CORRECTION MANDATE:
+--------------------------------------------------------------------------------
+In Step B6-02 (PostgreSQL Availability 9-Check Matrix), Item 6 is hereby replaced:
+  PREVIOUS: 6. TLS active (SELECT ssl_is_used() returns true).
+  CORRECTED: 6. TLS active & cipher verified via built-in catalog:
+                SELECT ssl, version, cipher
+                FROM pg_stat_ssl
+                WHERE pid = pg_backend_pid();
+                Assert: ssl = true, version = 'TLSv1.3', cipher IN approved AEAD ciphers.
+
+6. LIMITATIONS:
+--------------------------------------------------------------------------------
+- Cannot be executed against live database until PostgreSQL service is started.
+- Blocker BLK-CANON-03 remains OPEN.
+
+7. RELATED FINDINGS:
+--------------------------------------------------------------------------------
+- DISC-P914-04: Incorrect PostgreSQL TLS verification function resolved.
+- BLK-CANON-03: Host PostgreSQL 14 availability and runtime verification.
+- RR-05: Infrastructure security and transport encryption.
+================================================================================
+

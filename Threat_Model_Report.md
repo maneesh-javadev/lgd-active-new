@@ -15,11 +15,15 @@
 An exhaustive threat modeling and trust boundary assessment of the **Local Government Directory (LGD 2.0)** platform was conducted. LGD 2.0 is a national critical digital infrastructure system responsible for maintaining official codes and hierarchical relationships for States, Districts, Subdistricts, Blocks, Villages, Urban Local Bodies (ULBs), and Wards across India.
 
 ### Key Assessment Findings
-1. **Architectural Perimeter Breakdown:** The deployment configurations (`docker-compose.yml`) map internal database (5432), cache (6379), discovery (8761), and microservice HTTP ports (`8081`, `8082`, `8083`) directly to the host network (`0.0.0.0`), allowing any external or network-adjacent attacker to bypass the API Gateway entirely.
-2. **Cryptographic Fragility:** JWT token generation across the microservices ecosystem relies on a static, low-entropy HMAC secret key (`jwt.secret`), enabling offline token forgery to achieve arbitrary Superadmin rights (`VULN-001`).
-3. **Multi-Tenancy Breakdown (BOLA / IDOR):** State and District boundary isolation is not enforced at the database query level. Business APIs accept user-supplied `stateCode` and `districtCode` without validating that they match the cryptographically verified JWT identity claims (`VULN-003`, `VULN-005`).
-4. **Unauthenticated Infrastructure Services:** Netflix Eureka discovery lacks HTTP Basic authentication (`VULN-008`), and Redis has no `requirepass` password configured (`VULN-009`), exposing the platform to rogue service registration, MITM credential sniffing, and token blacklist invalidation.
-5. **e-Hastakshar Digital Signature Vulnerabilities:** The CDAC e-Hastakshar callback endpoint (`/api/revenue/ehastakshar/callback`) does not verify cryptographic callback HMACs or stateful one-time nonces, permitting arbitrary publication of unverified government orders (`VULN-006`).
+1. **Architectural Perimeter Breakdown [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0 Discovery Snapshot]:** Initial deployment configurations (`docker-compose.yml`) mapped internal database (5432), cache (6379), discovery (8761), and microservice HTTP ports (`8081`, `8082`, `8083` — in active runtime topology assigned to internal container ports `18090` for Auth, `18089` for User Management, and `18062` for Revenue, with API Gateway published on host port `8092`) directly to the host network (`0.0.0.0`), allowing any external or network-adjacent attacker to bypass the API Gateway entirely. In the active runtime deployment, internal microservices (18090, 18089, 18062), Eureka (8761), PostgreSQL (5432), and Redis (6379) have their host port bindings unmapped/restricted, routing ingress exclusively via API Gateway on published host port 8092.
+2. **Cryptographic Fragility [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0/1 Discovery Snapshot]:** Initial codebase inspection revealed that JWT token generation across the microservices ecosystem relied on a static, low-entropy HMAC secret key (`jwt.secret` committed in `application.properties`), enabling offline token forgery to achieve arbitrary Superadmin rights (`VULN-001` / `SAST-001` / `THR-STRIDE-001`).
+   - *Current Implementation & Verification:* Remediated in code via externalization to mandatory environment variable `${JWT_SECRET}` without default fallbacks, backed by `ProductionSecurityValidator.java` enforcing >=256-bit cryptographic entropy and failing closed under the production profile. Unit tests (`JwtHardeningRegressionTest`: 14/14 PASS, `ProductionSecurityValidatorTest`: 5/5 PASS) and live dynamic testing (`EXP-001` / `EV-001`) confirm that forged tokens with static keys are rejected with HTTP 401 Unauthorized. Asymmetric RS256 migration is queued for Phase 7 under residual risk `RR-04`.
+3. **Multi-Tenancy Breakdown (BOLA / IDOR) [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0/1 Discovery Snapshot]:** Initial assessment discovered that State and District boundary isolation was not enforced at the database query or service layer. Business APIs accepted user-supplied `stateCode` and `districtCode` without validating that they matched the cryptographically verified JWT identity claims (`VULN-006` / `SAST-009`, `SAST-010` / `THR-STRIDE-005`, `THR-STRIDE-019`).
+   - *Current Implementation & Verification:* Remediated in code via strict server-side tenant boundary enforcement in `DistrictDraftDetailsServiceImpl.java`, `GovernmentOrderServiceImpl.java`, and `DraftEntityServiceImpl.java`, comparing draft tenant attributes directly against authenticated `UserContext` claims. Automated integration tests (`DraftTenantSecurityTest`: 5/5 PASS) and live dynamic testing (`EXP-009`, `EXP-010` / `EV-005`) confirm cross-state and cross-district viewing, file download, and deletion requests are rejected with HTTP 403 Forbidden.
+4. **Unauthenticated Infrastructure Services [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0/1 Discovery Snapshot]:** Initial environment configuration left Netflix Eureka service discovery without HTTP Basic authentication (`VULN-021` / `SAST-020` / `THR-STRIDE-002`) and Redis cache without mandatory authentication or token blacklist enforcement (`VULN-007` / `SAST-012` / `THR-STRIDE-007`), exposing the platform to rogue microservice registration, MITM credential sniffing, and token blacklist invalidation.
+   - *Current Implementation & Verification:* Eureka discovery is secured via Spring Security HTTP Basic authentication (`discovery/WebSecurityConfig.java`), requiring credentials sourced from `${EUREKA_USERNAME}` and `${EUREKA_PASSWORD}`; host port 8761 is unmapped in production, and dynamic verification (`EXP-020` / `EV-007A`, `EV-007B`) confirmed unauthenticated queries return HTTP 401 and authenticated registrations succeed. Redis token revocation is enforced in `api-gateway/AuthenticationFilter.java` using reactive Redis blacklist inspection failing closed (HTTP 503) during cache outages, verified live via `EXP-012` / `EV-002`. Redis host publishing is loopback-restricted to `127.0.0.1:6379:6379`, with authentication and transit encryption tracked under residual risks `RR-02` and `RR-05`.
+5. **e-Hastakshar Digital Signature Vulnerabilities [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0/1 Discovery Snapshot]:** Initial assessment identified that the CDAC e-Hastakshar callback endpoint (`/api/revenue/ehastakshar/callback`) did not enforce XML signature secure validation, accepted arbitrary certificates, permitted signature bypass via configurable flags, used predictable PRNG transaction IDs, and lacked atomic replay prevention (`VULN-003` / `SAST-003`–`SAST-007` / `THR-STRIDE-003`).
+   - *Current Implementation & Verification:* Remediated in code by setting `secureValidation = TRUE` in `XmlSignatureUtil.java`, enforcing CDAC trust-anchor validation and key-usage verification in `X509KeySelector.java`, defaulting signature enforcement to mandatory (`esign.enforce-signature = true`), adopting `java.security.SecureRandom` for >=64-bit entropy transaction IDs, and binding prepared PDF document hashes to transaction states with Redis distributed atomic locks (`EXP-003` through `EXP-007` / `EV-010` through `EV-014`). Verified through 22 automated tests in `EsignCallbackSecurityTest` and `EsignValidationSecurityTest` (100% PASS) and dynamic validation.
 
 ---
 
@@ -28,13 +32,13 @@ An exhaustive threat modeling and trust boundary assessment of the **Local Gover
 The assessment evaluated all active codebase components, configuration files, and container deployments:
 
 ### 2.1 Evaluated Components
-- **API Gateway (`api-gateway`):** Spring Cloud Gateway, port 8080, handling JWT validation, rate limiting, and route forwarding.
-- **Authentication Service (`auth-service`):** Spring Boot, port 8081, managing user authentication, BCrypt verification, and JWT generation.
-- **User Management Service (`user-management`):** Spring Boot, port 8082, administering government user profiles, designations, and role assignments.
-- **Revenue & Gazette Service (`revenue`):** Spring Boot, port 8083, orchestrating government directory drafts, file attachments, and CDAC e-Hastakshar eSign workflows.
-- **Service Discovery (`discovery`):** Netflix Eureka Server, port 8761.
+- **API Gateway (`api-gateway`):** Spring Cloud Gateway, published host port 8092 (internal port 8092; PRE-REMEDIATION / HISTORICAL BASELINE: 8080), handling JWT validation, rate limiting, and route forwarding.
+- **Authentication Service (`auth-service`):** Spring Boot, internal container port 18090 (isolated on internal Docker network, unmapped to host; PRE-REMEDIATION / HISTORICAL BASELINE: 8081), managing user authentication, BCrypt verification, and JWT generation.
+- **User Management Service (`user-management`):** Spring Boot, internal container port 18089 (isolated on internal Docker network, unmapped to host; PRE-REMEDIATION / HISTORICAL BASELINE: 8082), administering government user profiles, designations, and role assignments.
+- **Revenue & Gazette Service (`revenue`):** Spring Boot, internal container port 18062 (isolated on internal Docker network, unmapped to host; PRE-REMEDIATION / HISTORICAL BASELINE: 8083), orchestrating government directory drafts, file attachments, and CDAC e-Hastakshar eSign workflows.
+- **Service Discovery (`discovery`):** Netflix Eureka Server, internal container port 8761 (unmapped to host; HTTP Basic Auth enforced; PRE-REMEDIATION / HISTORICAL BASELINE: 0.0.0.0:8761 unauthenticated).
 - **Frontend Applications:** `lgd_react` and `lgd-um` (React Single Page Applications).
-- **Backing Infrastructure:** PostgreSQL (port 5432) and Redis (port 6379).
+- **Backing Infrastructure:** PostgreSQL (internal port 5432, no host-published port; PRE-REMEDIATION / HISTORICAL BASELINE: 0.0.0.0:5432) and Redis (internal port 6379, loopback 127.0.0.1:6379 only, no public host-published port; PRE-REMEDIATION / HISTORICAL BASELINE: 0.0.0.0:6379).
 
 ### 2.2 Out-of-Scope / Verified Absent Components
 - **Apache Kafka:** Confirmed absent from inspected codebase and Docker configurations.
@@ -49,15 +53,15 @@ Twelve distinct threat actors were modeled against LGD 2.0:
 
 | Actor ID | Threat Actor | Motivation | Capabilities | Access Level | Target Assets | Likely Attack Path |
 |:---|:---|:---|:---|:---|:---|:---|
-| **ACT-01** | **Anonymous Internet Attacker** | Financial, disruption, cyber warfare | Automated scanners, credential stuffing, DDoS | Public internet; unauthenticated | Gateway, Actuator, exposed host ports, login APIs | Scan exposed Docker ports (5432, 6379, 8761, 8081-8083); harvest credentials from Actuator `/env`; brute force `/api/auth/login`. |
+| **ACT-01** | **Anonymous Internet Attacker** | Financial, disruption, cyber warfare | Automated scanners, credential stuffing, DDoS | Public internet; unauthenticated | Gateway, Actuator, exposed host ports, login APIs | Scan exposed Docker ports (5432, 6379, 8761, 8081-8083 [PRE-REMEDIATION / HISTORICAL BASELINE: 8081-8083; active internal ports: 18090, 18089, 18062; Gateway published port: 8092]); harvest credentials from Actuator `/env`; brute force `/api/auth/login`. |
 | **ACT-02** | **Authenticated Malicious User** | Data theft, personal gain | Scripting, API parameter manipulation | Valid low-privilege credentials (e.g., Operator) | User profiles, draft records, internal entity IDs | Manipulate path variables (`draftId`, `userId`) to execute IDOR/BOLA; tamper with JSON payloads to escalate roles. |
 | **ACT-03** | **Compromised Government Account** | Espionage, unauthorized publications | High-privilege access via stolen credentials | Valid Officer / Nodal credentials | State drafts, gazette orders, officer directories | Replay active JWTs; initiate unauthorized directory changes; approve pending state/district drafts. |
 | **ACT-04** | **Malicious State-Level Officer** | Inter-state boundary manipulation | Domain expertise in LGD workflows | Valid State Officer credentials for State A | Foreign State B records, state gazette orders | Intercept API requests and replace `stateCode: 19` with `stateCode: 27` to inspect or alter neighboring state boundaries. |
 | **ACT-05** | **Malicious District-Level Officer** | Unauthorized local reorganization | Knowledge of district administrative hierarchy | Valid District Officer credentials for District A | District B drafts, State-tier approvals | Bypass workflow state machine to publish drafts without State Nodal Officer approval. |
 | **ACT-06** | **Privileged Administrator Abusing Permissions** | Malfeasance, corruption, sabotage | Superadmin UI & API access | Unrestricted administrative privileges | Directory master data, user role mappings, audit logs | Create covert backdoor superadmin accounts; alter audit logs or deactivate entities without justification. |
 | **ACT-07** | **Compromised Microservice** | East-west lateral movement | In-cluster execution, token forwarding | Internal Docker bridge network | PostgreSQL, Redis, Eureka, peer microservices | Sniff plaintext HTTP traffic on Docker network; execute direct SQL commands; forge internal headers. |
-| **ACT-08** | **Attacker with Docker Access** | Complete host / container compromise | Network sniffing, port redirection, memory inspection | Host OS or co-located container access | Environment secrets, unencrypted inter-service traffic | Exploit exposed Docker daemon or Docker network bridge; connect directly to PostgreSQL and Redis without gateway filters. |
-| **ACT-09** | **Attacker with Database Access** | Data exfiltration, master data destruction | Direct SQL execution, psql client | Direct network access to port 5432 | Password hashes, user PII, gazette attachments | Connect to exposed port 5432; dump database; alter directory sequences and entity statuses. |
+| **ACT-08** | **Attacker with Docker Access** | Complete host / container compromise | Network sniffing, port redirection, memory inspection | Host OS or co-located container access | Environment secrets, unencrypted inter-service traffic | Exploit exposed Docker daemon or Docker network bridge; connect directly to PostgreSQL and Redis without gateway filters. [Historical Phase 0 baseline vulnerability; in active deployment, host ports 5432 and 6379 are unmapped/restricted to internal network]. |
+| **ACT-09** | **Attacker with Database Access** | Data exfiltration, master data destruction | Direct SQL execution, psql client | Direct network access to port 5432 | Password hashes, user PII, gazette attachments | Connect to exposed port 5432; dump database; alter directory sequences and entity statuses. [Historical Phase 0 baseline vulnerability; in active deployment, host port 5432 is not published, service stopped during audit, access isolated to internal Docker bridge]. |
 | **ACT-10** | **Attacker Targeting eSign** | Fraudulent legal gazette issuance | Cryptographic tools, XML manipulation | Man-in-the-Middle / Public endpoint access | e-Hastakshar callback, XML signatures, draft status | Send synthetic completion callbacks to `/api/revenue/ehastakshar/callback` with `status=SUCCESS` to force unauthorized gazette publication. |
 | **ACT-11** | **Supply-Chain Attacker** | Persistent backdoor injection | Malicious npm / Maven packages | Upstream dependency ecosystem | Application build artifacts, server environment | Publish compromised transitive dependencies (e.g., vulnerable XML parsers or npm utilities) to execute RCE. |
 | **ACT-12** | **Insider with Log Access** | Credential theft, unauthorized intelligence | Access to log aggregation / ELK / server files | Read access to `/var/log` or Gateway logs | Bearer tokens, passwords, user PII | Extract plaintext Bearer tokens from `ApiLoggingFilter` output and replay them for account takeover. |
@@ -94,7 +98,7 @@ The platform's 8 trust boundaries were systematically evaluated (detailed in [Tr
 
 ```
 [TB-01: Internet / Public Browsers]
-                │  (Public Ingress - Port 8080)
+                │  (Public Ingress - Host Port 8092; PRE-REMEDIATION / HISTORICAL BASELINE: Port 8080)
                 ▼
       ┌───────────────────┐
       │    API Gateway    │
@@ -118,12 +122,12 @@ The platform's 8 trust boundaries were systematically evaluated (detailed in [Tr
       └──────────────────────────────────────────────────────────┘
 ```
 
-- **TB-01 (Internet to Gateway):** Perimeter controls fail due to unauthenticated host port mappings exposing all microservices and databases directly.
-- **TB-02 (Gateway to Microservices):** Microservices implicitly trust incoming requests, allowing bypass of Gateway rate-limiting and authorization filters.
-- **TB-03 (User to Organizational Data):** Multi-tenant boundary breakdown; users can manipulate URL path variables and JSON bodies to access foreign state records.
-- **TB-04 (Microservices to PostgreSQL):** Database port 5432 exposed to `0.0.0.0`; lacks TLS transport encryption.
-- **TB-05 (Microservices to Redis):** Redis port 6379 exposed without password authentication; unauthenticated `FLUSHALL` risk.
-- **TB-06 (Microservices to Eureka):** Port 8761 exposed without authentication; vulnerable to rogue service registration and MITM credential harvesting.
+- **TB-01 (Internet to Gateway):** In the pre-remediation historical baseline snapshot, perimeter controls failed due to unauthenticated host port mappings exposing all microservices and databases directly to 0.0.0.0. In the active runtime topology, API Gateway (port 8092) serves as the sole host-published ingress perimeter, with all backend microservices unmapped from host.
+- **TB-02 (Gateway to Microservices):** In the historical baseline, microservices implicitly trusted incoming requests over exposed host ports. In active topology, direct host ingress is blocked (18090, 18089, 18062 unmapped), and requests route via Gateway service mesh.
+- **TB-03 (User to Organizational Data):** Historical multi-tenant boundary breakdown where users could manipulate URL path variables and JSON bodies to access foreign state records; server-side tenant validation and `@PreAuthorize` method security remediate this boundary.
+- **TB-04 (Microservices to PostgreSQL):** In pre-remediation baseline, database port 5432 was mapped to 0.0.0.0; in active deployment, host port publishing is removed, restricting access to internal Docker network (unencrypted transit tracked under RR-05 / TB-04).
+- **TB-05 (Microservices to Redis):** In pre-remediation baseline, Redis port 6379 was exposed to 0.0.0.0 without password authentication; in active deployment, port 6379 is strictly restricted to loopback (127.0.0.1:6379) / internal Docker bridge (requirepass and TLS tracked under RR-02 / RR-05).
+- **TB-06 (Microservices to Eureka):** In pre-remediation baseline, port 8761 was exposed without authentication; in active deployment, Spring Security HTTP Basic authentication is active and port 8761 is unmapped from host.
 - **TB-07 (Revenue to eSign Provider):** Callback endpoint lacks HMAC verification, nonce validation, and CA trust enforcement.
 - **TB-08 (Frontend to Backend):** JWT tokens stored in browser `localStorage`, creating critical vulnerability to XSS token exfiltration.
 
@@ -134,20 +138,20 @@ The platform's 8 trust boundaries were systematically evaluated (detailed in [Tr
 | STRIDE Category | Core Threat Vector | Target Trust Boundary | High-Impact Finding | CWE Classification |
 |:---|:---|:---|:---|:---|
 | **S - Spoofing** | JWT token forgery via static HMAC secret key | `TB-01`, `TB-02` | `THR-STRIDE-001` / `VULN-001` | CWE-798 |
-| **S - Spoofing** | Rogue service registration on Eureka | `TB-06` | `THR-STRIDE-002` / `VULN-008` | CWE-306 |
-| **S - Spoofing** | CDAC e-Hastakshar callback injection | `TB-07` | `THR-STRIDE-003` / `VULN-006` | CWE-345 |
-| **T - Tampering** | Cross-tenant draft modification (BOLA/IDOR) | `TB-03` | `THR-STRIDE-005` / `VULN-003` | CWE-639 |
-| **T - Tampering** | Role & privilege injection via Mass Assignment | `TB-03` | `THR-STRIDE-006` / `VULN-004` | CWE-915 |
-| **T - Tampering** | Token blacklist wipe via Redis `FLUSHALL` | `TB-05` | `THR-STRIDE-007` / `VULN-009` | CWE-306 |
-| **R - Repudiation** | Missing entity-level change audit trails | `TB-03` | `THR-STRIDE-009` / `VULN-014` | CWE-778 |
-| **R - Repudiation** | Log attribution confusion due to unmasked tokens | `TB-01`, `TB-02` | `THR-STRIDE-010` / `VULN-002` | CWE-532 |
-| **I - Info Disclosure** | Actuator secret & environment variable harvesting | `TB-01`, `TB-02` | `THR-STRIDE-011` / `VULN-015` | CWE-200 |
-| **I - Info Disclosure** | Direct PostgreSQL host port exposure | `TB-04` | `THR-STRIDE-012` / `VULN-007` | CWE-284 |
-| **I - Info Disclosure** | Client-side JWT theft via stored XSS | `TB-08` | `THR-STRIDE-014` / `VULN-017` | CWE-79 |
+| **S - Spoofing** | Rogue service registration on Eureka | `TB-06` | `THR-STRIDE-002` / `VULN-021` | CWE-306 |
+| **S - Spoofing** | CDAC e-Hastakshar callback injection | `TB-07` | `THR-STRIDE-003` / `VULN-003` | CWE-345 |
+| **T - Tampering** | Cross-tenant draft modification (BOLA/IDOR) | `TB-03` | `THR-STRIDE-005` / `VULN-006` | CWE-639 |
+| **T - Tampering** | Role & privilege injection via Mass Assignment | `TB-03` | `THR-STRIDE-006` / *[Unassigned]* | CWE-915 |
+| **T - Tampering** | Token blacklist wipe via Redis `FLUSHALL` | `TB-05` | `THR-STRIDE-007` / `VULN-007` | CWE-306 |
+| **R - Repudiation** | Missing entity-level change audit trails | `TB-03` | `THR-STRIDE-009` / *[Unassigned]* | CWE-778 |
+| **R - Repudiation** | Log attribution confusion due to unmasked tokens | `TB-01`, `TB-02` | `THR-STRIDE-010` / `VULN-008` | CWE-532 |
+| **I - Info Disclosure** | Actuator secret & environment variable harvesting | `TB-01`, `TB-02` | `THR-STRIDE-011` / *[Unassigned]* | CWE-200 |
+| **I - Info Disclosure** | Direct PostgreSQL host port exposure | `TB-04` | `THR-STRIDE-012` / `VULN-009` | CWE-284 |
+| **I - Info Disclosure** | Client-side JWT theft via stored XSS | `TB-08` | `THR-STRIDE-014` / *[Unassigned]* | CWE-79 |
 | **D - Denial of Service** | Oversized multipart attachment upload / Zip bomb | `TB-01`, `TB-07` | `THR-STRIDE-015` / `VULN-018` | CWE-400 |
-| **D - Denial of Service** | Authentication endpoint brute force flooding | `TB-01` | `THR-STRIDE-016` / `VULN-019` | CWE-307 |
-| **E - Elevation of Priv** | Missing method-level `@PreAuthorize` security | `TB-03` | `THR-STRIDE-018` / `VULN-012` | CWE-285 |
-| **E - Elevation of Priv** | District-to-State approval workflow bypass | `TB-03` | `THR-STRIDE-019` / `VULN-005` | CWE-269 |
+| **D - Denial of Service** | Authentication endpoint brute force flooding | `TB-01` | `THR-STRIDE-016` / `VULN-015` | CWE-307 |
+| **E - Elevation of Priv** | Missing method-level `@PreAuthorize` security | `TB-03` | `THR-STRIDE-018` / `VULN-005` | CWE-285 |
+| **E - Elevation of Priv** | District-to-State approval workflow bypass | `TB-03` | `THR-STRIDE-019` / `VULN-006` | CWE-269 |
 
 ---
 
@@ -185,12 +189,12 @@ The platform's 8 trust boundaries were systematically evaluated (detailed in [Tr
 - **Detection Mechanism:** Audit log check comparing publishing user district against draft target district.
 - **Recommended Mitigation:** Use Spring Security `@PreAuthorize("@draftSecurity.isOwner(#draftId, principal)")`.
 
-### Scenario 3: Unauthorized User Modifying Government Directory Master Data
-- **Preconditions:** Low-privilege account or unauthenticated caller exploiting exposed microservice host port.
-- **Attacker Capabilities:** Direct TCP connection to backend microservice port 8082.
-- **Attack Entry Point:** Direct call to `POST http://<docker-host>:8082/api/entities/village/create`.
+### Scenario 3: Unauthorized User Modifying Government Directory Master Data [PRE-REMEDIATION / HISTORICAL BASELINE SCENARIO]
+- **Preconditions:** Low-privilege account or unauthenticated caller exploiting exposed microservice host port (historical baseline: port 8082; active internal port: 18089).
+- **Attacker Capabilities:** Direct TCP connection to backend microservice port (historically exposed host port 8082; active internal port 18089).
+- **Attack Entry Point:** Direct call to `POST http://<docker-host>:8082/api/entities/village/create` (historical baseline: port 8082; active internal port: 18089).
 - **Attack Sequence:**
-  1. Bypass API Gateway by connecting directly to exposed host port 8082.
+  1. Bypass API Gateway by connecting directly to exposed host port (historical port 8082 / active internal port 18089).
   2. Submit JSON payload creating or updating village administrative records.
   3. Service executes update directly against PostgreSQL.
 - **Target Component:** User Management & Entity Master Controllers.
@@ -240,7 +244,7 @@ The platform's 8 trust boundaries were systematically evaluated (detailed in [Tr
 - **Attack Sequence:**
   1. Officer clicks "Logout" in React frontend.
   2. Auth service writes token to Redis blacklist (or fails if Redis is down/unreachable).
-  3. Downstream microservice (e.g., Revenue on port 8083) receives request with logged-out token.
+  3. Downstream microservice (e.g., Revenue on internal port 18062; PRE-REMEDIATION / HISTORICAL BASELINE: port 8083) receives request with logged-out token.
   4. Microservice's local `JwtAuthenticationFilter` validates token expiration and signature locally without querying Redis blacklist.
   5. Request executes successfully.
 - **Target Component:** Microservice local `JwtAuthenticationFilter`.
@@ -443,13 +447,13 @@ Thirteen major attack surface categories encompassing all 46 system endpoints we
 3. **File Upload Handlers:** `/api/revenue/attachments/upload` (multipart streaming).
 4. **File Download Handlers:** `/api/revenue/attachments/{id}/download`.
 5. **eSign Integration Callback:** `/api/revenue/ehastakshar/callback`.
-6. **Internal Microservice Direct Ingress:** Ports `8081`, `8082`, `8083`.
-7. **Service Discovery Endpoints:** Eureka Dashboard and `/eureka/apps/**` on port `8761`.
-8. **Direct Database Exposure:** PostgreSQL port `5432` published to `0.0.0.0`.
-9. **In-Memory Cache Exposure:** Redis port `6379` published to `0.0.0.0`.
-10. **Swagger & OpenAPI Documentation:** `/swagger-ui/**`, `/v3/api-docs`.
-11. **Docker Host Published Ports:** Complete TCP attack surface across 7 host ports.
-12. **Actuator & Configuration Endpoints:** `/actuator/env`, `/actuator/health`, `/actuator/heapdump`.
+6. **Internal Microservice Direct Ingress:** Active internal container ports `18090` (Auth), `18089` (UM), `18062` (Revenue) [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0 Discovery Snapshot: `8081`, `8082`, `8083` open to `0.0.0.0`].
+7. **Service Discovery Endpoints:** Eureka Dashboard and `/eureka/apps/**` on internal container port `8761` [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0 Discovery Snapshot: `0.0.0.0:8761` unauthenticated; Active: HTTP Basic Auth enforced, unmapped from host].
+8. **Direct Database Exposure:** PostgreSQL port `5432` [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0 Discovery Snapshot: `0.0.0.0:5432` published to host; Active: unmapped from host, internal Docker network only].
+9. **In-Memory Cache Exposure:** Redis port `6379` [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0 Discovery Snapshot: `0.0.0.0:6379` published to host without password; Active: loopback `127.0.0.1:6379` / internal Docker network only].
+10. **Swagger & OpenAPI Documentation:** `/swagger-ui/**`, `/v3/api-docs` [PRE-REMEDIATION / HISTORICAL BASELINE: exposed in prod; Active: disabled in prod via `@Profile("!prod")`].
+11. **Docker Host Published Ports:** [PRE-REMEDIATION / HISTORICAL BASELINE — Phase 0 Discovery Snapshot: Complete TCP attack surface across 7 host ports (`8080`–`8083`, `8761`, `5432`, `6379`); Active: host-published port `8092` only; all internal services and data stores unmapped].
+12. **Actuator & Configuration Endpoints:** `/actuator/env`, `/actuator/health`, `/actuator/heapdump` [PRE-REMEDIATION / HISTORICAL BASELINE: unauthenticated env/heapdump; Active: restricted to health/info].
 13. **Frontend Runtime Surfaces:** Browser `localStorage`, `sessionStorage`, and React DOM event bindings.
 
 ---
@@ -468,25 +472,25 @@ The identified STRIDE threats map directly to established vulnerabilities (`VULN
 | Threat ID | Threat Title | STRIDE | Vuln Ref | CWE | CVSS v4.0 | DREAD | Priority |
 |:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|
 | `THR-STRIDE-001` | JWT Token Forgery via Static HMAC Secret | Spoofing | `VULN-001` | CWE-798 | 9.8 | 9.4 | **Critical** |
-| `THR-STRIDE-002` | Rogue Microservice Registration on Eureka | Spoofing | `VULN-008` | CWE-306 | 9.8 | 9.0 | **Critical** |
-| `THR-STRIDE-003` | CDAC e-Hastakshar Callback Spoofing | Spoofing | `VULN-006` | CWE-345 | 9.6 | 8.8 | **Critical** |
-| `THR-STRIDE-004` | Direct Microservice Ingress Bypassing Gateway | Spoofing | `VULN-007` | CWE-284 | 9.8 | 9.2 | **Critical** |
-| `THR-STRIDE-005` | Cross-Tenant Draft Modification (BOLA) | Tampering | `VULN-003` | CWE-639 | 9.1 | 8.6 | **Critical** |
-| `THR-STRIDE-006` | Role Injection via Mass Assignment | Tampering | `VULN-004` | CWE-915 | 9.4 | 8.8 | **Critical** |
-| `THR-STRIDE-007` | Token Blacklist Invalidation via Redis Flush | Tampering | `VULN-009` | CWE-306 | 8.6 | 8.2 | **Critical** |
-| `THR-STRIDE-008` | Government Gazette PDF Hash Substitution | Tampering | `VULN-011` | CWE-354 | 8.8 | 7.8 | **High** |
-| `THR-STRIDE-009` | Missing Entity Modification Audit Trails | Repudiation | `VULN-014` | CWE-778 | 7.1 | 6.8 | **High** |
-| `THR-STRIDE-010` | Bearer Token Exposure in Gateway Logs | Repudiation | `VULN-002` | CWE-532 | 7.5 | 7.4 | **High** |
-| `THR-STRIDE-011` | Spring Boot Actuator Secret Key Leakage | Info Disc | `VULN-015` | CWE-200 | 9.8 | 9.2 | **Critical** |
-| `THR-STRIDE-012` | PostgreSQL Direct Host Port Exposure | Info Disc | `VULN-007` | CWE-284 | 9.8 | 9.4 | **Critical** |
-| `THR-STRIDE-013` | Swagger / OpenAPI Spec Exposure in Prod | Info Disc | `VULN-016` | CWE-200 | 5.3 | 7.4 | **Medium** |
-| `THR-STRIDE-014` | Client-Side Token Theft via Stored XSS | Info Disc | `VULN-017` | CWE-79 | 8.8 | 8.0 | **Critical** |
+| `THR-STRIDE-002` | Rogue Microservice Registration on Eureka | Spoofing | `VULN-021` | CWE-306 | 9.8 | 9.0 | **Critical** |
+| `THR-STRIDE-003` | CDAC e-Hastakshar Callback Spoofing | Spoofing | `VULN-003` | CWE-345 | 9.6 | 8.8 | **Critical** |
+| `THR-STRIDE-004` | Direct Microservice Ingress Bypassing Gateway | Spoofing | `VULN-009` | CWE-284 | 9.8 | 9.2 | **Critical** |
+| `THR-STRIDE-005` | Cross-Tenant Draft Modification (BOLA) | Tampering | `VULN-006` | CWE-639 | 9.1 | 8.6 | **Critical** |
+| `THR-STRIDE-006` | Role Injection via Mass Assignment | Tampering | *[Unassigned]* | CWE-915 | 9.4 | 8.8 | **Critical** |
+| `THR-STRIDE-007` | Token Blacklist Invalidation via Redis Flush | Tampering | `VULN-007` | CWE-306 | 8.6 | 8.2 | **Critical** |
+| `THR-STRIDE-008` | Government Gazette PDF Hash Substitution | Tampering | `VULN-003` | CWE-354 | 8.8 | 7.8 | **High** |
+| `THR-STRIDE-009` | Missing Entity Modification Audit Trails | Repudiation | *[Unassigned]* | CWE-778 | 7.1 | 6.8 | **High** |
+| `THR-STRIDE-010` | Bearer Token Exposure in Gateway Logs | Repudiation | `VULN-008` | CWE-532 | 7.5 | 7.4 | **High** |
+| `THR-STRIDE-011` | Spring Boot Actuator Secret Key Leakage | Info Disc | *[Unassigned]* | CWE-200 | 9.8 | 9.2 | **Critical** |
+| `THR-STRIDE-012` | PostgreSQL Direct Host Port Exposure | Info Disc | `VULN-009` *(Amplifier: `VULN-017`)* | CWE-284 | 9.8 | 9.4 | **Critical** |
+| `THR-STRIDE-013` | Swagger / OpenAPI Spec Exposure in Prod | Info Disc | `VULN-013` | CWE-200 | 5.3 | 7.4 | **Medium** |
+| `THR-STRIDE-014` | Client-Side Token Theft via Stored XSS | Info Disc | *[Unassigned]* | CWE-79 | 8.8 | 8.0 | **Critical** |
 | `THR-STRIDE-015` | Large Multipart File Upload Resource DoS | DoS | `VULN-018` | CWE-400 | 7.5 | 7.6 | **High** |
-| `THR-STRIDE-016` | Authentication Flooding & Brute Force | DoS | `VULN-019` | CWE-307 | 7.5 | 8.0 | **Critical** |
-| `THR-STRIDE-017` | Regular Expression Denial of Service (ReDoS) | DoS | `VULN-020` | CWE-1333 | 7.5 | 6.8 | **Medium** |
-| `THR-STRIDE-018` | Missing Method-Level Security Annotations | Elevation | `VULN-012` | CWE-285 | 8.8 | 8.4 | **Critical** |
-| `THR-STRIDE-019` | District-to-State Approval Hierarchy Bypass | Elevation | `VULN-005` | CWE-269 | 8.8 | 7.8 | **High** |
-| `THR-STRIDE-020` | Client-Side Route Guard Manipulation | Elevation | `VULN-021` | CWE-602 | 6.5 | 7.2 | **Medium** |
+| `THR-STRIDE-016` | Authentication Flooding & Brute Force | DoS | `VULN-015` | CWE-307 | 7.5 | 8.0 | **Critical** |
+| `THR-STRIDE-017` | Regular Expression Denial of Service (ReDoS) | DoS | `VULN-019` | CWE-1333 | 7.5 | 6.8 | **Medium** |
+| `THR-STRIDE-018` | Missing Method-Level Security Annotations | Elevation | `VULN-005` | CWE-285 | 8.8 | 8.4 | **Critical** |
+| `THR-STRIDE-019` | District-to-State Approval Hierarchy Bypass | Elevation | `VULN-006` | CWE-269 | 8.8 | 7.8 | **High** |
+| `THR-STRIDE-020` | Client-Side Route Guard Manipulation | Elevation | *[Unassigned]* | CWE-602 | 6.5 | 7.2 | **Medium** |
 
 *(Full interactive register available in [STRIDE_Threat_Register.xlsx](file:///e:/System/Projects/dockerProject/Source%20code/lgd-active-new/STRIDE_Threat_Register.xlsx) and [STRIDE_Threat_Register.md](file:///e:/System/Projects/dockerProject/Source%20code/lgd-active-new/STRIDE_Threat_Register.md))*
 
@@ -497,7 +501,7 @@ The identified STRIDE threats map directly to established vulnerabilities (`VULN
 The mitigation strategy (detailed in [Threat_Mitigation_Roadmap.md](file:///e:/System/Projects/dockerProject/Source%20code/lgd-active-new/Threat_Mitigation_Roadmap.md)) is structured across four sequential phases:
 
 1. **Tier 0 (Immediate Stop-The-Bleed - Days 1 to 3):**
-   - Unbind ports `5432` (PostgreSQL), `6379` (Redis), `8761` (Eureka), `8081`, `8082`, `8083` from host `0.0.0.0`.
+   - Unbind ports `5432` (PostgreSQL), `6379` (Redis), `8761` (Eureka), and internal service ports `18090`, `18089`, `18062` (**PRE-REMEDIATION / HISTORICAL BASELINE:** `8081`, `8082`, `8083`) from host `0.0.0.0`.
    - Set strong `requirepass` in `redis.conf`.
    - Disable Actuator `/env` and `/heapdump` endpoints in production.
 2. **Tier 1 (Cryptographic & Perimeter Integrity - Days 4 to 10):**

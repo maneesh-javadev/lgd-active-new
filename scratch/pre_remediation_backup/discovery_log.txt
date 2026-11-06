@@ -1,0 +1,4 @@
+f7f7adc feat: add spring security and basic authentication to eureka service discovery
+3b0723a Initial commit for LGD 2.0 discovery
+d84b2e5 Added docker files
+660d8bf Inital commit

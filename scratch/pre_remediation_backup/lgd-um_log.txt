@@ -1,0 +1,5 @@
+d65c994 feat: add CycloneDX software bill of materials (bom.json)
+7333157 feat: add UserProfileModal component and associated styles for viewing user profiles
+b735138 feat: add frontend components, services, and styling for LGD user management module
+2acdb64 feat: add UserProfileModal component for viewing and unmasking profile details
+c3d9cd1 feat: add Sidebar, Header, and Login components for navigation and authentication

@@ -1,0 +1,3 @@
+e2df50f chore: add software bill of materials, vulnerability scan results, and SCA security compliance reports
+57f7f40 feat: complete Phase 1-3 security remediation, update registers, hardened docker compose, and submodules
+d54dc33 chore: baseline repository state before security remediation

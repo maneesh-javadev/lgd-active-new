@@ -1,0 +1,129 @@
+================================================================================
+LGD 2.0 SECURITY AUDIT CONTROLLER — PHYSICAL EVIDENCE RECORD
+EVIDENCE ID: EVD_P9_1_5_03_POSTGRESQL_WSL2_LISTENER_IPV6_AND_ROLE_AUDIT
+================================================================================
+Timestamp: 2026-11-06T12:45:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.5 Workstream C (DISC-P914-03, BLK-CANON-03, RR-05, SAST-002)
+Target Database: PostgreSQL 14 (Host Native Service: postgresql-x64-14)
+Data Directory: E:\Program Files\PostgreSQL\14\data
+================================================================================
+
+1. INSPECTION SOURCE & OBJECTIVE:
+--------------------------------------------------------------------------------
+Source Inspected:
+  - Phase 9.1.4 Stage B Blueprint (Step B1-03, Step B1-05, Step B6-02)
+  - Host Network Adapter Configuration via Get-NetIPAddress (PowerShell)
+  - E:\Program Files\PostgreSQL\14\data\pg_hba.conf & postgresql.conf
+Purpose:
+  Independently verify finding DISC-P914-03 regarding WSL2 dynamic interface IP hazards,
+  omission of IPv6 terminal rejection in pg_hba.conf, and hardcoded 4-role SCRAM
+  verification. Formulate a fail-closed pre-startup discovery algorithm, dual-stack
+  HBA rules, and comprehensive dynamic role authentication auditing.
+
+2. HOST NETWORK ADAPTER OBSERVATIONS:
+--------------------------------------------------------------------------------
+PowerShell Output (Get-NetIPAddress):
+  - Interface: 'vEthernet (WSL (Hyper-V firewall))'
+    IPv4: 172.20.32.1 / Prefix: 20 (Subnet: 172.20.32.0/20)
+    IPv6: fe80::584f:3746:b3a3:c3c7%43 / Prefix: 64 (Link-Local)
+  - Interface: 'Loopback Pseudo-Interface 1'
+    IPv4: 127.0.0.1 / Prefix: 32
+    IPv6: ::1 / Prefix: 128
+Hazard:
+  In default WSL2 architecture, the Hyper-V virtual switch allocates an ephemeral subnet
+  (from the 172.16.0.0/12 block) upon host reboot. If PostgreSQL hardcodes '172.20.32.1'
+  and the interface rebinds to '172.24.48.1' after reboot, PostgreSQL fails to bind
+  the socket and refuses to start (WSAEADDRNOTAVAIL).
+  Using 'listen_addresses = "*"' is permanently PROHIBITED as it binds to all public NICs.
+
+3. DYNAMIC WSL2 PRE-STARTUP DISCOVERY ALGORITHM (FAIL-CLOSED):
+--------------------------------------------------------------------------------
+The pre-startup script executes BEFORE Start-Service postgresql-x64-14:
+  Step 1: Identify WSL Interface: Query Get-NetAdapter where Name -like "*WSL*".
+  Step 2: Read Actual IPv4 Address: Extract IPAddress from Get-NetIPAddress -AddressFamily IPv4.
+  Step 3: Validate Interface Identity: Confirm adapter description matches Hyper-V Virtual Ethernet.
+  Step 4: Approved Range Check: Assert IP matches Approved Regex ^172\.(1[6-9]|2[0-9]|3[0-1])\.
+  Step 5: Dynamic Listener Substitution: Inject verified IP into postgresql.conf:
+          listen_addresses = '127.0.0.1, <DETECTED_WSL_IP>'
+  Step 6: Dynamic pg_hba.conf Alignment: Inject corresponding /20 subnet into hostssl rule.
+  Step 7: Fail-Closed Trap: If WSL interface is missing, disabled, or IP is outside approved
+          RFC 1918 range, ABORT STARTUP IMMEDIATELY and log diagnostic event.
+  Step 8: Manifest & Event Log: Record SHA-256 of updated configuration before launching service.
+
+4. NETWORK ARCHITECTURE COMPARISON:
+--------------------------------------------------------------------------------
+| Dimension            | 1. Static Hyper-V Switch        | 2. WSL2 Mirrored Networking       | 3. Controlled Pre-Startup Script   |
+|:---------------------|:--------------------------------|:----------------------------------|:-----------------------------------|
+| Security Boundary    | Isolated host-only vSwitch      | Shared loopback & socket bridge   | Dedicated point-to-point vEthernet |
+| Network Dependency   | Hyper-V static IP assignment    | Windows 11 23H2+ / .wslconfig     | Local PowerShell Service Wrapper    |
+| Operational Risk     | Manual Windows switch reconfig  | Mirrored mode networking bugs     | Ephemeral script execution failure |
+| Reboot Behavior      | Predictable static IP           | Binds to 127.0.0.1 directly        | Re-detects IP automatically        |
+| Recovery             | Reset virtual switch            | Revert .wslconfig                 | Fallback to loopback-only           |
+| Required Auth        | Enterprise Infrastructure Lead  | Host Administrator                | Lead DBA & DevSecOps Lead          |
+Recommendation:
+  Pre-Startup Script (Option 3) with Mirrored Networking (Option 2) as enterprise target.
+
+5. DUAL-STACK IPv4 AND IPv6 POLICY & TERMINAL REJECTION:
+--------------------------------------------------------------------------------
+Critical Discovery in Phase 9.1.4 Blueprint:
+  Blueprint specified:
+    hostnossl all           all             0.0.0.0/0               reject
+    host    all             all             0.0.0.0/0               reject
+  DEFECT: 0.0.0.0/0 matches IPv4 ONLY!
+  Any connection routed over IPv6 (e.g. ::1 or link-local) completely bypasses these
+  IPv4 rejection rules and falls off the end of pg_hba.conf!
+
+Hardened Dual-Stack pg_hba.conf Specification:
+  # TYPE  DATABASE        USER            ADDRESS                 METHOD
+  local   all             postgres                                scram-sha-256
+  host    all             postgres        127.0.0.1/32            scram-sha-256
+  host    all             postgres        ::1/128                 scram-sha-256
+  hostssl lgd             lgd_prod_user   10.89.0.0/24            scram-sha-256
+  hostssl lgd             lgd_prod_user   172.20.32.0/20          scram-sha-256
+  hostssl lgd             lgd_monitor     127.0.0.1/32            scram-sha-256
+  hostssl lgd             lgd_monitor     ::1/128                 scram-sha-256
+  hostssl lgd             lgd_monitor     10.89.0.0/24            scram-sha-256
+  # Dual-Stack Terminal Rejection (IPv4 and IPv6)
+  hostnossl all           all             0.0.0.0/0               reject
+  hostnossl all           all             ::/0                    reject
+  host    all             all             0.0.0.0/0               reject
+  host    all             all             ::/0                    reject
+
+6. COMPREHENSIVE DYNAMIC SCRAM ROLE AUDIT (100% COVERAGE):
+--------------------------------------------------------------------------------
+Defect in Phase 9.1.4:
+  Blueprint hardcoded: WHERE rolname IN ('postgres', 'lgd_prod_user', 'lgd_repl_user', 'lgd_monitor')
+  This ignored any rogue, legacy, or default login-enabled accounts.
+
+Authoritative Dynamic SCRAM Verification Query (Zero Hash Disclosure):
+  SELECT rolname,
+         rolcanlogin,
+         rolsuper,
+         rolreplication,
+         (rolpassword LIKE 'SCRAM-SHA-256$%') AS is_scram_sha_256,
+         (rolpassword LIKE 'md5%') AS is_md5,
+         (rolpassword IS NULL OR rolpassword = '') AS has_no_password
+  FROM pg_roles
+  WHERE rolcanlogin = true
+  ORDER BY rolname;
+
+Acceptance Criterion:
+  100% of rows returned MUST satisfy:
+    - is_scram_sha_256 = true
+    - is_md5 = false
+    - has_no_password = false
+  Zero hash strings are selected, displayed, or logged.
+
+7. LIMITATIONS & BLOCKER STATUS:
+--------------------------------------------------------------------------------
+- PostgreSQL host service is Stopped; queries cannot be executed against live catalog.
+- Blocker BLK-CANON-03 remains strictly OPEN.
+
+8. RELATED FINDINGS:
+--------------------------------------------------------------------------------
+- DISC-P914-03: Dynamic WSL2 listener, dual-stack IPv6 rejection, and dynamic SCRAM coverage.
+- BLK-CANON-03: Host PostgreSQL 14 availability and revenue steady-state blocker.
+- RR-05: Infrastructure security and transport encryption.
+================================================================================
+

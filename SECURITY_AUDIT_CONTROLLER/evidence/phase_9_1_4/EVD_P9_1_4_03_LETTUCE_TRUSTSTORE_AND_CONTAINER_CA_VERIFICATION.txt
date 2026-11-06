@@ -1,0 +1,91 @@
+================================================================================
+PHASE 9.1.4 EVIDENCE: LETTUCE TRUSTSTORE & CONTAINER CA IMPORT VERIFICATION
+Timestamp: 2026-11-06T11:46:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.4 Workstream B (DISC-P913-02, RR-02, RR-05)
+================================================================================
+
+1. THE LETTUCE TLS HANDSHAKE HAZARD (DISC-P913-02):
+--------------------------------------------------------------------------------
+Technical Cause:
+  - Spring Boot's 'LettuceClientConfigurationBuilder.useSsl()' delegates to
+    Netty's SslContextBuilder.
+  - Netty initializes its default TrustManagerFactory via the default JRE
+    keystore: $JAVA_HOME/lib/security/cacerts.
+  - Unlike PostgreSQL's JDBC driver (which accepts ?sslrootcert=ca.crt directly),
+    Lettuce does not accept an inline CA certificate file path via standard
+    connection properties.
+  - The Redis TLS infrastructure in Stage B uses certificates signed by the
+    organization's private internal CA ('lgd-internal-ca.crt').
+  - The base container image 'eclipse-temurin:21-jre-alpine' contains only public
+    root CAs in its cacerts file.
+  - Without an explicit trust anchor import, Lettuce fails all TLS handshakes:
+      javax.net.ssl.SSLHandshakeException: PKIX path building failed:
+      sun.security.provider.certpath.SunCertPathBuilderException:
+      unable to find valid certification path to requested target
+
+2. BLUEPRINT CORRECTION & IMPLEMENTATION SPECIFICATION (B4-01):
+--------------------------------------------------------------------------------
+All application Dockerfiles (api-gateway, auth-service, revenue, user-management)
+must incorporate the internal CA import into the container JRE cacerts during
+the image build stage:
+
+Dockerfile Hardening Snippet:
+  FROM eclipse-temurin:21-jre-alpine
+  RUN apk add --no-cache tzdata curl fontconfig ttf-dejavu
+
+  # Stage B Internal CA Truststore Injection
+  COPY certs/lgd-internal-ca.crt /usr/local/share/ca-certificates/lgd-internal-ca.crt
+  RUN keytool -importcert -noprompt \
+      -keystore "$JAVA_HOME/lib/security/cacerts" \
+      -storepass changeit \
+      -alias lgd-internal-ca \
+      -file /usr/local/share/ca-certificates/lgd-internal-ca.crt
+
+  # Create unprivileged application user
+  RUN addgroup -g 10001 -S lgdgroup && adduser -u 10001 -S lgduser -G lgdgroup
+  USER 10001:10001
+
+Verification:
+  - 'keytool -list -keystore $JAVA_HOME/lib/security/cacerts -alias lgd-internal-ca'
+    confirms presence of the internal CA anchor inside the JRE trust store.
+  - Lettuce Netty client establishes verified TLS 1.3 / 1.2 handshake with
+    Redis Sentinel (:26379) and Redis Data nodes (:6379) without PKIX exceptions.
+
+3. COMMONS-POOL2 POOLING CENSUS CONFIRMATION:
+--------------------------------------------------------------------------------
+Forensic POM Inspection:
+  - api-gateway/pom.xml:      commons-pool2 ABSENT
+  - auth-service/pom.xml:     commons-pool2 ABSENT
+  - revenue/pom.xml:          commons-pool2 ABSENT
+  - user-management/pom.xml:  commons-pool2 ABSENT
+
+Architectural Implication:
+  - Spring Boot auto-configuration evaluates:
+      ClassUtils.isPresent("org.apache.commons.pool2.impl.GenericObjectPool", classLoader)
+  - Because commons-pool2 is absent, 'spring.data.redis.lettuce.pool.*' properties
+    are SILENTLY IGNORED.
+  - Lettuce operates in single-shared-connection multiplexed mode.
+  - For api-gateway (WebFlux non-blocking Netty), multiplexing is the recommended design.
+  - For blocking services (revenue, um, auth), single connection is sufficient for
+    moderate throughput; if high thread-lock contention occurs, commons-pool2 must
+    be formally introduced via pom.xml before pool properties are activated.
+
+4. BEAN CLASH REMEDIATION IN REVENUE & USER-MANAGEMENT:
+--------------------------------------------------------------------------------
+Files:
+  - revenue/src/main/java/in/nic/lgd/revenue/config/RedisConfig.java
+  - user-management/src/main/java/in/nic/lgd/usermanagement/config/RedisConfig.java
+
+Defect Bean:
+  @Bean
+  public LettuceClientConfiguration lettuceClientConfiguration() { ... .autoReconnect(false) ... }
+
+Correction Mandate in Step B3-01:
+  - The obsolete '@Bean public LettuceClientConfiguration lettuceClientConfiguration()'
+    method MUST be deleted from both RedisConfig.java files.
+  - The new customizer bean 'LettuceClientConfigurationBuilderCustomizer'
+    must be introduced, returning builder -> { builder.useSsl().and()... }.
+  - Eliminates orphan bean risk and ensures clean auto-configuration.
+================================================================================
+

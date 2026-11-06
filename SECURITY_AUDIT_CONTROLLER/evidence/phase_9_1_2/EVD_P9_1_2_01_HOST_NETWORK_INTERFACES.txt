@@ -1,0 +1,26 @@
+================================================================================
+PHASE 9.1.2 FORENSIC EVIDENCE: HOST NETWORK INTERFACES
+Timestamp: 2026-11-06T10:49:00+05:30
+Evaluator: Principal Infrastructure Security Architect & DevSecOps Lead
+Command: Get-NetIPAddress -AddressFamily IPv4
+================================================================================
+
+IPAddress       InterfaceAlias                     InterfaceIndex AddressFamily
+---------       --------------                     -------------- -------------
+172.20.32.1     vEthernet (WSL (Hyper-V firewall))             43          IPv4
+172.27.0.1      vEthernet (Default Switch)                     36          IPv4
+169.254.44.172  Wi-Fi 5                                         8          IPv4
+169.254.47.5    Wi-Fi 4                                         4          IPv4
+169.254.226.115 Bluetooth Network Connection                   19          IPv4
+10.25.85.121    Ethernet                                       11          IPv4
+169.254.219.101 Wi-Fi                                           2          IPv4
+127.0.0.1       Loopback Pseudo-Interface 1                     1          IPv4
+
+--------------------------------------------------------------------------------
+FORENSIC FINDING ON POSTGRESQL LISTEN_ADDRESSES:
+- IP address 10.89.0.1 DOES NOT exist on the Windows host network adapters.
+- It exists exclusively inside the virtualized Docker / WSL2 network namespace.
+- Binding native Windows PostgreSQL to '10.89.0.1' causes immediate fatal startup error (WSAEADDRNOTAVAIL 10049).
+- Valid local host listener addresses: 127.0.0.1, 172.20.32.1.
+================================================================================
+

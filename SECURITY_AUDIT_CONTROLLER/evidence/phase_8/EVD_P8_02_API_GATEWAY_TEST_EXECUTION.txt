@@ -1,0 +1,16 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD_P8_02_API_GATEWAY_TEST_EXECUTION
+Service Module: api-gateway
+Execution Timestamp: 2026-11-06T09:05:00+05:30
+Surefire XML Reports Directory: api-gateway/target/surefire-reports
+Summary: Suites=5, Total=23, Passed=23, Failed=0, Errors=0, Skipped=0 (100.0% Pass Rate)
+================================================================================
+ITEMIZED TEST SUITES:
+   1. in.gov.lgd.gateway.filter.AuthenticationFilterTest | Tests: 8 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.879s
+   2. in.gov.lgd.gateway.filter.IdentityHeaderSanitizationFilterTest | Tests: 3 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.017s
+   3. in.gov.lgd.gateway.filter.RouteValidatorTest | Tests: 5 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.006s
+   4. in.gov.lgd.gateway.filter.SecurityHeadersFilterTest | Tests: 1 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.006s
+   5. in.gov.lgd.gateway.util.JwtUtilSecurityTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.984s
+================================================================================
+VERIFIED FORENSIC DETERMINATION: 100% PASS
+================================================================================

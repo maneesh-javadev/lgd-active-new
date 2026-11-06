@@ -1,0 +1,75 @@
+================================================================================
+PHASE 9.1.3 EVIDENCE: REDIS SENTINEL VERSION, AUTHENTICATION & IMAGE PINNING AUDIT
+Timestamp: 2026-11-06T11:25:00+05:30
+Evaluator: Antigravity Independent Security Audit Team
+Governance Scope: Phase 9.1.3 Workstream B Verification (RR-02, RR-05, SAST-012)
+================================================================================
+
+1. EMPIRICAL REDIS IMAGE & VERSION AUDIT:
+--------------------------------------------------------------------------------
+Source Files Inspected:
+  - docker-compose.yml (line 216)
+  - docker-compose.prod.yml (lines 65-71)
+  - scratch/trivy_results/redis-alpine_trivy.json
+
+Findings:
+  - Compose Definition:
+      docker-compose.yml specifies:
+        image: redis:alpine
+      MUTABILITY RISK: 'redis:alpine' is an unpinned floating tag. It does not
+      pin a semantic version or cryptographic digest, violating production immutability.
+  - Trivy Container Image Metadata (scratch/trivy_results/redis-alpine_trivy.json):
+      Target: "redis:alpine (alpine 3.23.7)"
+      Image ID: "sha256:9722accf3e8eeaeb7cd74a86256d6a41b83deb44d508c2988c8e5776bfdb7694"
+      RepoDigests: [
+        "docker.io/library/redis@sha256:21090af93f8324db2f0f0f4f38a7c60369d47d917e000c3423d89d2ae2883537",
+        "docker.io/library/redis@sha256:be7c1cada5a6eb1656adfa2635b99296af725881301b21f84f35a71fac072c7f"
+      ]
+      ImageConfig.config.Env:
+        - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        - "REDIS_VERSION=8.10.3"
+  - VERIFIED FACT: The local redis:alpine image embeds Redis version 8.10.3 on Alpine 3.23.7.
+  - BLUEPRINT DEFECT: The Stage B blueprint references 'redis:alpine (8.10.3)' but does not
+    mandate immutable digest pinning in docker-compose.prod.yml.
+
+2. MULTI-TIER AUTHENTICATION AUDIT & DESIGN GAP (DISC-P913-01):
+--------------------------------------------------------------------------------
+Phase 9.1.2 Blueprint sentinel.conf.template:
+  sentinel requirepass ${REDIS_SENTINEL_PASSWORD}
+  sentinel monitor lgdmaster redis-primary 6379 2
+  sentinel auth-pass lgdmaster ${REDIS_PASSWORD}
+
+Analysis of Authentication Paths:
+  Path 1: Client -> Redis (:6379)            [requirepass <REDIS_PASSWORD>]           -> CONFIGURED
+  Path 2: Replica -> Primary (:6379)         [masterauth <REDIS_PASSWORD>]            -> CONFIGURED
+  Path 3: Client -> Sentinel (:26379)        [sentinel requirepass <SENTINEL_PASS>]   -> CONFIGURED
+  Path 4: Sentinel -> Redis Nodes            [sentinel auth-pass lgdmaster <REDIS_P>] -> CONFIGURED
+  Path 5: Sentinel <-> Sentinel Inter-Node   [sentinel sentinel-pass]                -> CRITICAL DEFECT (OMITTED)
+
+TECHNICAL FAILURE MECHANICS (DISC-P913-01):
+  In Redis Sentinel 6.2+, when 'sentinel requirepass' is active on Sentinel nodes,
+  Sentinel nodes require authentication when querying peer Sentinels via
+  'SENTINEL is-master-down-by-addr'.
+  Because 'sentinel sentinel-pass ${REDIS_SENTINEL_PASSWORD}' was omitted from the
+  template, Sentinels sending gossip or vote requests to peer Sentinels receive:
+    "NOAUTH Authentication required"
+  Consequently, Sentinel quorum consensus CANNOT be reached, and automated failover
+  aborts fatally!
+
+REQUIRED BLUEPRINT CORRECTION:
+  sentinel.conf.template must explicitly specify:
+    sentinel requirepass ${REDIS_SENTINEL_PASSWORD}
+    sentinel sentinel-pass ${REDIS_SENTINEL_PASSWORD}
+    sentinel auth-pass lgdmaster ${REDIS_PASSWORD}
+
+3. ACL & LEAST PRIVILEGE AUDIT:
+--------------------------------------------------------------------------------
+Finding:
+  The Stage B blueprint relies entirely on single shared passwords (requirepass / masterauth).
+  No Redis 6+ / 7+ / 8+ ACL profiles are defined.
+  Application clients connect with superuser privileges, retaining theoretical ability
+  to execute destructive commands (FLUSHALL, FLUSHDB, CONFIG SET, SHUTDOWN).
+Status:
+  DESIGN_GAP — Least privilege ACL policy recommended for Stage B post-activation hardening.
+================================================================================
+

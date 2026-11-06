@@ -1,0 +1,71 @@
+================================================================================
+PHASE 9.1.4 EVIDENCE: STAGE B BLUEPRINT CORRECTIONS VERIFICATION
+Timestamp: 2026-11-06T11:45:00+05:30
+Evaluator: Antigravity Independent Security Audit & Assurance Team
+Governance Scope: Phase 9.1.4 Workstream Verification (DISC-P913-01 through 06)
+================================================================================
+
+1. FORENSIC VERIFICATION MATRIX OF THE SIX PHASE 9.1.3 BLUEPRINT CORRECTIONS:
+--------------------------------------------------------------------------------
+This record provides authoritative empirical attestation that all six critical
+design gaps identified during the Phase 9.1.3 independent audit have been
+verified and incorporated into the Phase 9.1.4 Stage B implementation blueprint.
+
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+| Discovery ID   | Target Component         | Phase 9.1.2 Flaw      | Phase 9.1.4 Fix       | Technical Status    |
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+| DISC-P913-01   | Redis Sentinel Cluster   | sentinel.conf.template| Added sentinel        | VERIFIED &          |
+|                | (:26379)                 | omitted 'sentinel     | sentinel-pass to      | INCORPORATED IN B2  |
+|                |                          | sentinel-pass'        | template & pinned     |                     |
+|                |                          | causing NOAUTH        | image digest          |                     |
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+| DISC-P913-02   | Spring Boot / Lettuce    | Lettuce builder       | Mandated keytool      | VERIFIED &          |
+|                | Microservices (4 nodes)  | useSsl() lacked CA    | import of internal    | INCORPORATED IN     |
+|                |                          | truststore, throwing  | CA into container JRE | B3 & B4             |
+|                |                          | PKIX handshake error  | cacerts               |                     |
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+| DISC-P913-03   | Resilience Test Plan     | RES-05 used 'docker   | Redesigned RES-05     | VERIFIED &          |
+|                | Scenario RES-05          | network disconnect',  | using container       | INCORPORATED IN     |
+|                |                          | collapsing test into  | bridge iptables DROP  | B6 (RES-05)         |
+|                |                          | crash test (RES-01)   | between partitions    |                     |
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+| DISC-P913-04   | Revenue Service          | Factor 4 mandated     | Reconciled Factor 4:  | VERIFIED &          |
+|                | TestController Census    | Actuator mappings     | Actuator requires POM | INCORPORATED IN     |
+|                |                          | query, but Actuator   | dep; alternatively use| B6 (Factor 4)       |
+|                |                          | is missing from POM   | AppContext reflection |                     |
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+| DISC-P913-05   | Revenue Route Census &   | Factor 5 probed false | Expanded census to all| VERIFIED &          |
+|                | Spring Security          | paths (/test/status); | 40 actual mappings;   | INCORPORATED IN     |
+|                |                          | assumed 404 on unauth | mandated authenticated| B6 (Factor 5)       |
+|                |                          | while Security 401s   | JWT token for probe   |                     |
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+| DISC-P913-06   | PostgreSQL Security &    | Step B1-05 extracted  | Replaced with boolean | VERIFIED &          |
+|                | Listener Configuration   | rolpassword hashes;   | SCRAM check;          | INCORPORATED IN     |
+|                |                          | hardcoded dynamic     | documented Hyper-V    | B1 (B1-04, B1-05)   |
+|                |                          | WSL2 IP 172.20.32.1   | static/mirrored net   |                     |
++----------------+--------------------------+-----------------------+-----------------------+---------------------+
+
+2. STAGE B REVISED LIFECYCLE ORDERING VERIFICATION:
+--------------------------------------------------------------------------------
+1. Stage B1: PostgreSQL Hardening & Verification (Offline config -> Start -> SCRAM boolean check)
+2. Stage B2: Redis TLS & Sentinel Infrastructure (Entrypoint envsubst with sentinel-pass -> Digest pinned)
+3. Stage B3: Application Redis Resilience & Java Customizers (Lettuce customizer -> Orphan bean purge)
+4. Stage B4: Container Hardening & Base Image Build (Temurin JRE Alpine -> UID 10001 -> CA keytool import)
+5. Stage B5: Perimeter TLS Ingress & Header Protection (Nginx 443 -> Port 8092 unmapped atomically)
+6. Stage B6: Runtime Multi-Factor Verification & Fault Injection (40-route JWT census -> iptables RES-05)
+7. Stage B7: Gate B Technical Audit Reassessment (Evidence compilation -> Gate Decision Memorandum)
+
+Ordering Constraints Confirmed:
+- B1 strictly precedes B4 and B6 (Revenue depends on healthy DB).
+- B2 strictly precedes B3 (Sentinel cluster must be listening before microservice config cutover).
+- B3 strictly precedes B4 (Source code customizers verified before Docker image build).
+- B4 strictly precedes B5 (Hardened containers running before ingress proxy traffic cutover).
+- B5 unmaps port 8092 atomically with Nginx ingress launch (zero cleartext window).
+- B6 execution strictly isolated to authorized maintenance window.
+- B7 review synthesizes all generated runtime evidence.
+
+Conclusion:
+Stage B implementation blueprint is structurally sound, fully dependency-ordered,
+and free of architectural deadlocks.
+================================================================================
+

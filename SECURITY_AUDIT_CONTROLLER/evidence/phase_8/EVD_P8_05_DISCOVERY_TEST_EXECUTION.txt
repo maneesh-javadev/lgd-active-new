@@ -1,0 +1,12 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD_P8_05_DISCOVERY_TEST_EXECUTION
+Service Module: discovery
+Execution Timestamp: 2026-11-06T09:05:00+05:30
+Surefire XML Reports Directory: discovery/target/surefire-reports
+Summary: Suites=1, Total=2, Passed=2, Failed=0, Errors=0, Skipped=0 (100.0% Pass Rate)
+================================================================================
+ITEMIZED TEST SUITES:
+   1. in.nic.servicediscovery.egra.service_discovery.EurekaSecurityTest | Tests: 2 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 4.908s
+================================================================================
+VERIFIED FORENSIC DETERMINATION: 100% PASS
+================================================================================

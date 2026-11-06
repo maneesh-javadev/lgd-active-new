@@ -40,8 +40,8 @@ In accordance with strict enterprise governance instructions, dependency remedia
 | **P2** | **SCA-011** | `spring-boot-starter-parent` | `revenue: 3.2.2` | `3.2.12` | Unifies `revenue` with `auth-service` and `user-management` baseline, resolving 10 patch discrepancies. | Medium |
 | **P3** | **SCA-009** | `xlsx` | `0.18.5` | Architecture Defense / `exceljs` | Document outbound-only defense (zero `XLSX.read()` calls); schedule `exceljs` migration in frontend sprint. Pending formal risk acceptance. | High (Partially Mitigated) |
 | **P3** | **SCA-010** | `zod` | `3.25.76` | Retain 3.25 / Schedule 4.x | Preserve `@hookform/resolvers` compatibility; LGD form validation is strictly bounded. Pending formal risk acceptance. | High (Partially Mitigated) |
-| **P4** | **SCA-008** | `org.mindrot:jbcrypt` | `0.4` | Migrate to `BCryptPasswordEncoder` | Schedule migration to native Spring Security `BCryptPasswordEncoder` in Phase 5 / Phase 7. | Medium (Deferred) |
-| **P4** | **SCA-012** | Container Base Image | `eclipse-temurin:21-jdk` | Non-root `USER 10001` | Scheduled for container infrastructure hardening in Phase 9 (RR-06). | Medium (Deferred) |
+| **P4** | **SCA-008** | `org.mindrot:jbcrypt` | `0.4` | Migrate to `BCryptPasswordEncoder` | Schedule migration to native Spring Security `BCryptPasswordEncoder` in Phase 5 (Authentication & Session Security Audit) and Phase 7 (Cryptography & Secrets Management Hardening). | Medium (Deferred) |
+| **P4** | **SCA-012** | Container Base Image | `eclipse-temurin:21-jdk` | Non-root `USER 10001` | Scheduled for container infrastructure hardening in Phase 9 (Infrastructure, Container & Network Hardening) (RR-06). | Medium (Deferred) |
 
 ---
 

@@ -1,0 +1,22 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD_P8_01_AUTH_SERVICE_TEST_EXECUTION
+Service Module: auth-service
+Execution Timestamp: 2026-11-06T09:05:00+05:30
+Surefire XML Reports Directory: auth-service/target/surefire-reports
+Summary: Suites=11, Total=46, Passed=46, Failed=0, Errors=0, Skipped=0 (100.0% Pass Rate)
+================================================================================
+ITEMIZED TEST SUITES:
+   1. in.nic.lgd.auth.controller.AuthPrimaryControllerTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 1.777s
+   2. in.nic.lgd.auth.controller.AuthSecondaryControllerTest | Tests: 1 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.009s
+   3. in.nic.lgd.auth.controller.JwksControllerTest | Tests: 1 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.575s
+   4. in.nic.lgd.auth.security.JwtHardeningRegressionTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 13.152s
+   5. in.nic.lgd.auth.security.JwtUtilTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.400s
+   6. in.nic.lgd.auth.security.ProductionSecurityValidatorTest | Tests: 5 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.005s
+   7. in.nic.lgd.auth.security.SecurityConfigTest | Tests: 6 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 2.725s
+   8. in.nic.lgd.auth.service.impl.AuthServiceImplTest | Tests: 7 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.507s
+   9. in.nic.lgd.auth.service.impl.MenuServiceImplTest | Tests: 3 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.070s
+  10. in.nic.lgd.auth.service.impl.RouteServiceImplTest | Tests: 3 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.002s
+  11. in.nic.lgd.auth.service.impl.UserProfileServiceImplTest | Tests: 2 | Failures: 0 | Errors: 0 | Skipped: 0 | Time: 0.066s
+================================================================================
+VERIFIED FORENSIC DETERMINATION: 100% PASS
+================================================================================

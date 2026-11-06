@@ -1,0 +1,28 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD-P8-06 - Host PostgreSQL 14 Service Status & TCP 5432
+Timestamp: 2026-11-06T09:05:00+05:30
+Command: Get-Service -Name '*postgres*'; Get-NetTCPConnection -LocalPort 5432
+================================================================================
+SERVICE STATUS:
+
+Status  Name              DisplayName
+------  ----              -----------
+Stopped postgresql-x64-14 postgresql-x64-14 - PostgreSQL Server 14
+
+
+TCP PORT 5432 CONNECTION PROBE:
+
+ComputerName           : localhost
+RemoteAddress          : ::1
+RemotePort             : 5432
+InterfaceAlias         : Loopback Pseudo-Interface 1
+SourceAddress          : ::1
+PingSucceeded          : True
+PingReplyDetails (RTT) : 0 ms
+TcpTestSucceeded       : False
+
+
+DETERMINATION:
+PostgreSQL Windows service 'postgresql-x64-14' is Stopped. TCP port 5432 is not listening.
+BLK-CANON-03 remains strictly OPEN / BLOCKED_BY_ENVIRONMENT.
+================================================================================

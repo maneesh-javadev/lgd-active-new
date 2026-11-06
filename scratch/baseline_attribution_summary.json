@@ -1,0 +1,366 @@
+[
+  {
+    "f": ".gitignore",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "API_Vulnerability_Exploitation_Log.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Attack_Surface_Register.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Attack_Tree_Diagrams.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Consolidated_Remediation_Report.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "DAST_Evidence_Register.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "DAST_Penetration_Test_Report.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Master_Finding_Traceability_Register.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "PHASE1_PHASE2_PHASE3_SIGNOFF_REPORT.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "PHASE1_THREAT_MODEL_REMEDIATION_REPORT.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "PHASE3_DAST_REMEDIATION_REPORT.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "PHASE_4_EVIDENCE_REGISTER.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "PHASE_4_SCA_ASSESSMENT_REPORT.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Residual_Risk_Register.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "SAST_Findings_Log.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "SCA_FINDINGS_REGISTER.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "SCA_LICENSE_COMPLIANCE_REPORT.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "SCA_REMEDIATION_PLAN.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": true
+  },
+  {
+    "f": "SECURITY_MASTER_FINDING_REGISTER.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "SECURITY_PHASE_TRACKER.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "SECURITY_RESIDUAL_RISK_REGISTER.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "SOFTWARE_BILL_OF_MATERIALS.json",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "STRIDE_Threat_Register.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Security_Architecture_Inventory.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Security_Phase_Execution_Plan.md",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": true,
+    "hashMatchesBackup": true
+  },
+  {
+    "f": "Threat_Mitigation_Roadmap.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Threat_Model_Report.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Trust_Boundary_Analysis.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "Vulnerability_Master_Register.md",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": true,
+    "hashMatchesBackup": false
+  },
+  {
+    "f": "api-gateway",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "auth-service",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "discovery",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "docker-compose.yml",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "lgd-um",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "revenue",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/license_analysis_data.json",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/reconcile_cyclonedx_sbom.js",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/api-gateway_trivy.json",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/api-gateway_trivy.txt",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/auth-service_trivy.json",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/auth-service_trivy.txt",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/container_scan_summary.json",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/redis-alpine_trivy.json",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/redis-alpine_trivy.txt",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/revenue_trivy.json",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/revenue_trivy.txt",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/service-discovery_trivy.json",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/service-discovery_trivy.txt",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/user-management_trivy.json",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/trivy_results/user-management_trivy.txt",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "scratch/update_excel_registers.js",
+    "inRootStatus": false,
+    "inRootPatch": false,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  },
+  {
+    "f": "user-management",
+    "inRootStatus": true,
+    "inRootPatch": true,
+    "hasBackupHash": false,
+    "hashMatchesBackup": null
+  }
+]

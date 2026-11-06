@@ -1,0 +1,348 @@
+# LGD 2.0 — Phase 9 Git Integrity & Baseline Snapshot
+**Evaluation Timestamp:** 2026-11-06T04:49:45.247Z
+**Operating Directory:** `E:\System\Projects\dockerProject\Source code\lgd-active-new`
+
+## 1. Root Platform Repository
+- **Branch:** `master`
+- **HEAD Commit:** `e2df50f8c30197144377a2f931a4b3fbf03aeb1c`
+
+### Root Modified & Staged Files
+```
+M .env.example
+ M .gitignore
+ M API_Vulnerability_Exploitation_Log.md
+ M Attack_Surface_Register.md
+ M Attack_Tree_Diagrams.md
+ M Consolidated_Remediation_Report.md
+ M DAST_Evidence_Register.md
+ M DAST_Penetration_Test_Report.md
+ M Master_Finding_Traceability_Register.md
+ M PHASE1_PHASE2_PHASE3_SIGNOFF_REPORT.md
+ M PHASE1_THREAT_MODEL_REMEDIATION_REPORT.md
+ M PHASE3_DAST_REMEDIATION_REPORT.md
+ M PHASE_4_EVIDENCE_REGISTER.md
+ M PHASE_4_SCA_ASSESSMENT_REPORT.md
+ M Residual_Risk_Register.md
+ M SAST_Findings_Log.md
+ M SCA_FINDINGS_REGISTER.md
+ M SCA_LICENSE_COMPLIANCE_REPORT.md
+ M SCA_REMEDIATION_PLAN.md
+ M SECURITY_MASTER_FINDING_REGISTER.md
+ M SECURITY_PHASE_TRACKER.md
+ M SECURITY_RESIDUAL_RISK_REGISTER.md
+ M SOFTWARE_BILL_OF_MATERIALS.json
+ M STRIDE_Threat_Register.md
+ M Security_Architecture_Inventory.md
+ M Security_Phase_Execution_Plan.md
+ M Threat_Mitigation_Roadmap.md
+ M Threat_Model_Report.md
+ M Trust_Boundary_Analysis.md
+ M Vulnerability_Master_Register.md
+ M api-gateway
+ M auth-service
+ m discovery
+ M docker-compose.prod.yml
+ M docker-compose.yml
+ M lgd-um
+ M revenue
+ M scratch/license_analysis_data.json
+ M scratch/reconcile_cyclonedx_sbom.js
+ M scratch/trivy_results/api-gateway_trivy.json
+ M scratch/trivy_results/api-gateway_trivy.txt
+ M scratch/trivy_results/auth-service_trivy.json
+ M scratch/trivy_results/auth-service_trivy.txt
+ M scratch/trivy_results/container_scan_summary.json
+ M scratch/trivy_results/redis-alpine_trivy.json
+ M scratch/trivy_results/redis-alpine_trivy.txt
+ M scratch/trivy_results/revenue_trivy.json
+ M scratch/trivy_results/revenue_trivy.txt
+ M scratch/trivy_results/service-discovery_trivy.json
+ M scratch/trivy_results/service-discovery_trivy.txt
+ M scratch/trivy_results/user-management_trivy.json
+ M scratch/trivy_results/user-management_trivy.txt
+ M scratch/update_excel_registers.js
+ M user-management
+?? Auth_Security_Deep_Dive.md
+?? Authorization_MultiTenancy_Audit.md
+?? BLK_01_EXP_016_TLS_HSTS_VERIFICATION_REPORT.md
+?? BLK_02_EXP_021_REVENUE_TESTCONTROLLER_CENSUS.md
+?? BLK_03_POSTGRESQL14_REVENUE_STEADY_STATE_REPORT.md
+?? GATE_B_GATE_C_CROSS_DOCUMENT_CONSISTENCY_REPORT.md
+?? GATE_B_GATE_C_FINAL_CLOSURE_REPORT.md
+?? GATE_B_GATE_C_SHA256_MANIFEST.md
+?? GATE_B_TECHNICAL_EVIDENCE_REGISTER.md
+?? GATE_B_TECHNICAL_VERIFICATION_CLOSURE_REPORT.md
+?? GATE_C_DAA_CISO_APPROVAL_REQUEST.md
+?? GATE_C_RESIDUAL_RISK_REASSESSMENT.md
+?? GATE_C_RISK_ACCEPTANCE_APPROVAL_MATRIX.md
+?? GATE_C_RR_01_TO_RR_11_DECISION_REGISTER.md
+?? PHASE0_4_EVIDENCE_INDEX.md
+?? PHASE0_4_FINAL_CROSS_DOCUMENT_CONSISTENCY_REPORT.md
+?? PHASE0_4_FINAL_DELIVERABLE_SHA256_MANIFEST.md
+?? PHASE0_4_FINAL_EVIDENCE_CLOSURE_REPORT.md
+?? PHASE0_4_FINAL_EVIDENCE_INTEGRITY_REPORT.md
+?? PHASE0_4_FINAL_GATE_A_ASSESSMENT.md
+?? PHASE0_4_FINAL_GATE_B_TECHNICAL_ASSESSMENT.md
+?? PHASE0_4_FINAL_GATE_C_RISK_ACCEPTANCE_STATUS.md
+?? PHASE0_4_FINAL_INDEPENDENT_AUDIT_DISPOSITION.md
+?? PHASE0_4_FINAL_INDEPENDENT_REVIEW_REPORT.md
+?? PHASE0_4_FINAL_REGRESSION_AND_BUILD_REPORT.md
+?? PHASE0_4_FINAL_SHA256_RECONCILIATION.md
+?? PHASE0_4_MASTER_TRACEABILITY_AND_DOCUMENT_RECONCILIATION_REPORT.md
+?? PHASE0_4_REMAINING_BLOCKERS_REGISTER.md
+?? PHASE0_4_REMEDIATION_EXECUTION_LOG.md
+?? PHASE0_BASELINE_RECONCILIATION_REPORT.md
+?? PHASE1_THREAT_MODEL_VERIFICATION_REPORT.md
+?? PHASE2_SAST_INDEPENDENT_VERIFICATION_REPORT.md
+?? PHASE3_FINAL_DAST_INDEPENDENT_VERIFICATION_REPORT.md
+?? PHASE4_SCA_INDEPENDENT_VERIFICATION_REPORT.md
+?? PHASE5_ENTRY_READINESS_DECISION.md
+?? PHASE_5_AUTH_FINDINGS_REGISTER.md
+?? PHASE_5_DELIVERABLE_SHA256_MANIFEST.md
+?? PHASE_5_EVIDENCE_REGISTER.md
+?? PHASE_6_AUTHORIZATION_ENDPOINT_MATRIX.md
+?? PHASE_6_BLOCKER_IDENTITY_AND_STATUS_RECONCILIATION.md
+?? PHASE_6_BLOCKER_IDENTITY_RECONCILIATION.md
+?? PHASE_6_CANONICAL_TRACEABILITY_CORRECTION_REPORT.md
+?? PHASE_6_DELIVERABLE_SHA256_MANIFEST.md
+?? PHASE_6_EVIDENCE_REGISTER.md
+?? PHASE_6_FINAL_EVIDENCE_INTEGRITY_REPORT.md
+?? PHASE_6_FINAL_EVIDENCE_REGISTER.md
+?? PHASE_6_FINAL_FINDING_DISPOSITION_MATRIX.md
+?? PHASE_6_FINAL_GATE_DISPOSITION.md
+?? PHASE_6_FINAL_INDEPENDENT_ACCEPTANCE_REPORT.md
+?? PHASE_6_FINAL_SHA256_MANIFEST.md
+?? PHASE_6_FINAL_SUREFIRE_CENSUS.md
+?? PHASE_6_GATE_A_B_C_FINAL_DISPOSITION.md
+?? PHASE_6_GATE_B_REGRESSION_AND_RETEST_REPORT.md
+?? PHASE_6_GATE_B_SHA256_MANIFEST.md
+?? PHASE_6_GATE_B_TECHNICAL_EVIDENCE_REGISTER.md
+?? PHASE_6_GATE_B_TECHNICAL_VERIFICATION_CLOSURE_REPORT.md
+?? PHASE_6_INDEPENDENT_INTEGRITY_VERIFICATION.md
+?? PHASE_6_MULTITENANCY_TEST_REGISTER.md
+?? PHASE_6_RBAC_FINDINGS_REGISTER.md
+?? PHASE_6_SUREFIRE_CENSUS_RECONCILIATION.md
+?? RBAC_004_FINAL_CONTROLLER_AUTHORITY_MATRIX.md
+?? RBAC_004_FINAL_EVIDENCE_REGISTER.md
+?? RBAC_004_GOVERNANCE_DISPOSITION.md
+?? RBAC_004_NEGATIVE_POSITIVE_TEST_EVIDENCE.md
+?? RBAC_004_REMEDIATION_AND_RETEST.md
+?? RBAC_004_SHA256_MANIFEST.md
+?? RBAC_004_SUREFIRE_RECONCILIATION.md
+?? SECURITY_AUDIT_CONTROLLER/
+?? scratch/TokenGen.java
+?? scratch/analyze_trivy_findings.js
+?? scratch/attribution_analysis.json
+?? scratch/attribution_full_tables.json
+?? scratch/audit_crosswalk_checks.js
+?? scratch/audit_phase_search.js
+?? scratch/audit_secrets.js
+?? scratch/baseline_attribution_summary.json
+?? scratch/bom-1.5.schema.json
+?? scratch/build_canonical_sbom.js
+?? scratch/build_closure_report.js
+?? scratch/calculate_all_deliverables.js
+?? scratch/calculate_verification_hashes.ps1
+?? scratch/check_all_hashes_and_sync.js
+?? scratch/check_audit_scope.js
+?? scratch/check_baseline_attribution.js
+?? scratch/check_evidence_index.js
+?? scratch/check_evidence_index_hashes.js
+?? scratch/check_manifest_files.js
+?? scratch/check_schema.js
+?? scratch/compute_phase6_hashes.js
+?? scratch/computed_phase6_hashes.json
+?? scratch/cp.txt
+?? scratch/dread_search_results.txt
+?? scratch/execute_and_verify_dast.js
+?? scratch/extract_schema.js
+?? scratch/final_documentation_scan.js
+?? scratch/final_scan_report.json
+?? scratch/find_dast_tables.js
+?? scratch/find_fingerprint.js
+?? scratch/format_manifest.js
+?? scratch/format_surefire_table.js
+?? scratch/generate_final_manifest_and_verification.js
+?? scratch/generate_manifest.js
+?? scratch/generate_package_license_report.js
+?? scratch/generate_phase9_git_snapshot.js
+?? scratch/generate_sha256_report.js
+?? scratch/generate_updated_sca_report.js
+?? scratch/hash_reports.ps1
+?? scratch/inspect_container_identities.js
+?? scratch/inspect_env_sanitized.js
+?? scratch/inspect_git_attribution.js
+?? scratch/jsf-0.82.schema.json
+?? scratch/live_dast_evidence_records.json
+?? scratch/package_license_compliance_report.json
+?? scratch/parse_rbac004_tests.js
+?? scratch/phase0_4_authoritative_sha256_manifest.json
+?? scratch/phase0_4_authoritative_sha256_manifest.md
+?? scratch/pre_correction_file_hashes.json
+?? scratch/pre_remediation_backup/
+?? scratch/rbac004_parsed_tests.json
+?? scratch/recalculate_all_hashes.js
+?? scratch/recalculated_file_hashes.json
+?? scratch/repo_wide_search.js
+?? scratch/run_live_november2_trivy_scans.js
+?? scratch/sbom_graph_validation_report.json
+?? scratch/sbom_validation_output.txt
+?? scratch/scan_git_history_secrets.js
+?? scratch/search_all_audit_terms.js
+?? scratch/search_dread_terms.js
+?? scratch/search_key_phrases.js
+?? scratch/search_results.txt
+?? scratch/spdx.schema.json
+?? scratch/strong_copyleft_table.md
+?? scratch/surefire_census_data.json
+?? scratch/surefire_regression_execution_summary.json
+?? scratch/surefire_table_formatted.md
+?? scratch/sync_evidence_index.js
+?? scratch/test_census.js
+?? scratch/test_hashes.js
+?? scratch/test_validator_negative_fixtures.js
+?? scratch/trivy_results/postgresql_host_native_trivy.json
+?? scratch/trivy_results/postgresql_host_native_trivy.txt
+?? scratch/update_evidence_index.js
+?? scratch/validate_documentation_semantics.js
+?? scratch/validate_sbom_schema.js
+?? scratch/verify_all_audit_requirements.js
+?? scratch/verify_cross_doc_consistency.js
+?? scratch/verify_detached_manifest.js
+?? scratch/verify_evidence_index.js
+?? scratch/verify_hashes.js
+?? scratch/verify_jwt_env_fingerprints.js
+?? scratch/verify_manifest_integrity.js
+?? scratch/verify_phase4_hashes.js
+?? scratch/verify_sha256_report.js
+?? scratch/verify_sha_recon.js
+?? scratch/weak_copyleft_table.md
+?? scratch/wsl_host_proxy.py
+?? security-audit/
+```
+
+### Root Untracked Files Count
+- Total untracked files: 275
+
+## 2. Nested Git Repositories
+
+### Module: `api-gateway`
+- **Path:** `api-gateway/`
+- **Branch:** `dev`
+- **HEAD Commit:** `1e19cca2aface10f1561fda37d32efc144310fa9`
+- **Working Tree Status:**
+```
+M src/main/java/in/gov/lgd/gateway/filter/ApiLoggingFilter.java
+ M src/main/java/in/gov/lgd/gateway/filter/SecurityHeadersFilter.java
+ M src/main/java/in/gov/lgd/gateway/util/JwtUtil.java
+ M src/main/resources/application-prod.properties
+ M src/main/resources/application.properties
+?? src/main/java/in/gov/lgd/gateway/filter/IdentityHeaderSanitizationFilter.java
+?? src/main/java/in/gov/lgd/gateway/util/JwksPublicKeyResolver.java
+?? src/test/java/in/gov/lgd/gateway/filter/IdentityHeaderSanitizationFilterTest.java
+?? src/test/java/in/gov/lgd/gateway/util/
+```
+
+### Module: `auth-service`
+- **Path:** `auth-service/`
+- **Branch:** `dev`
+- **HEAD Commit:** `2f3ab070da64f8675a8a6ea70b06eb522224e786`
+- **Working Tree Status:**
+```
+M pom.xml
+ M src/main/java/in/nic/lgd/auth/security/JwtUtil.java
+ M src/main/java/in/nic/lgd/auth/security/SecurityConfig.java
+ M src/main/java/in/nic/lgd/auth/service/impl/AuthServiceImpl.java
+ M src/main/resources/application-prod.properties
+ M src/main/resources/application.properties
+ M src/test/java/in/nic/lgd/auth/security/JwtUtilTest.java
+ M src/test/java/in/nic/lgd/auth/service/impl/AuthServiceImplTest.java
+?? src/main/java/in/nic/lgd/auth/controller/JwksController.java
+?? src/main/java/in/nic/lgd/auth/security/RsaKeyProvider.java
+?? src/test/java/in/nic/lgd/auth/controller/JwksControllerTest.java
+```
+
+### Module: `discovery`
+- **Path:** `discovery/`
+- **Branch:** `dev`
+- **HEAD Commit:** `f7f7adcf50f6818c7477a1fc08f39351160d83a2`
+- **Working Tree Status:**
+```
+M src/main/resources/application.properties
+?? src/test/resources/
+```
+
+### Module: `lgd-um`
+- **Path:** `lgd-um/`
+- **Branch:** `dev`
+- **HEAD Commit:** `d65c994083ca05c9c1f4badeef1d1d821817f4de`
+- **Working Tree Status:**
+```
+M bom.json
+ M src/components/UserManagement.jsx
+ M src/main.jsx
+ M src/services/apiConfig.js
+?? API_DOCUMENTATION.md
+```
+
+### Module: `revenue`
+- **Path:** `revenue/`
+- **Branch:** `master`
+- **HEAD Commit:** `6697a77d73a28a22765e1b750f6a085be8e32922`
+- **Working Tree Status:**
+```
+M src/main/java/in/nic/lgd/revenue/config/GlobalExceptionHandler.java
+ M src/main/java/in/nic/lgd/revenue/modules/draft/controller/DraftPrimaryController.java
+ M src/main/java/in/nic/lgd/revenue/modules/draft/service/DistrictDraftDetailsServiceImpl.java
+ M src/main/java/in/nic/lgd/revenue/modules/draft/service/DraftEntityServiceImpl.java
+ M src/main/java/in/nic/lgd/revenue/modules/draft/service/SubDistrictDraftDetailsServiceImpl.java
+ M src/main/java/in/nic/lgd/revenue/modules/ehastakshar/controller/EsignPrimaryController.java
+ M src/main/java/in/nic/lgd/revenue/modules/ehastakshar/controller/EsignSecondaryController.java
+ M src/main/java/in/nic/lgd/revenue/modules/ehastakshar/util/XmlSignatureUtil.java
+ M src/main/java/in/nic/lgd/revenue/modules/governmentorder/service/GovernmentOrderServiceImpl.java
+ M src/main/java/in/nic/lgd/revenue/modules/subdistrict/controller/SubDistrictPrimaryController.java
+ M src/main/java/in/nic/lgd/revenue/modules/village/controller/VillagePrimaryController.java
+ M src/main/java/in/nic/lgd/revenue/user/security/JwtAuthenticationFilter.java
+ M src/main/java/in/nic/lgd/revenue/user/security/JwtUtil.java
+ M src/main/java/in/nic/lgd/revenue/user/session/UserContext.java
+ M src/main/resources/application-prod.properties
+ M src/main/resources/application.properties
+ M src/test/java/in/nic/lgd/revenue/security/DraftTenantSecurityTest.java
+?? src/main/java/in/nic/lgd/revenue/user/security/JwksPublicKeyResolver.java
+?? src/test/java/in/nic/lgd/revenue/security/JwtUtilSecurityTest.java
+?? src/test/java/in/nic/lgd/revenue/security/SubDistrictPrimaryControllerSecurityTest.java
+?? src/test/java/in/nic/lgd/revenue/security/XmlSignatureSecurityTest.java
+```
+
+### Module: `user-management`
+- **Path:** `user-management/`
+- **Branch:** `dev`
+- **HEAD Commit:** `a0017c536eee7cefa57845c30fa4d5210a4af9ce`
+- **Working Tree Status:**
+```
+M src/main/java/in/nic/lgd/usermanagement/config/GlobalExceptionHandler.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/master/controller/RoleLevelMasterController.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/master/controller/RoleTypeMasterController.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/privilege/controller/PrivilegeController.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/resource/controller/ResourceController.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/user/repository/UserRepository.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/user/repository/UserRoleMappingRepository.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/user/service/impl/UserRoleMappingServiceImpl.java
+ M src/main/java/in/nic/lgd/usermanagement/modules/user/service/impl/UserServiceImpl.java
+ M src/main/java/in/nic/lgd/usermanagement/user/security/JwtAuthenticationFilter.java
+ M src/main/java/in/nic/lgd/usermanagement/user/security/JwtUtil.java
+ M src/main/java/in/nic/lgd/usermanagement/user/security/SecurityConfig.java
+ M src/main/java/in/nic/lgd/usermanagement/user/session/UserContext.java
+ M src/main/resources/application-prod.properties
+ M src/main/resources/application.properties
+ M src/test/java/in/nic/lgd/usermanagement/modules/user/service/impl/UserRoleMappingServiceImplTest.java
+ M src/test/java/in/nic/lgd/usermanagement/modules/user/service/impl/UserServiceImplTest.java
+ M src/test/java/in/nic/lgd/usermanagement/user/security/JwtUtilTest.java
+?? src/main/java/in/nic/lgd/usermanagement/user/security/HierarchySecurityUtil.java
+?? src/main/java/in/nic/lgd/usermanagement/user/security/JwksPublicKeyResolver.java
+?? src/test/java/in/nic/lgd/usermanagement/integration/LiveHttpSecurityIntegrationTest.java
+?? src/test/java/in/nic/lgd/usermanagement/integration/Rbac001SecurityNegativeTest.java
+?? src/test/java/in/nic/lgd/usermanagement/integration/Rbac004EndpointSecurityIntegrationTest.java
+?? src/test/java/in/nic/lgd/usermanagement/integration/RbacSecurityIntegrationTest.java
+```
+

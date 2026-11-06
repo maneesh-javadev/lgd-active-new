@@ -1,0 +1,55 @@
+================================================================================
+PHASE 9.1.2 FORENSIC EVIDENCE: DOCKER NETWORK INSPECT (LGD-NETWORK)
+Timestamp: 2026-11-06T10:49:00+05:30
+Evaluator: Principal Infrastructure Security Architect & DevSecOps Lead
+Command: docker network inspect lgd-network
+================================================================================
+
+[
+    {
+        "Name": "lgd-network",
+        "Id": "e56bdbd6e05b47c0af19b397302b330f5315cbcdada5baeb7084ef664d0a56d1",
+        "Created": "2026-11-02T04:46:39.375753396Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {
+                "driver": "host-local"
+            },
+            "Config": [
+                {
+                    "Subnet": "10.89.0.0/24",
+                    "IPRange": "",
+                    "Gateway": "10.89.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {
+            "com.docker.compose.config-hash": "5288da6946de826e64427c4666e7504f59bf07fc603fd0087615db3653df1d70",
+            "com.docker.compose.network": "lgd-network",
+            "com.docker.compose.project": "lgd-active-new",
+            "com.docker.compose.version": "5.5.0"
+        },
+        "Containers": {}
+    }
+]
+
+--------------------------------------------------------------------------------
+FORENSIC FINDING ON CONTAINER NETWORKING:
+- Subnet is verified as 10.89.0.0/24.
+- Gateway IP is verified as 10.89.0.1 (internal bridge router).
+- Traffic destined for host.docker.internal reaches the host via WSL2 virtual adapter (172.20.32.1).
+- Pinned pg_hba.conf rules must permit incoming traffic from 10.89.0.0/24 and 172.20.32.0/20.
+================================================================================
+

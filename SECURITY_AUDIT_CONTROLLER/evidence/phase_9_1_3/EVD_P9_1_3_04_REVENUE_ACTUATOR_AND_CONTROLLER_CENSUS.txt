@@ -1,0 +1,92 @@
+================================================================================
+PHASE 9.1.3 EVIDENCE: REVENUE CONTROLLER, ACTUATOR & SECURITY CENSUS AUDIT
+Timestamp: 2026-11-06T11:26:30+05:30
+Evaluator: Antigravity Independent Security Audit Team
+Governance Scope: Phase 9.1.3 Workstream E Verification (BLK-CANON-02, EXP-021)
+================================================================================
+
+1. SOURCE-CODE CONTROLLER CENSUS (REVENUE MODULE):
+--------------------------------------------------------------------------------
+File: revenue/src/main/java/in/nic/lgd/revenue/controller/TestController.java
+Class Annotations:
+  @RestController
+  @RequestMapping({ "/private/v1/test", "/test" })
+  @Profile({"dev", "test"})
+  @Slf4j
+  public class TestController { ... }
+
+Endpoint Inventory in TestController:
+  Method 1: @GetMapping({ "/api1", "/message1", "/one", "/first" })
+  Method 2: @GetMapping({ "/api2", "/message2", "/two", "/second" })
+  Method 3: @GetMapping({ "/api3", "/message3", "/three", "/third" })
+  Method 4: @GetMapping({ "/api4", "/message4", "/four", "/fourth" })
+  Method 5: @GetMapping({ "/api5", "/message5", "/five", "/fifth" })
+
+TOTAL ROUTE COMBINATIONS = 2 (class paths) * 5 (methods) * 4 (aliases) = 40 ROUTES!
+  Class Path A: /private/v1/test
+    - /private/v1/test/api1, /private/v1/test/message1, /private/v1/test/one, /private/v1/test/first
+    - /private/v1/test/api2, /private/v1/test/message2, /private/v1/test/two, /private/v1/test/second
+    - /private/v1/test/api3, /private/v1/test/message3, /private/v1/test/three, /private/v1/test/third
+    - /private/v1/test/api4, /private/v1/test/message4, /private/v1/test/four, /private/v1/test/fourth
+    - /private/v1/test/api5, /private/v1/test/message5, /private/v1/test/five, /private/v1/test/fifth
+  Class Path B: /test
+    - /test/api1, /test/message1, /test/one, /test/first
+    - /test/api2, /test/message2, /test/two, /test/second
+    - /test/api3, /test/message3, /test/three, /test/third
+    - /test/api4, /test/message4, /test/four, /test/fourth
+    - /test/api5, /test/message5, /test/five, /test/fifth
+
+PHASE 9.1.2 DEFECT IN FACTOR 5 (DISC-P913-05):
+  Phase 9.1.2 Factor 5 specified probing:
+    $testPaths = @("/test/api1", "/test/api2", "/test/status", "/test/echo", "/test/")
+  FINDING:
+    - '/test/status' and '/test/echo' DO NOT EXIST anywhere in TestController.java!
+    - The entire primary base path '/private/v1/test/**' was completely omitted!
+    - Probing fictitious routes like '/test/status' gives false assurance.
+
+2. ACTUATOR DEPENDENCY CENSUS IN REVENUE (DISC-P913-04):
+--------------------------------------------------------------------------------
+Source Inspected: revenue/pom.xml
+Verification:
+  - 'spring-boot-starter-actuator' is COMPLETELY ABSENT from revenue/pom.xml.
+  - Phase 9.1.2 Factor 4 mandated:
+      "docker exec revenue wget -qO- http://localhost:18062/actuator/mappings"
+      "If the Actuator endpoint returns HTTP 404 or connection error, the census is VOID."
+  CRITICAL DEFECT ANALYSIS:
+    Because Actuator is not a dependency of revenue, '/actuator/mappings' will ALWAYS
+    return HTTP 404! Under Phase 9.1.2's own rule, the census would be permanently VOID,
+    and BLK-CANON-02 could never be closed!
+
+3. SPRING SECURITY 401 INTERCEPTION BEHAVIOR:
+--------------------------------------------------------------------------------
+Source Inspected: revenue/src/main/java/in/nic/lgd/revenue/user/security/SecurityConfig.java
+Lines 36-39:
+  .authorizeHttpRequests(auth -> auth
+      .requestMatchers("/public/v1/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+      .anyRequest().authenticated()
+  )
+Lines 27-31 (authenticationEntryPoint):
+  response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+
+TECHNICAL FINDING:
+  - Unauthenticated requests to '/test/**' or '/private/v1/test/**' hit Spring Security's
+    filter chain FIRST, returning HTTP 401 Unauthorized ("Authentication token is missing").
+  - Expecting HTTP 404 directly from unauthenticated 'wget' probes is technically impossible
+    under Spring Security configuration.
+  - An authenticated JWT token is MANDATORY to bypass the security filter and reach
+    DispatcherServlet handler mapping evaluation (where 404 is generated when the controller
+    is excluded by @Profile).
+
+4. PROFILE GATING CONFIRMATION:
+--------------------------------------------------------------------------------
+Configuration Inspected:
+  - docker-compose.yml:      SPRING_PROFILES_ACTIVE=prod
+  - docker-compose.prod.yml: SPRING_PROFILES_ACTIVE=prod
+Finding:
+  - Source code has @Profile({"dev", "test"}).
+  - Under 'prod', Spring's ProfileCondition evaluates to false, suppressing bean registration.
+  - However, because host PostgreSQL 14 is currently offline, revenue container cannot start
+    HikariCP, preventing live runtime probe verification.
+  - Conclusion: Blocker BLK-CANON-02 strictly remains RUNTIME_VERIFICATION_PENDING.
+================================================================================
+

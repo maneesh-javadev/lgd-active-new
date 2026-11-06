@@ -1,0 +1,12 @@
+================================================================================
+EVIDENCE ARTIFACT: EVD-P8-07 - Docker Container Cluster Runtime State
+Timestamp: 2026-11-06T09:05:00+05:30
+Command: docker ps -a
+================================================================================
+CONTAINER ID   IMAGE                                     STATUS                     PORTS                      NAMES 55297b40d4b8   alpine:latest                             Created                                               sleepy_kilby b28b932381bc   alpine:latest                             Exited (0) 3 weeks ago                                nervous_gagarin fc137bee2916   alpine:latest                             Exited (0) 3 weeks ago                                bold_darwin e3c4965bb672   alpine:latest                             Created                                               naughty_edison c3924997b04a   alpine:latest                             Created                                               fervent_lehmann 6c70db4ce47a   moby/buildkit:buildx-stable-1             Exited (0) 292 years ago                              buildx_buildkit_default a8d947322baa   lgd-active-new-service-discovery:latest   Exited (0) 292 years ago   8761/tcp                   7f3a1bb29b10_service-discovery a1a298d9928d   redis:alpine                              Exited (0) 292 years ago   127.0.0.1:6379->6379/tcp   redis 64e33b1714cf   lgd-active-new-user-management:latest     Exited (0) 292 years ago   18089/tcp                  user-management 8a3088e0b6fc   lgd-active-new-auth-service:latest        Exited (0) 24 hours ago    18090/tcp                  auth-service ff6a44951851   lgd-active-new-api-gateway:latest         Exited (0) 292 years ago   0.0.0.0:8092->8092/tcp     api-gateway d9f41a9feba0   lgd-active-new-revenue:latest             Exited (0) 24 hours ago    18062/tcp                  revenue
+================================================================================
+DETERMINATION:
+revenue container exited due to host PostgreSQL unavailability.
+Perimeter ingress port 8092 is not listening on active TLS reverse proxy.
+BLK-CANON-01 and BLK-CANON-02 remain strictly OPEN / PARTIALLY_VERIFIED.
+================================================================================
